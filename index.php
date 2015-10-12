@@ -10,11 +10,21 @@
 
 <body>
 
-    <section>
-        <form action="">
-            Email <input type="email">
-        </form>
-    </section>
+    <nav>
+        <ul>
+            <li><a href="">Home</a>
+            <li><a href="">Admin</a>
+        </ul>
+    </nav>
+
+    <header>
+        <pre> <?php include "evote.php"; ?> </pre>
+    </header>
+
+
+    <footer>
+        <pre> <?php include "footer.php"; ?> </pre>
+    </footer>
 </body>
 
 </html>

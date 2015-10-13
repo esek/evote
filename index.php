@@ -31,6 +31,8 @@
         <xmp class="text-center"><?php include "evote.php"; ?></xmp>
     </header>
 
+    <pre> Test width </pre>
+
     <footer>
         <xmp class="text-center"><?php include "footer.php"; ?></xmp>
     </footer>

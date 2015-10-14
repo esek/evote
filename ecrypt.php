@@ -16,16 +16,14 @@ class ECrypt
 
     public function generate_key() {
         $key = openssl_pkey_new();
-        openssl_pkey_export($key, $privkey);
-        $details = openssl_pkey_get_details($key);
-        return $details;
+        return $key;
     }
 
     public function generate_otp($number) {
         /* 
-            generates an array of one-time passwords (OTPs). 
+            Generates an array of one-time passwords (OTPs). 
             6 chars should be sufficient with 62**6 (56e9) possible values.
-         */
+        */
         
         $otp_array = array();
         $count = 0;
@@ -42,6 +40,30 @@ class ECrypt
 
         return $otp_array;
     }
+
+    public function decrypt_results($enc_results, $passphrase) {
+        /*
+            Decrypts the enc_results, an array with all votes, by first unlocking
+            the private key with the passphrase key
+        */
+
+        $privkey = openssl_get_privatekey(file_get_contents('keys/privkey.pem'), 
+                $passphrase);
+        $dec_results = array();
+        
+        foreach ($enc_results as $enc) {
+            openssl_private_decrypt($enc, $dec, $privkey);
+            $dec_results[] = $dec;
+        }
+        
+        // destroy trace of key, else "all your base are belong to us"
+        openssl_free_key($privkey);
+
+        return $dec_results;
+    }
+
+
+
 }
 
 ?>

@@ -8,6 +8,7 @@ class ECrypt
     /* alphabet to be used when generating OTPs */
     private $alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
+
     public function __construct() {
         $factory = new RandomLib\Factory;
         // the low-strength generator is fast and sufficient for OTPs, see docs
@@ -19,11 +20,15 @@ class ECrypt
         return $key;
     }
 
+    /**
+        Generates an array of one-time passwords (OTPs). 
+        6 chars should be sufficient with 62**6 (56e9) possible values.
+        Should only be generated once every annual election!
+
+        @param  (number)    The number of OTPs to generate
+        @return             A list of OTPs
+    */
     public function generate_otp($number) {
-        /* 
-            Generates an array of one-time passwords (OTPs). 
-            6 chars should be sufficient with 62**6 (56e9) possible values.
-        */
         
         $otp_array = array();
         $count = 0;
@@ -41,11 +46,15 @@ class ECrypt
         return $otp_array;
     }
 
+    /**
+        Decrypts the enc_results, an array with all votes, by first unlocking
+        the private key with the passphrase key.
+
+        @param  (enc_results)   A list of encrypted votes
+        @param  (passphrase)    The passphrase to unlock the private key
+        @return                 A list of decrypted votes
+    */
     public function decrypt_results($enc_results, $passphrase) {
-        /*
-            Decrypts the enc_results, an array with all votes, by first unlocking
-            the private key with the passphrase key
-        */
 
         $privkey = openssl_get_privatekey(file_get_contents('keys/privkey.pem'), 
                 $passphrase);

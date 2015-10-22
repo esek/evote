@@ -66,8 +66,8 @@
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
                 <li class="nav-header disabled"><a>Menyrubrik</a></li>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="admin.php">Admin</a></li>
+                <li><a href="index.php?newpage=front">Home</a></li>
+                <li><a href="index.php?newpage=admin">Admin</a></li>
             </ul>
         </div>
     </div>
@@ -75,7 +75,20 @@
     <!-- Main content -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<?php
-                include "dynamic/front.php";
+		if(isset($_GET["newpage"])){
+			if($_GET["newpage"] == "front"){
+                		include "index/front.php";
+			}else if($_GET["newpage"] == "admin"){
+				if(!isset($_SESSION["user"])){
+				#	include "index/login.php";
+					include "index/adminpanel.php";		
+				}else{
+					include "index/adminpanel.php";		
+				}
+			}
+		}else{
+			include "dynamic/front.php";
+		}
         ?>
 
     </div>

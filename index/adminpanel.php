@@ -9,10 +9,12 @@
 <p><?php #------------KNAPPRAD-------------
 	$btns1 = "btn btn-success ".$buttonstate;
 	$btns2 = "btn btn-danger ".$buttonstate;
-	echo "<button type=\"button\" class=\"$btns1\" style=\"margin-right: 5px\">Se statistik</button>";
-	echo "<button type=\"button\" class=\"$btns1\" style=\"margin-right: 5px\">Skriv ut personliga koder</button>";
-	echo "<button type=\"button\" class=\"$btns2\" style=\"margin-right: 5px\">Radera nuvarande val</button>";
-	echo "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px\">Logga ut</button>";
+	echo "<form action=actions/buttonhandler.php method=\"POST\">";
+	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\">Se statistik</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\">Skriv ut personliga koder</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-right: 5px; margin-bottom: 5px\">Radera nuvarande val</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-right: 5px\">Logga ut</button>";
+	echo "</form>";
 ?></p>
 
 <?php #-------------NYTT VAL--------------
@@ -34,7 +36,7 @@
 </div>
 
 <?php }else{
-	$ongoing = FALSE;
+	$ongoing = TRUE;
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
 	if(!$ongoing){?>
 	 <div style="width: 300px">
@@ -84,8 +86,19 @@
 <?php
 	
 	# ------------- VALOMGÅNG PÅGÅR ----------------
-	}else{
-
+	}else{	
+		echo "<h3>Val pågår</h3>";
+		echo "<label for=\"res\">-POST-</label>";
+	        echo "<table class=\"table table-striped\" style=\"width: 300px;\" id=\"res\">";
+			$p = 1;
+	                for($i = 0; $i < 5; $i++){
+	                        echo "<tr><td class=\"col-md-10\"> $i </td></tr>\n";
+				$p++;
+	                }
+	        echo "</table>";
+		echo "<form action=actions/buttonhandler.php method=\"POST\">";
+		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
+		echo "</form>";
 	}
 
 }

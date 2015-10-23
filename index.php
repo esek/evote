@@ -23,7 +23,7 @@
         <div class ="row">
             <div class="col-md-4">
                 <div class="logo">
-                    <div><h3><span class="label label-info">INSERT LOGO HERE</span></h3></div>
+                    <div><h3><span class="label label-info">E-vote - Ditt digitala röstsystem</span></h3></div>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                         <span>E-vote</span>
                     </a>
                 </div>
-                <div>
+<!--                <div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown user-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -54,7 +54,7 @@
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </div>-->
             </div>  
         </div>
     </div>
@@ -75,19 +75,19 @@
     <!-- Main content -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<?php
+		session_start();
 		if(isset($_GET["newpage"])){
 			if($_GET["newpage"] == "front"){
                 		include "index/front.php";
 			}else if($_GET["newpage"] == "admin"){
 				if(!isset($_SESSION["user"])){
-				#	include "index/login.php";
-					include "index/adminpanel.php";		
+					include "index/login.php";
 				}else{
 					include "index/adminpanel.php";		
 				}
 			}
 		}else{
-			include "dynamic/front.php";
+			include "index/front.php";
 		}
         ?>
 

@@ -37,5 +37,5 @@ foreach($codes as $c){
 $out .= "|";
 
 $pdf->Multicell(190,10,$out);
-$pdf->Output();
+$pdf->Output("","I");
 ?>

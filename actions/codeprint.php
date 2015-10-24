@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 1);
 require("../fpdf/fpdf.php");
+echo "1";
 $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Courier','B',16);
@@ -14,7 +15,7 @@ $pdf->Ln();
 	Listan $codes ska få sina värden från koderna i databasen
 */
 $pdf->SetFont('Courier','',15);
-$codes = []; 
+$codes[0] = "0"; 
 for($i = 0; $i<300; $i++){
 	$codes[$i] = "17xxCx";
 }
@@ -39,4 +40,5 @@ $out .= "|";
 
 $pdf->Multicell(190,10,$out);
 $pdf->Output("","I");
+echo "2";
 ?>

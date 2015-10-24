@@ -85,6 +85,18 @@
 				}else{
 					include "index/adminpanel.php";		
 				}
+			}else if($_GET["newpage"] == "stat"){
+				if(!isset($_SESSION["user"])){
+					include "index/login.php";
+				}else{
+					include "index/stat.php";		
+				}
+			}else if($_GET["newpage"] == "clear"){
+				if(!isset($_SESSION["user"])){
+					include "index/login.php";
+				}else{
+					include "index/clear.php";		
+				}
 			}
 		}else{
 			include "index/front.php";

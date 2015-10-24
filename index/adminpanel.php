@@ -1,10 +1,13 @@
 <?php
-	$election_exists = TRUE;
-	
-	$buttonstate = "disabled";
-	if($election_exists){
-		$buttonstate = "active";
-	}
+require "data/evote.php";
+$evote = new Evote();
+
+$election_id = $evote->getElectionId();
+
+$buttonstate = "disabled";
+if($election_id != NULL){
+	$buttonstate = "active";
+}
 ?>
 <p><?php #------------KNAPPRAD-------------
 	$btns1 = "btn btn-success ".$buttonstate;
@@ -18,7 +21,7 @@
 ?></p>
 
 <?php #-------------NYTT VAL--------------
-	if(!$election_exists){?>
+if($election_id == NULL){ ?>
 
 <div style="width: 300px">
 <h3>Skapa nytt val</h3>
@@ -36,7 +39,7 @@
 </div>
 
 <?php }else{
-	$ongoing = TRUE;
+	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
 	if(!$ongoing){?>
 	 <div style="width: 300px">

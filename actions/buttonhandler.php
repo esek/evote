@@ -1,22 +1,18 @@
 <?php
-echo "nej";
 if(isset($_POST["button"]))	
-	echo "ja";
 	if($_POST["button"]=="login"){ 
 		
-	#	session_start();
-#		$_SESSION["user"]="admin";	
-#		echo $_SESSION["user"];
+		session_start();
+		$_SESSION["user"]="admin";	
 		header("Location: /index.php?newpage=admin");
 	}else if($_POST["button"]=="stat"){
 
-		header("Location: /index.php?newpage=front");
+		header("Location: /index.php?newpage=stat");
 	}else if($_POST["button"]=="print"){ 
-		
-		header("Location: /index.php?newpage=front");
-	}else if($_POST["button"]=="erase"){ 
-	
-		header("Location: /index.php?newpage=admin");
+				
+		header("Location: /actions/codeprint.php");
+	}else if($_POST["button"]=="clear"){ 
+		header("Location: /index.php?newpage=clear");
 	}else if($_POST["button"]=="logout"){ 
 		session_start();	
 		session_unset();	

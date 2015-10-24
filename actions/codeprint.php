@@ -1,7 +1,6 @@
 <?php
 ini_set('display_errors', 1);
 require("../fpdf/fpdf.php");
-echo "1";
 $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Courier','B',16);
@@ -39,6 +38,5 @@ foreach($codes as $c){
 $out .= "|";
 
 $pdf->Multicell(190,10,$out);
-$pdf->Output("","I");
-echo "2";
+$pdf->Output();
 ?>

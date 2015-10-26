@@ -12,12 +12,11 @@ if($election_id == NULL){
 		echo "<p><h3>DET FINNS INGET ATT RÖSTA PÅ</h3></p><br>";
 	}else{
 ?>
-		<div>
+		<div style="width: 300px">
 		<h3>Röstning pågår:<br><small>-POST-</small></h3>
-		<form method="POST">
-		<fieldset>
+		<form action="actions/buttonhandler.php" method="POST" autocomplete="off">
 		<?php
-			echo "<table class=\"table table-striped\" style=\"width: 300px;\">";	
+			echo "<table class=\"table table-striped\">";	
 				for($i = 0; $i < 5; $i++){
 					echo "<tr><td class=\"col-md-2\"><input type=\"radio\" name=\"person\" value=$i>
 						<td class=\"col-md-10\"> $i </td></tr>\n";
@@ -26,11 +25,10 @@ if($election_id == NULL){
 		?>
 		<div class="form-group">
 		<label >Personlig valkod:</label>
-		<input type="text" class="form-control" id="code" name="code" style="width: 300px";>	
+		<input type="text" class="form-control" id="code" name="code">	
 		</div>
 		<br>
-		<input type="submit" class="btn btn-primary" value="Rösta!" name="votesubmit">
-		</fieldset>
+		<button type="submit" class="btn btn-primary" value="vote" name="button">Rösta!</button>
 		</form>
 		</div>
 <?php

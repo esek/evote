@@ -13,9 +13,9 @@ if($election_id != NULL){
 	$btns1 = "btn btn-success ".$buttonstate;
 	$btns2 = "btn btn-danger ".$buttonstate;
 	echo "<form action=actions/buttonhandler.php method=\"POST\">";
-	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\">Se statistik</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\">Skriv ut personliga koder</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-right: 5px; margin-bottom: 5px\">Radera nuvarande val</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Se statistik</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Skriv ut personliga koder</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Radera nuvarande val</button>";
 	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-right: 5px\">Logga ut</button>";
 	echo "</form>";
 ?></p>
@@ -25,16 +25,16 @@ if($election_id == NULL){ ?>
 
 <div style="width: 300px">
 <h3>Skapa nytt val</h3>
-<form method="POST">
+<form action="actions/buttonhandler.php" method="POST">
 <div class="form-group">
-        <label for="usr">Namn på val:</label>
-        <input type="text" class="form-control" id="usr">
+        <label for="vn">Namn på val:</label>
+        <input type="text" name="valnamn" class="form-control" id="vn">
 </div>
 <div class="form-group" style="width: 150px">
-        <label for="pwd">Max antal personer:</label>
+        <label for="ap">Max antal personer:</label>
         <input type="number" name="antal_personer" class="form-control" id="ap" min="1">
 </div>
-<input type="submit" class="btn btn-primary" value="Skapa val" name="new_election">
+<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
 </form>
 </div>
 
@@ -44,29 +44,22 @@ if($election_id == NULL){ ?>
 	if(!$ongoing){?>
 	 <div style="width: 300px">
         <h3>Skapa ny valomgång</h3>
-        <form method="POST">
+        <form action="actions/buttonhandler.php" method="POST">
         <div class="form-group">
                 <label for="usr">Vad som ska väljas:</label>
-                <input type="text" class="form-control" id="val_session">
+                <input type="text" class="form-control" name="round_name">
         </div>
-	<p>Kandidatfälten nedan kan ev. lämnas tomma</p>
-        <div class="form-group">
-                <label for="kand1">Kandidat 1:</label>
-                <input type="text" class="form-control" id="kand1">
-        </div>
-        <div class="form-group">
-                <label for="kand2">Kandidat 2:</label>
-                <input type="text" class="form-control" id="kand2">
-        </div>
-        <div class="form-group">
-                <label for="kand3">Kandidat 3:</label>
-                <input type="text" class="form-control" id="kand3">
-        </div>
-        <div class="form-group">
-                <label for="kand4">Kandidat 4:</label>
-                <input type="text" class="form-control" id="kand4">
-        </div>
-        <input type="submit" class="btn btn-primary" value="Skapa" name="new_session">
+	<p>Minst två av kandidatfälten måste vara ifyllda</p>
+	<?php
+	for($i = 0; $i < 5; $i++){
+		$p = $i + 1;
+		echo "<div class=\"form-group\">";
+		echo "<label>Kandidat $p:</label>";
+		echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\">";
+        	echo "</div>";
+	}
+	?>
+        <button type="submit" class="btn btn-primary" value="begin_round" name="button">Starta ny valomgång</button>
         </form>
         </div>
 	<br><br>

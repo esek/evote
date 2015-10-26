@@ -13,7 +13,7 @@ class Evote {
 	@return 	TRUE | FALSE
 	*/
 	public function ongoingRound(){
-		return TRUE;
+		return FALSE;
 	}
 
 

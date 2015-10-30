@@ -1,10 +1,10 @@
 
-	<div style="max-width: 300px">
+	<div style="max-width: 400px">
 	<h3>Logga in</h3>
 	<form action="actions/buttonhandler.php" method="POST">
 	<div class="form-group">
   		<label for="usr">Namn:</label>
- 		<input type="text" class="form-control" name="usr">
+ 		<input type="text" class="form-control" name="usr" autocomplete="off">
 	</div>
 	<div class="form-group">
   		<label for="pwd">Lösenord:</label>

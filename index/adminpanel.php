@@ -13,17 +13,19 @@ if($election_id != NULL){
 	$btns1 = "btn btn-success ".$buttonstate;
 	$btns2 = "btn btn-danger ".$buttonstate;
 	echo "<form action=actions/buttonhandler.php method=\"POST\">";
-	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Se tidigare omgångar</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Skriv ut personliga koder</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Radera nuvarande val</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-right: 5px\">Logga ut</button>";
+	echo "<div class=\"btn-group\">";
+	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-bottom: 5px\" $buttonstate>Se tidigare omgångar</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-bottom: 5px\" $buttonstate>Skriv ut personliga koder</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-bottom: 5px\" $buttonstate>Radera nuvarande val</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-bottom: 5px\">Logga ut</button>";
+	echo "</div>";
 	echo "</form>";
 ?></p>
 
 <?php #-------------NYTT VAL--------------
 if($election_id == NULL){ ?>
 
-<div style="max-width: 300px">
+<div style="max-width: 400px">
 <h3>Skapa nytt val</h3>
 <form action="actions/buttonhandler.php" method="POST">
 <div class="form-group">
@@ -42,12 +44,12 @@ if($election_id == NULL){ ?>
 	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
 	if(!$ongoing){?>
-	 <div style="max-width: 300px">
+	<div style="max-width: 400px">
         <h3>Skapa ny valomgång</h3>
         <form action="actions/buttonhandler.php" method="POST">
         <div class="form-group">
                 <label for="usr">Vad som ska väljas:</label>
-                <input type="text" class="form-control" name="round_name">
+                <input type="text" class="form-control" name="round_name" autocomplete="off">
         </div>
 	<p>Minst två av kandidatfälten måste vara ifyllda</p>
 	<?php
@@ -55,7 +57,7 @@ if($election_id == NULL){ ?>
 		$p = $i + 1;
 		echo "<div class=\"form-group\">";
 		echo "<label>Kandidat $p:</label>";
-		echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\">";
+		echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\" autocomplete=\"off\">";
         	echo "</div>";
 	}
 	?>
@@ -64,37 +66,39 @@ if($election_id == NULL){ ?>
         </div>
 	<br><br>
 
-
+	<div style="max-width: 400px">
 	<h3>Förrgående valomgång</h3>
 	<?php
-		echo "<label for=\"res\">-POST-</label>";
-	        echo "<table class=\"table table-striped\" style=\"max-width: 300px;\" id=\"res\">";
+	        echo "<table class=\"table table\">";
+		echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">-POST-</th></tr>";
 			$p = 1;
 	                for($i = 0; $i < 5; $i++){
-	                        echo "<tr><td class=\"col-md-2\">$p.</td>
-	                                <td class=\"col-md-10\"> $i </td></tr>\n";
+	                        echo "<tr><td class=\"col-md-1\">$p.</td>
+	                                <td class=\"col-md-11\"> $i </td></tr>\n";
 				$p++;
 	                }
 	        echo "</table>";
 	?>
-
+	</div>
 	
-<?php
+	<?php
 	
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{	
-		echo "<h3>Val pågår</h3>";
-		echo "<label for=\"res\">-POST-</label>";
-	        echo "<table class=\"table table-striped\" style=\"max-width: 300px;\" id=\"res\">";
+		echo "<div style=\"max-width: 400px\">";
+		echo "<h3>Valomgång pågår</h3>";
+	        echo "<table class=\"table table\" style=\"max-width: 400px;\" id=\"res\">";
+		echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">-POST-</th></tr>";
 			$p = 1;
 	                for($i = 0; $i < 5; $i++){
-	                        echo "<tr><td class=\"col-md-10\"> $i </td></tr>\n";
+	                        echo "<tr><td> $i </td></tr>\n";
 				$p++;
 	                }
 	        echo "</table>";
 		echo "<form action=actions/buttonhandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
+		echo "</div>";
 	}
 
 }

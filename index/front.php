@@ -12,7 +12,7 @@ if($election_id == NULL){
 		echo "<p><h3>DET FINNS INGET ATT RÖSTA PÅ</h3></p><br>";
 	}else{
 ?>
-		<div style="width: 300px">
+		<div style="max-width: 300px">
 		<h3>Röstning pågår:<br><small>-POST-</small></h3>
 		<form action="actions/buttonhandler.php" method="POST" autocomplete="off">
 		<?php

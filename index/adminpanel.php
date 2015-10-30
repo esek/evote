@@ -13,7 +13,7 @@ if($election_id != NULL){
 	$btns1 = "btn btn-success ".$buttonstate;
 	$btns2 = "btn btn-danger ".$buttonstate;
 	echo "<form action=actions/buttonhandler.php method=\"POST\">";
-	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Se statistik</button>";
+	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Se tidigare omgångar</button>";
 	echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Skriv ut personliga koder</button>";
 	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-right: 5px; margin-bottom: 5px\" $buttonstate>Radera nuvarande val</button>";
 	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-right: 5px\">Logga ut</button>";
@@ -23,14 +23,14 @@ if($election_id != NULL){
 <?php #-------------NYTT VAL--------------
 if($election_id == NULL){ ?>
 
-<div style="width: 300px">
+<div style="max-width: 300px">
 <h3>Skapa nytt val</h3>
 <form action="actions/buttonhandler.php" method="POST">
 <div class="form-group">
         <label for="vn">Namn på val:</label>
         <input type="text" name="valnamn" class="form-control" id="vn">
 </div>
-<div class="form-group" style="width: 150px">
+<div class="form-group" style="max-width: 150px">
         <label for="ap">Max antal personer:</label>
         <input type="number" name="antal_personer" class="form-control" id="ap" min="1">
 </div>
@@ -42,7 +42,7 @@ if($election_id == NULL){ ?>
 	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
 	if(!$ongoing){?>
-	 <div style="width: 300px">
+	 <div style="max-width: 300px">
         <h3>Skapa ny valomgång</h3>
         <form action="actions/buttonhandler.php" method="POST">
         <div class="form-group">
@@ -68,7 +68,7 @@ if($election_id == NULL){ ?>
 	<h3>Förrgående valomgång</h3>
 	<?php
 		echo "<label for=\"res\">-POST-</label>";
-	        echo "<table class=\"table table-striped\" style=\"width: 300px;\" id=\"res\">";
+	        echo "<table class=\"table table-striped\" style=\"max-width: 300px;\" id=\"res\">";
 			$p = 1;
 	                for($i = 0; $i < 5; $i++){
 	                        echo "<tr><td class=\"col-md-2\">$p.</td>
@@ -85,7 +85,7 @@ if($election_id == NULL){ ?>
 	}else{	
 		echo "<h3>Val pågår</h3>";
 		echo "<label for=\"res\">-POST-</label>";
-	        echo "<table class=\"table table-striped\" style=\"width: 300px;\" id=\"res\">";
+	        echo "<table class=\"table table-striped\" style=\"max-width: 300px;\" id=\"res\">";
 			$p = 1;
 	                for($i = 0; $i < 5; $i++){
 	                        echo "<tr><td class=\"col-md-10\"> $i </td></tr>\n";

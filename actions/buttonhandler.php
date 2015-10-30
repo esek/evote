@@ -1,13 +1,39 @@
 <?php
+session_start();
+require '../data/evote.php';
+$evote = new Evote();
+
 if(isset($_POST["button"])){
 # ------------- NAV-BUTTONS ------------------------------------	
 	if($_POST["button"]=="login"){ 
-		/*
-		TODO
-		Kolla med databasen om inlogget är rätt
-		*/
-		session_start();
-		$_SESSION["user"]="admin";	
+		$input_ok = TRUE;
+		$msg = "";	
+		$msgType = "";
+		if($_POST["usr"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Du har inte skrivit in något användarnamn. ";
+			$msgType = "error";
+		}
+		if($_POST["psw"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Du har inte angett något lösenord ";
+			$msgType = "error";
+		}
+		
+		if($input_ok){
+			$usr = $_POST["usr"];
+			$psw = $_POST["psw"];
+			$correct = $evote->usercheck($usr, $psw);
+
+			if($correct){
+				$_SESSION["user"] = $usr;
+				
+			}else{
+				$msg .= "Användarnamet och/eller lösenordet är fel. ";
+				$msgType = "error";
+			}	
+		}
+		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /index.php?newpage=admin");
 
 	}else if($_POST["button"]=="stat"){
@@ -20,54 +46,69 @@ if(isset($_POST["button"])){
 		header("Location: /index.php?newpage=clear");
 
 	}else if($_POST["button"]=="logout"){ 
-		session_start();	
 		session_unset();	
 		header("Location: /index.php?newpage=admin");
 # ------------ ACTION BUTTONS ---------------------------------
 	}else if($_POST["button"]=="vote"){ 
 		$input_ok = TRUE;
+		$msg = "";	
+		$msgType = "";
 		if(!isset($_POST["person"])){
 			$input_ok = FALSE;
+			$msg .= "Du har inte valt någon att rösta på. ";
+			$msgType = "error";
 		}
 		if($_POST["code"] == ""){
 			$input_ok = FALSE;
+			$msg .= "Du har inte angett någon personlig kod. ";
+			$msgType = "error";
 		}
-		if(!$input_ok){
-			echo "<script> alert(\"Du har inte valt n\xE5gon person och/eller gl\xF6mt att skriva in din personliga kod\"); window.location = \"/index.php?newpage=front\"; </script>";	
-		}else{
+		if($input_ok){
 			$person_id = $_POST["person"];
 			$code = $_POST["code"];
 			/*
 			TODO
 			Kolla om den personliga koden är brukbar och lägg sedan till rösten i databasen
 			*/
-			header("Location: /index.php?newpage=front");
+			$msg .= "Din röst har blivit registrerad.";
+			$msgType = "success";
 		}
+		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		header("Location: /index.php?newpage=front");
 
 	}else if($_POST["button"]=="create"){ 
 		$input_ok = TRUE;
+		$msg = "";
+		$msgType = "";
 		if($_POST["valnamn"] == ""){
 			$input_ok = FALSE;
+			$msg .= "Du har inte angett något namn på valet. ";
+			$msgType = "error";
 		}
 		if($_POST["antal_personer"] == ""){
 			$input_ok = FALSE;
+			$msg .= "Du har inte angett det maximala antalet personer. ";
+			$msgType = "error";
 		}
-		if(!$input_ok){
-			echo "<script> alert(\"Du m\xE5ste fylla i b\xE5da f\xE4lten\"); window.location = \"/index.php?newpage=admin\"; </script>";	
-		}else{
+		if($input_ok){
 			$name = $_POST["valnamn"];
 			$nop = $_POST["antal_personer"];
 			/*
 			TODO
 			Skapa ett nytt val
 			*/
-			header("Location: /index.php?newpage=admin");
 		}
+		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		header("Location: /index.php?newpage=admin");
 
 	}else if($_POST["button"]=="begin_round"){ 
 		$input_ok = TRUE;
+		$msg = "";
+		$msgType = "";
 		if($_POST["round_name"] == ""){
 			$input_ok = FALSE;
+			$msg .= "Du har inte angett vad som ska väljas. ";
+			$msgType = "error";
 		}
 		$cands[0] = "";
 		$n = 0;
@@ -77,18 +118,59 @@ if(isset($_POST["button"])){
 				$n++;
 			}
 		}
-		if(!$input_ok || $n < 2){
-			echo "<script> alert(\"Du har gl\xF6mt att fylla i vad som ska v\xE4ljas eller minst tv\xE5 kandidater\"); window.location = \"/index.php?newpage=admin\"; </script>";	
-		}else{
+		if($n < 2){
+			$input_ok = FALSE;
+			$msg .= "Du måste ange minst två kandidater. ";
+			$msgType = "error";
 			
-			header("Location: /index.php?newpage=admin");
 		}
+		if($input_ok){
+			$round_name = $_POST["round_name"];
+			/*
+			TODO
+			Starta en ny valomgång.
+			*/	
+		}
+		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		header("Location: /index.php?newpage=admin");
 
 	}else if($_POST["button"]=="end_round"){ 
 		header("Location: /index.php?newpage=admin");
 
 	}else if($_POST["button"]=="delete_election"){ 
-		header("Location: /index.php?newpage=admin");
+		$input_ok = TRUE;
+		$msg = "";
+		$msgType = "";
+		if($_POST["pswuser"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Du har inte angett något lösenord. ";
+			$msgType = "error";
+		}
+		if($_POST["pswmacapar"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Hemsideansvaring har inte angett sitt lösenord. ";
+			$msgType = "error";
+		}
+		$redirect = "clear";
+		if($input_ok){
+			$psw1 = $_POST["psw1"];
+			$psw2 = $_POST["psw2"];
+			$current_usr = $_SESSION["user"];
+			if($evote->usercheck($current_usr, $psw1) && $evote->usercheck("macapar", $psw2)){
+				/*
+				TODO
+				Ta bort val
+				*/
+				$msg .= "Valet har blivit raderat. ";
+				$msgType = "success";
+				$redirect = "admin";
+			}else{
+				$msg .= "Någon skrev in fel lösenord. ";
+				$msgType = "error";
+			}
+		}
+		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		header("Location: /index.php?newpage=".$redirect);
 
 	}
 }

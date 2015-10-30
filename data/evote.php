@@ -8,16 +8,24 @@ class Evote {
 	public function getElectionId(){
 		return 1;
 	}
+
 	/*
 	Tells if there is a ongoing round
 	@return 	TRUE | FALSE
 	*/
 	public function ongoingRound(){
-		return FALSE;
+		return TRUE;
 	}
 
-
-
+	/*
+	Check username and password at login
+	@return		TRUE | FALSE
+	@param	(user)
+	@param 	(password)
+	*/
+	public function usercheck($user, $password){
+		return TRUE;
+	}
 
 
 }

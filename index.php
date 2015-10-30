@@ -76,6 +76,21 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<?php
 		session_start();
+		if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
+			$info = "";
+			if($_SESSION["message"]["type"] == "error"){
+				echo "<div class=\"panel panel-danger\">";
+				$info = "Fel!";
+			}else{
+				echo "<div class=\"panel panel-success\">";
+				$info = "Nice!";
+			}
+      			echo "<div class=\"panel-heading\">".$info."</div>";
+      			echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";
+    			echo "</div>";
+			unset($_SESSION["message"]);
+			
+		}
 		if(isset($_GET["newpage"])){
 			if($_GET["newpage"] == "front"){
                 		include "index/front.php";

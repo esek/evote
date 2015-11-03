@@ -34,20 +34,20 @@ if(isset($_POST["button"])){
 			}	
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /index.php?newpage=admin");
+		header("Location: /admin");
 
 	}else if($_POST["button"]=="stat"){
-		header("Location: /index.php?newpage=stat");
+		header("Location: /stat");
 
 	}else if($_POST["button"]=="print"){ 
 		header("Location: /actions/codeprint.php");
 
 	}else if($_POST["button"]=="clear"){ 
-		header("Location: /index.php?newpage=clear");
+		header("Location: /clear");
 
 	}else if($_POST["button"]=="logout"){ 
 		session_unset();	
-		header("Location: /index.php?newpage=admin");
+		header("Location: /admin");
 # ------------ ACTION BUTTONS ---------------------------------
 	}else if($_POST["button"]=="vote"){ 
 		$input_ok = TRUE;
@@ -74,7 +74,7 @@ if(isset($_POST["button"])){
 			$msgType = "success";
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /index.php?newpage=front");
+		header("Location: /front");
 
 	}else if($_POST["button"]=="create"){ 
 		$input_ok = TRUE;
@@ -99,7 +99,7 @@ if(isset($_POST["button"])){
 			*/
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /index.php?newpage=admin");
+		header("Location: /admin");
 
 	}else if($_POST["button"]=="begin_round"){ 
 		$input_ok = TRUE;
@@ -132,10 +132,10 @@ if(isset($_POST["button"])){
 			*/	
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /index.php?newpage=admin");
+		header("Location: /admin");
 
 	}else if($_POST["button"]=="end_round"){ 
-		header("Location: /index.php?newpage=admin");
+		header("Location: /admin");
 
 	}else if($_POST["button"]=="delete_election"){ 
 		$input_ok = TRUE;
@@ -170,7 +170,7 @@ if(isset($_POST["button"])){
 			}
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /index.php?newpage=".$redirect);
+		header("Location: /".$redirect);
 
 	}
 }

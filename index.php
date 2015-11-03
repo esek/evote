@@ -66,57 +66,58 @@
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
                 <li class="nav-header disabled"><a>Menyrubrik</a></li>
-                <li><a href="index.php?newpage=front">Home</a></li>
-                <li><a href="index.php?newpage=admin">Admin</a></li>
+                <li><a href="front">Home</a></li>
+                <li><a href="admin">Admin</a></li>
             </ul>
         </div>
     </div>
 
     <!-- Main content -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<?php
-		session_start();
-		if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
-			$info = "";
-			if($_SESSION["message"]["type"] == "error"){
-				echo "<div class=\"panel panel-danger\">";
-				$info = "Fel!";
-			}else{
-				echo "<div class=\"panel panel-success\">";
-				$info = "Nice!";
-			}
-      			echo "<div class=\"panel-heading\">".$info."</div>";
-      			echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";
-    			echo "</div>";
-			unset($_SESSION["message"]);
-			
-		}
-		if(isset($_GET["newpage"])){
-			if($_GET["newpage"] == "front"){
-                		include "index/front.php";
-			}else if($_GET["newpage"] == "admin"){
-				if(!isset($_SESSION["user"])){
-					include "index/login.php";
-				}else{
-					include "index/adminpanel.php";		
-				}
-			}else if($_GET["newpage"] == "stat"){
-				if(!isset($_SESSION["user"])){
-					include "index/login.php";
-				}else{
-					include "index/stat.php";		
-				}
-			}else if($_GET["newpage"] == "clear"){
-				if(!isset($_SESSION["user"])){
-					include "index/login.php";
-				}else{
-					include "index/clear.php";		
-				}
-			}
+<?php
+	session_start();
+	if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
+		$info = "";
+		if($_SESSION["message"]["type"] == "error"){
+			echo "<div class=\"panel panel-danger\">";
+			$info = "Fel!";
 		}else{
-			include "index/front.php";
+			echo "<div class=\"panel panel-success\">";
+			$info = "Nice!";
 		}
-        ?>
+		echo "<div class=\"panel-heading\">".$info."</div>";
+		echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";
+		echo "</div>";
+		unset($_SESSION["message"]);
+		
+	}
+	$page = trim($_SERVER['REQUEST_URI'],'/');
+	if(!empty($page)){
+		if($page == "front"){
+			include "index/front.php";
+		}else if($page == "admin"){
+			if(!isset($_SESSION["user"])){
+				include "index/login.php";
+			}else{
+				include "index/adminpanel.php";		
+			}
+		}else if($page == "stat"){
+			if(!isset($_SESSION["user"])){
+				include "index/login.php";
+			}else{
+				include "index/stat.php";		
+			}
+		}else if($page == "clear"){
+			if(!isset($_SESSION["user"])){
+				include "index/login.php";
+			}else{
+				include "index/clear.php";		
+			}
+		}
+	}else{
+		include "index/front.php";
+	}
+?>
 
     </div>
 

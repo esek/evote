@@ -53,12 +53,12 @@ if($election_id == NULL){ ?>
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>
 	                <input type="text" class="form-control" name="round_name" autocomplete="off">
-		</div>
+			</div>
 	        <div class="form-group">
 	                <label>Tillfällig kod:</label>
 	                <input type="text" class="form-control" name="code" autocomplete="off">
 	        </div>
-		<?php
+<!-- 		<?php
 		for($i = 0; $i < 5; $i++){
 			$p = $i + 1;
 			echo "<div class=\"form-group\">";
@@ -66,7 +66,41 @@ if($election_id == NULL){ ?>
 			echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\" autocomplete=\"off\">";
 	        	echo "</div>";
 		}
-		?>
+?> -->
+                <br>
+                <div><h4><b>Kandidater:</b></h4></div>
+                <div class="form-group">Öka/minska antalet fält: 
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-default remove_button" >-</button>
+                    <button type="button" class="btn btn-default add_button" id="add_button">+</button>
+                    </div>
+                </div>
+
+                <div class="input_fields_wrap form-group" id="input_wrapper">
+                    <div><input type="text" class="form-control" name="candidates[]"></div>
+                </div>                        
+                <script >
+                    $(document).ready(function() {
+                        var max_fields      = 10; //maximum input boxes allowed
+                        var wrapper         = document.getElementById("input_wrapper");//Fields wrapper
+                        var add_button      = document.getElementById("add_button"); //Add button ID
+                        window.alert("hej");                             
+                        var x = 1; //initlal text box count
+                        $(add_button).click(function(e){ //on add input button click
+                             e.preventDefault();
+                             if(x < max_fields){ //max input box allowed
+                             x++; //text box increment
+                             $(wrapper).append('<div><input type="text" class="form-control" name="candidates[]"></div>'); //add input box
+                             }
+                        });
+                                                                                                                                                                       
+                        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                        e.preventDefault(); $(this).parent('div').remove(); x--;
+                                               
+                        })
+                    });
+                </script>
+
 	        <button type="submit" class="btn btn-primary" value="begin_round" name="button">Starta ny valomgång</button>
 	        </form>
 	        </div>

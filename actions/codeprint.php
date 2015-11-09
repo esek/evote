@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["user"])){
+if($_SESSION["user"]=="admin"){
 	ini_set('display_errors', 1);
 	require("../fpdf/fpdf.php");
 	$pdf = new FPDF();
@@ -42,6 +42,6 @@ if(isset($_SESSION["user"])){
 	$pdf->Multicell(190,10,$out);
 	$pdf->Output();
 }else{
-	echo "Du måste vara inloggad för att kunna skriva ut koder";
+	echo "Fy! Så får du inte göra.";
 }
 ?>

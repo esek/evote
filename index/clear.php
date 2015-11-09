@@ -1,3 +1,8 @@
+<?php
+if(!($_SESSION["user"] == "admin")){
+        echo "Du har inte behörighet att visa denna sida.";
+}else{
+?>
 <h3>Radera nuvarnade val</h3>
 <div style="max-width: 400px">
 	För att det inte ska vara möjligt att radera ett val vid fel tillfälle (typ när valet pågår) måste du som är inloggad och hemsideansvarig båda slå in era lösenord nedan för att det ska gå igenom.
@@ -18,5 +23,5 @@
 </div>
 
 <?php
-	
+}	
 ?>

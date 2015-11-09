@@ -65,9 +65,11 @@
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-                <li class="nav-header disabled"><a>Menyrubrik</a></li>
-                <li><a href="front">Home</a></li>
+                <li class="nav-header disabled"><a>Paneler</a></li>
+                <li><a href="front">Röstningssida</a></li>
                 <li><a href="admin">Admin</a></li>
+                <li><a href="adjust">Justerare</a></li>
+                <li><a href="useradmin">Användare</a></li>
             </ul>
         </div>
     </div>
@@ -97,21 +99,38 @@
 			include "index/front.php";
 		}else if($page == "admin"){
 			if(!isset($_SESSION["user"])){
+				$_SESSION["redirect"] = "admin";
 				include "index/login.php";
 			}else{
 				include "index/adminpanel.php";		
 			}
 		}else if($page == "stat"){
 			if(!isset($_SESSION["user"])){
+				$_SESSION["redirect"] = "stat";
 				include "index/login.php";
 			}else{
 				include "index/stat.php";		
 			}
 		}else if($page == "clear"){
 			if(!isset($_SESSION["user"])){
+				$_SESSION["redirect"] = "clear";
 				include "index/login.php";
 			}else{
 				include "index/clear.php";		
+			}
+		}else if($page == "adjust"){
+			if(!isset($_SESSION["user"])){
+				$_SESSION["redirect"] = "adjust";
+				include "index/login.php";
+			}else{
+				include "index/adjustpanel.php";		
+			}
+		}else if($page == "useradmin"){
+			if(!isset($_SESSION["user"])){
+				$_SESSION["redirect"] = "useradmin";
+				include "index/login.php";
+			}else{
+				include "index/useradminpanel.php";		
 			}
 		}
 	}else{

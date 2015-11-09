@@ -26,7 +26,11 @@ if($election_id == NULL){
 		?>
 		<div class="form-group">
 		<label >Personlig valkod:</label>
-		<input type="text" class="form-control" id="code" name="code">	
+		<input type="text" class="form-control" name="code1">	
+		</div>
+		<div class="form-group">
+		<label >Tillfällig valkod:</label>
+		<input type="text" class="form-control" name="code2">	
 		</div>
 		<br>
 		<button type="submit" class="btn btn-primary" value="vote" name="button">Rösta!</button>

@@ -1,4 +1,5 @@
 <?php
+#	I denna fil bestäms vad som händer när en knapp trycks på sidan
 session_start();
 require '../data/evote.php';
 $evote = new Evote();
@@ -23,7 +24,7 @@ if(isset($_POST["button"])){
 		if($input_ok){
 			$usr = $_POST["usr"];
 			$psw = $_POST["psw"];
-			$correct = $evote->usercheck($usr, $psw);
+			$correct = $evote->usercheck($usr, $psw); # Kolla lösenordet mot databases. Detta sker i data/evote.php
 
 			if($correct){
 				$_SESSION["user"] = $usr;
@@ -34,7 +35,8 @@ if(isset($_POST["button"])){
 			}	
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /admin");
+		$redirect = $_SESSION["redirect"];
+		header("Location: /".$redirect);
 
 	}else if($_POST["button"]=="stat"){
 		header("Location: /stat");
@@ -47,9 +49,9 @@ if(isset($_POST["button"])){
 
 	}else if($_POST["button"]=="logout"){ 
 		session_unset();	
-		header("Location: /admin");
+		header("Location: /front");
 # ------------ ACTION BUTTONS ---------------------------------
-	}else if($_POST["button"]=="vote"){ 
+	}else if($_POST["button"]=="vote"){ # RÖSTA KNAPPEN I FRONT-PANELEN
 		$input_ok = TRUE;
 		$msg = "";	
 		$msgType = "";
@@ -58,14 +60,20 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte valt någon att rösta på. ";
 			$msgType = "error";
 		}
-		if($_POST["code"] == ""){
+		if($_POST["code1"] == ""){
 			$input_ok = FALSE;
-			$msg .= "Du har inte angett någon personlig kod. ";
+			$msg .= "Du har inte angett någon personlig valkod. ";
+			$msgType = "error";
+		}
+		if($_POST["code2"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Du har inte angett någon tillfällig valkod. ";
 			$msgType = "error";
 		}
 		if($input_ok){
 			$person_id = $_POST["person"];
-			$code = $_POST["code"];
+			$code1 = $_POST["code1"];
+			$code2 = $_POST["code2"];
 			/*
 			TODO
 			Kolla om den personliga koden är brukbar och lägg sedan till rösten i databasen
@@ -76,7 +84,7 @@ if(isset($_POST["button"])){
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /front");
 
-	}else if($_POST["button"]=="create"){ 
+	}else if($_POST["button"]=="create"){ # SKAPA NYTT VAL KNAPPEN
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
@@ -101,13 +109,18 @@ if(isset($_POST["button"])){
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /admin");
 
-	}else if($_POST["button"]=="begin_round"){ 
+	}else if($_POST["button"]=="begin_round"){ # STARTA NYTT VAL KNAPPEN
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
 		if($_POST["round_name"] == ""){
 			$input_ok = FALSE;
 			$msg .= "Du har inte angett vad som ska väljas. ";
+			$msgType = "error";
+		}
+		if($_POST["code"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Du har inte angett någon tillfällig kod. ";
 			$msgType = "error";
 		}
 		$cands[0] = "";
@@ -134,10 +147,10 @@ if(isset($_POST["button"])){
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /admin");
 
-	}else if($_POST["button"]=="end_round"){ 
+	}else if($_POST["button"]=="end_round"){ # AVSLUTA VALOMGÅNG KNAPPEN
 		header("Location: /admin");
 
-	}else if($_POST["button"]=="delete_election"){ 
+	}else if($_POST["button"]=="delete_election"){ # TA BORT VAL KNAPPEN
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";

@@ -34,11 +34,11 @@
 
 .nav-sidebar > li.active > a {
   color: #fff;
-  background-color: #080808;
+  background-color: #080808; 
 }
 
 .nav-sidebar .badge {
-	background-color: #F21C0A;
+	background-color: #0080A0;
 	margin-left: 10px;
 }
 
@@ -77,12 +77,12 @@
 
   .nav-sidebar > li.active > a {
     color: #fff;
-    background-color: #F21C0A;
+    background-color: #0080A0;
   }
 
   .nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus {
     color: #fff;
-    background-color: #F21C0A;
+    background-color: #0080A0;
   }
 
   .navbar-right {

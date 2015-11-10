@@ -68,37 +68,40 @@ if($election_id == NULL){ ?>
 		}
 ?> -->
                 <br>
-                <div><h4><b>Kandidater:</b></h4></div>
+                <div><h4><b>Alternativ:</b></h4></div>
                 <div class="form-group">Öka/minska antalet fält: 
                     <div class="btn-group">
-                    <button type="button" class="btn btn-default remove_button" >-</button>
-                    <button type="button" class="btn btn-default add_button" id="add_button">+</button>
+                    <button type="button" class="btn btn-default" id="remove_button" onclick="removeField()">-</button>
+                    <button type="button" class="btn btn-default" id="add_button" onclick="addField()">+</button>
                     </div>
                 </div>
 
                 <div class="input_fields_wrap form-group" id="input_wrapper">
-                    <div><input type="text" class="form-control" name="candidates[]"></div>
+                    <div><input type="text" class="form-control" name="candidates[]"/><br></div>
+                    <div><input type="text" class="form-control" name="candidates[]"/><br></div>
                 </div>                        
                 <script >
-                    $(document).ready(function() {
-                        var max_fields      = 10; //maximum input boxes allowed
-                        var wrapper         = document.getElementById("input_wrapper");//Fields wrapper
-                        var add_button      = document.getElementById("add_button"); //Add button ID
-                        window.alert("hej");                             
-                        var x = 1; //initlal text box count
-                        $(add_button).click(function(e){ //on add input button click
-                             e.preventDefault();
-                             if(x < max_fields){ //max input box allowed
-                             x++; //text box increment
-                             $(wrapper).append('<div><input type="text" class="form-control" name="candidates[]"></div>'); //add input box
-                             }
-                        });
-                                                                                                                                                                       
-                        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                        e.preventDefault(); $(this).parent('div').remove(); x--;
-                                               
-                        })
-                    });
+                   function addField(){
+        		var container = document.getElementById("input_wrapper");
+                        var cdiv = document.createElement("div");
+                        var input = document.createElement("input");
+                        var t = document.createTextNode("Alt " + (container.childElementCount+1));
+                        input.type = "text";
+                        input.className = "form-control";
+                        input.name = "candidates[]";
+                        //cdiv.appendChild(t);
+                        cdiv.appendChild(input);
+                        cdiv.appendChild(document.createElement("br"));
+                        if(container.childElementCount < 20){
+                            container.appendChild(cdiv);
+                        }
+                    }
+                   function removeField(){
+        		var container = document.getElementById("input_wrapper");
+                        if(container.childElementCount > 2){
+                            container.removeChild(container.lastChild);
+                        }
+                    }
                 </script>
 
 	        <button type="submit" class="btn btn-primary" value="begin_round" name="button">Starta ny valomgång</button>

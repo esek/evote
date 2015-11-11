@@ -1,14 +1,12 @@
 <?php
-if(!($_SESSION["user"] == "admin")){
+if(!($evote->verifyUser($_SESSION["user"], 0))){
 	echo "Du har inte behörighet att visa denna sida.";
 }else{
-require "data/evote.php";
-$evote = new Evote();
 
-$election_id = $evote->getElectionId();
+$ongoingSession = $evote->ongoingSession();
 
 $buttonstate = "disabled";
-if($election_id != NULL){
+if($ongoingSession){
 	$buttonstate = "active";
 }
 ?>
@@ -26,7 +24,7 @@ if($election_id != NULL){
 ?></p>
 
 <?php #-------------NYTT VAL--------------
-if($election_id == NULL){ ?>
+if(!$ongoingSession){ ?>
 
 	<div style="max-width: 400px">
 	<h3>Skapa nytt val</h3>
@@ -77,8 +75,8 @@ if($election_id == NULL){ ?>
                 </div>
 
                 <div class="input_fields_wrap form-group" id="input_wrapper">
-                    <div><input type="text" class="form-control" name="candidates[]"/><br></div>
-                    <div><input type="text" class="form-control" name="candidates[]"/><br></div>
+                    <div><input type="text" class="form-control" name="candidates[]" autocomplete="off"/><br></div>
+                    <div><input type="text" class="form-control" name="candidates[]" autocomplete="off"/><br></div>
                 </div>                        
                 <script >
                    function addField(){
@@ -89,6 +87,7 @@ if($election_id == NULL){ ?>
                         input.type = "text";
                         input.className = "form-control";
                         input.name = "candidates[]";
+                        input.setAttribute( "autocomplete", "off" ); 
                         //cdiv.appendChild(t);
                         cdiv.appendChild(input);
                         cdiv.appendChild(document.createElement("br"));
@@ -112,31 +111,31 @@ if($election_id == NULL){ ?>
 		<?php
 		include "actions/genlastresult.php";
                 
-                $res = $evote->getOptions();
-                if ($res->num_rows > 0) {
-                        // output data of each row
-                     while($row = $res->fetch_assoc()) {
-                        echo "id: " . $row["id"]. " - Name: " . $row["name"]. "<br>";
-                     }
-                } else {
-                    echo "0 results";
-                }
 	# ------------- VALOMGÅNG PÅGÅR ----------------
-	}else{	
-		echo "<div style=\"max-width: 400px\">";
-		echo "<h3>Valomgång pågår</h3>";
-	        echo "<table class=\"table table\" style=\"max-width: 400px;\" id=\"res\">";
-		echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">-POST-</th></tr>";
-			$p = 1;
-	                for($i = 0; $i < 5; $i++){
-	                        echo "<tr><td> $i </td></tr>\n";
-				$p++;
-	                }
-	        echo "</table>";
+	}else{
+
+	$res = $evote->getOptions();
+        if($res->num_rows > 0){	
+        ?>
+		<div style="max-width: 400px">
+		<h3>Röstning pågår:</h3>
+		<?php
+                $head = "";
+		echo "<table class=\"table table\">";	
+                while($row = $res->fetch_assoc()){
+                    if($head != $row["e_name"]){
+		        echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
+                        $head = $row["e_name"];
+                    }
+		    echo "<tr><td>".$row["name"]." </td></tr>\n";
+                }
+		echo "</table>";
+			
 		echo "<form action=actions/buttonhandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
 		echo "</div>";
+		}
 	}
 
 }

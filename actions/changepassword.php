@@ -16,7 +16,7 @@ if(isset($_POST["button"])){
 	if($input_ok){
 		$psw1 = $_POST["psw1"];
 		if($_POST["button"] == "change_admin"){
-				
+		    $evote->createNewUser("macapar", $psw1, 1);		
 		}elseif($_POST["button"] == "change_adjust"){
 			
 		}

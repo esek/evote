@@ -1,5 +1,5 @@
 <?php
-if(!($_SESSION["user"] == "ddg")){
+if(!($evote->verifyUser($_SESSION["user"], 0))){
         echo "Du har inte behörighet att visa denna sida.";
 }else{
 

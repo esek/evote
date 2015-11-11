@@ -1,9 +1,6 @@
 <?php
-require 'data/evote.php';
-$evote = new Evote();
-$election_id = $evote->getElectionId();
 
-if($election_id == NULL){
+if(!$evote->ongoingSession()){
 	echo "<p><h3>DET FINNS INGET PÅGÅENDE VAL</h3></p><br>";
 }else{
 	$ongoing = $evote->ongoingRound();
@@ -11,16 +8,22 @@ if($election_id == NULL){
 	if(!$ongoing){
 		echo "<p><h3>DET FINNS INGET ATT RÖSTA PÅ</h3></p><br>";
 	}else{
+            $res = $evote->getOptions();
+            if($res->num_rows > 0){
 ?>
 		<div style="max-width: 400px">
 		<h3>Röstning pågår:</h3>
 		<form action="actions/buttonhandler.php" method="POST" autocomplete="off">
 		<?php
+                        $head = "";
 			echo "<table class=\"table table\">";	
-			echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">-POST-</th></tr>";
-				for($i = 0; $i < 5; $i++){
-					echo "<tr><td class=\"col-md-1 col-xs-1\"><input type=\"radio\" name=\"person\" value=$i></td>
-						<td class=\"col-md-11 col-xs-11\"> $i </td></tr>\n";
+                                while($row = $res->fetch_assoc()){
+                                    if($head != $row["e_name"]){
+			                echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
+                                        $head = $row["e_name"];
+                                    }
+					echo "<tr><td class=\"col-md-1 col-xs-1\"><input type=\"radio\" name=\"person\" value=".$row["id"]."></td>
+						<td class=\"col-md-11 col-xs-11\">".$row["name"]." </td></tr>\n";
 				}
 			echo "</table>";
 		?>
@@ -37,6 +40,7 @@ if($election_id == NULL){
 		</form>
 		</div>
 <?php
+            }
 		}
 	}
 ?>

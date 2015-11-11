@@ -24,7 +24,7 @@ if(isset($_POST["button"])){
 		if($input_ok){
 			$usr = $_POST["usr"];
 			$psw = $_POST["psw"];
-			$correct = $evote->usercheck($usr, $psw); # Kolla lösenordet mot databases. Detta sker i data/evote.php
+			$correct = $evote->login($usr, $psw); # Kolla lösenordet mot databases. Detta sker i data/evote.php
 
 			if($correct){
 				$_SESSION["user"] = $usr;
@@ -42,7 +42,11 @@ if(isset($_POST["button"])){
 		header("Location: /stat");
 
 	}else if($_POST["button"]=="print"){ 
-		header("Location: /actions/codeprint.php");
+                //require "../ecrypt.php";
+                //$ecrypt = new ECrypt();
+                //$codes = $ecrypt->generate_otp(50);
+                //include "codeprint.php";
+                $evote->endRound();
 
 	}else if($_POST["button"]=="clear"){ 
 		header("Location: /clear");
@@ -72,14 +76,15 @@ if(isset($_POST["button"])){
 		}
 		if($input_ok){
 			$person_id = $_POST["person"];
-			$code1 = $_POST["code1"];
-			$code2 = $_POST["code2"];
-			/*
-			TODO
-			Kolla om den personliga koden är brukbar och lägg sedan till rösten i databasen
-			*/
-			$msg .= "Din röst har blivit registrerad.";
-			$msgType = "success";
+			$personal_code = $_POST["code1"];
+			$current_code = $_POST["code2"];
+                        if($evote->vote($person_id, $personal_code, $current_code)){
+			    $msg .= "Din röst har blivit registrerad.";
+                            $msgType = "success";
+                        }else{
+			    $msg .= "Din röst blev inte registrerad. ";
+                            $msgType = "error";
+                        }
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /front");
@@ -101,13 +106,17 @@ if(isset($_POST["button"])){
 		if($input_ok){
 			$name = $_POST["valnamn"];
 			$nop = $_POST["antal_personer"];
-			/*
-			TODO
-			Skapa ett nytt val
-			*/
-		}
-		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /admin");
+
+                        require "../ecrypt.php";
+                        $ecrypt = new ECrypt();
+                        $codes = $ecrypt->generate_otp($nop);
+                        $evote->newCodes($codes);
+                        $evote->newSession($name);
+                        include "codeprint.php";
+		}else{
+		        $_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		        header("Location: /admin");
+                }
 
 	}else if($_POST["button"]=="begin_round"){ # STARTA NYTT VAL KNAPPEN
 		$input_ok = TRUE;
@@ -141,16 +150,22 @@ if(isset($_POST["button"])){
 			$round_name = $_POST["round_name"];
                         $code = $_POST["code"];
 
-                        $evote->newRound($round_name, $code,  $cands);
-			/*
-			TODO
-			Starta en ny valomgång.
-			*/	
+                        $insert_ok = $evote->newRound($round_name, $code,  $cands);
+
+                        if($insert_ok){
+			    $msg .= "En ny valomgång har börjat. ";
+			    $msgType = "success";
+                        }else{
+			    $msg .= "Fel. ";
+			    $msgType = "error";
+
+                        }
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-	//	header("Location: /admin");
+		header("Location: /admin");
 
 	}else if($_POST["button"]=="end_round"){ # AVSLUTA VALOMGÅNG KNAPPEN
+                $evote->endRound();
 		header("Location: /admin");
 
 	}else if($_POST["button"]=="delete_election"){ # TA BORT VAL KNAPPEN
@@ -169,14 +184,11 @@ if(isset($_POST["button"])){
 		}
 		$redirect = "clear";
 		if($input_ok){
-			$psw1 = $_POST["psw1"];
-			$psw2 = $_POST["psw2"];
+			$psw1 = $_POST["pswuser"];
+			$psw2 = $_POST["pswmacapar"];
 			$current_usr = $_SESSION["user"];
-			if($evote->usercheck($current_usr, $psw1) && $evote->usercheck("macapar", $psw2)){
-				/*
-				TODO
-				Ta bort val
-				*/
+			if($evote->login($current_usr, $psw1) && $evote->login("macapar", $psw2)){
+                                $evote->endSession();
 				$msg .= "Valet har blivit raderat. ";
 				$msgType = "success";
 				$redirect = "admin";

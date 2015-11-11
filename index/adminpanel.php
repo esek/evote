@@ -111,7 +111,16 @@ if($election_id == NULL){ ?>
 		
 		<?php
 		include "actions/genlastresult.php";
-	
+                
+                $res = $evote->getOptions();
+                if ($res->num_rows > 0) {
+                        // output data of each row
+                     while($row = $res->fetch_assoc()) {
+                        echo "id: " . $row["id"]. " - Name: " . $row["name"]. "<br>";
+                     }
+                } else {
+                    echo "0 results";
+                }
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{	
 		echo "<div style=\"max-width: 400px\">";

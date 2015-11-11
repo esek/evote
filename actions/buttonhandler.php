@@ -139,13 +139,16 @@ if(isset($_POST["button"])){
 		}
 		if($input_ok){
 			$round_name = $_POST["round_name"];
+                        $code = $_POST["code"];
+
+                        $evote->newRound($round_name, $code,  $cands);
 			/*
 			TODO
 			Starta en ny valomgång.
 			*/	
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		header("Location: /admin");
+	//	header("Location: /admin");
 
 	}else if($_POST["button"]=="end_round"){ # AVSLUTA VALOMGÅNG KNAPPEN
 		header("Location: /admin");

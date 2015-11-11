@@ -1,0 +1,17 @@
+REATE TABLE elections (
+     id MEDIUMINT NOT NULL AUTO_INCREMENT,
+     name varCHAR(64) NOT NULL,
+     pass varchar(254),
+     active boolean,
+     PRIMARY KEY (id)
+);
+
+CREATE TABLE elections_alternatives(
+id INT NOT NULL AUTO_INCREMENT ,
+election_id INT NOT NULL ,
+name VARCHAR( 64 ) ,
+nbr_votes INT,
+PRIMARY KEY ( id )
+)
+
+

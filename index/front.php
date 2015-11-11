@@ -19,8 +19,8 @@ if($election_id == NULL){
 			echo "<table class=\"table table\">";	
 			echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">-POST-</th></tr>";
 				for($i = 0; $i < 5; $i++){
-					echo "<tr><td class=\"col-md-1\"><input type=\"radio\" name=\"person\" value=$i></td>
-						<td class=\"col-md-11\"> $i </td></tr>\n";
+					echo "<tr><td class=\"col-md-1 col-xs-1\"><input type=\"radio\" name=\"person\" value=$i></td>
+						<td class=\"col-md-11 col-xs-11\"> $i </td></tr>\n";
 				}
 			echo "</table>";
 		?>

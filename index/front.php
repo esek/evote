@@ -22,7 +22,7 @@ if(!$evote->ongoingSession()){
 	    	        	                echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                                                     $head = $row["e_name"];
                                                 }
-	    	        			echo "<tr><td class=\"col-md-1 col-xs-1\"><input type=\"radio\" name=\"person\" value=".$row["id"]."></td>
+	    	        			echo "<tr><td class=\"col-md-1 col-xs-1\"><input type=\"radio\" class=\"big\" name=\"person\" value=".$row["id"]."></td>
 	    	        				<td class=\"col-md-11 col-xs-11\">".$row["name"]." </td></tr>\n";
 	    	        		}
 	    	        	echo "</table>";

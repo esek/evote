@@ -40,6 +40,7 @@ class Evote {
             $ok = FALSE;
             while($row = $r->fetch_assoc()){
                 $hash = $row["password"];
+                $ok = crypt($password, "duvetvad") == $hash;
                 $ok = password_verify($password, $hash);
             }
             return $ok;
@@ -50,9 +51,9 @@ class Evote {
     }
 
     public function createNewUser($username, $password, $privilege){
-        $hash = password_hash($password, PASSWORD_DEFAULT); 
+        $hash = crypt($password, "duvetvad"); 
         $conn = $this->connect();
-        $sql =  "INSERT INTO user (username, password, privilege) VALUES (\"$username\", \"$hash\", \"$priviledge\")";
+        $sql =  "INSERT INTO user (username, password, privilege) VALUES (\"$username\", \"$hash\", \"$privilege\")";
         $r = $conn->query($sql);
 
     }
@@ -72,7 +73,13 @@ class Evote {
         }else{
 	    return FALSE;
         }
+    }
 
+    public function newPassword($username, $password){
+        $hash = crypt($password, "duvetvad");
+        $conn = $this->connect();
+        $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
+        $r = $conn->query($sql);
         
     }
 // DATA FUNCTIONS

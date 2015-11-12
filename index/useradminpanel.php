@@ -1,5 +1,5 @@
 <?php
-if(!($evote->verifyUser($_SESSION["user"], 0))){
+if(!($evote->verifyUser($_SESSION["user"], 0) || TRUE)){
         echo "Du har inte behörighet att visa denna sida.";
 }else{
 
@@ -18,7 +18,7 @@ echo "</form>";
             <input type="text" name="username" class="form-control" style="margin-bottom: 3px">
             <label>Nytt lösenord:</label>
             <input type="password" name="psw" class="form-control" style="margin-bottom: 3px">
-    <button type="submit" class="btn btn-default" value="change" name="button">Byt Lösenord</button>
+            <button type="submit" class="btn btn-default" value="change" name="button">Byt Lösenord</button>
     </div>
     </form>
     <br>
@@ -31,7 +31,7 @@ echo "</form>";
             <input type="password" name="psw" class="form-control" style="margin-bottom: 3px">
             <label>Privilegier:</label>
             <input type="text" name="priv" class="form-control" style="margin-bottom: 3px">
-    <button type="submit" class="btn btn-default" value="new" name="button">Byt Lösenord</button>
+            <button type="submit" class="btn btn-default" value="new" name="button">Skapa ny användare</button>
     </div>
     </form>
 </div>

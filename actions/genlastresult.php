@@ -1,5 +1,6 @@
 <?php
 if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["user"], 2)){
+    echo  "<h3>Föregående valomgång</h3>";
     $evote = new Evote();
     $res = $evote->getLastResult();
     if ($res->num_rows > 0) {
@@ -7,7 +8,6 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 
 
     <div style="max-width: 400px">
-		<h3>Föregående valomgång</h3>
 		<?php
 		echo "<table class=\"table\">";
 		$head = "";
@@ -31,6 +31,8 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 		?>
 		</div>
 <?php
+    }else{
+        echo "Ingenting har valts ännu";
     }
     if($evote->ongoingRound()){
        echo "Vänta tills valomgången är slut." ;

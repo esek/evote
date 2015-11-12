@@ -5,7 +5,7 @@ if(!($evote->verifyUser($_SESSION["user"], 1))){
 ?>
 <h3>Stäng nuvarande val</h3>
 <div style="max-width: 400px">
-	För att det inte ska vara möjligt att stänga ett val vid fel tillfälle (typ när valet pågår) måste du som är inloggad och hemsideansvarig båda slå in era lösenord nedan för att det ska gå igenom.
+	För att det inte ska vara möjligt att stänga ett val vid fel tillfälle (typ när valet pågår och alla sitter i vallokalen) måste du som är inloggad och hemsideansvarig slå in er användarinformation nedan för att stänga valet.
 </div>
 <br>
 <div style="max-width: 400px">
@@ -16,7 +16,7 @@ if(!($evote->verifyUser($_SESSION["user"], 1))){
 </div>
 <div class="form-group">
         <label for="pwd">Hemsideansvarigs användarnamn och lösenord:</label>
-        <input type="text" name="namepageadmin" class="form-control">
+        <input type="text" name="namepageadmin" class="form-control" autocomplete="off">
         <br>
         <input type="password" name="pswpageadmin" class="form-control" id="psw2">
 </div>

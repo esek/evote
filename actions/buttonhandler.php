@@ -56,25 +56,30 @@ if(isset($_POST["button"])){
 		header("Location: /front");
 # ------------ ACTION BUTTONS ---------------------------------
 	}else if($_POST["button"]=="vote"){ # RÖSTA KNAPPEN I FRONT-PANELEN
-		$input_ok = TRUE;
+		$ok = TRUE;
 		$msg = "";	
 		$msgType = "";
 		if(!isset($_POST["person"])){
-			$input_ok = FALSE;
+			$ok = FALSE;
 			$msg .= "Du har inte valt någon att rösta på. ";
 			$msgType = "error";
 		}
 		if($_POST["code1"] == ""){
-			$input_ok = FALSE;
+			$ok = FALSE;
 			$msg .= "Du har inte angett någon personlig valkod. ";
 			$msgType = "error";
 		}
 		if($_POST["code2"] == ""){
-			$input_ok = FALSE;
+			$ok = FALSE;
 			$msg .= "Du har inte angett någon tillfällig valkod. ";
 			$msgType = "error";
 		}
-		if($input_ok){
+                if(!$this->ongoingRound()){
+                    $ok = FALSE;
+		    $msg .= "Valomgången har redan avslutats. ";
+		    $msgType = "error";
+                }
+		if($ok){
 			$person_id = $_POST["person"];
 			$personal_code = $_POST["code1"];
 			$current_code = $_POST["code2"];

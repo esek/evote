@@ -5,11 +5,11 @@ if(!($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["u
 }else{
     
     
+    echo "<h3>Tidigare valomgångar</h3>";
     $res = $evote->getResult();
     if ($res->num_rows > 0) {
 ?>
     	<div style="max-width: 400px">
-		<h3>Tidigare valomgångar</h3>
 		<?php
 		echo "<table class=\"table table\">";
 		$e_id = -1;
@@ -34,6 +34,8 @@ if(!($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["u
 		</div>
     
 <?php
+    }else{
+        echo "Ingenting har valts ännu";
     }
 }
 ?>

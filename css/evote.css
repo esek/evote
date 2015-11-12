@@ -55,6 +55,11 @@
     margin-right: 0px;
 }
 
+.big {
+    width: 1.4em;
+    height: 1.4em;
+}
+
 @media (min-width: 768px) {
   .navbar-collapse.collapse.sidebar {
     position: fixed;

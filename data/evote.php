@@ -3,7 +3,7 @@ require __DIR__."/slask.php";
 class Evote {
 
     private function connect(){
-        $conn = new mysqli("localhost", "evote", "evote", "evote");
+				$conn = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB);
         if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
         }

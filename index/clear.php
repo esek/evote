@@ -15,8 +15,10 @@ if(!($evote->verifyUser($_SESSION["user"], 0))){
         <input type="password" name="pswuser" class="form-control" id="psw1">
 </div>
 <div class="form-group">
-        <label for="pwd">Hemsideansvarigs lösenord:</label>
-        <input type="password" name="pswmacapar" class="form-control" id="psw2">
+        <label for="pwd">Hemsideansvarigs användarnamn och lösenord:</label>
+        <input type="text" name="namepageadmin" class="form-control">
+        <br>
+        <input type="password" name="pswpageadmin" class="form-control" id="psw2">
 </div>
 <button type="submit" class="btn btn-primary" value="delete_election" name="button">Radera val</button>
 </form>

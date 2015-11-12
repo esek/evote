@@ -160,7 +160,7 @@ class Evote {
     public function getResult(){
         $conn = $this->connect();
         
-        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id FROM elections_alternatives AS t1
+        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.active = 0)
             ORDER BY t2.id DESC, votes DESC";
@@ -174,7 +174,7 @@ class Evote {
     public function getLastResult(){
         $conn = $this->connect();
 
-        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name FROM elections_alternatives AS t1
+        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.tot_votes AS tot FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.id = (SELECT MAX(elections.id) FROM elections) AND t2.active = 0)
             ORDER BY votes DESC";
@@ -187,6 +187,7 @@ class Evote {
     }
 
     public function endRound(){
+        // Updatera antalet röster
         $conn  = $this->connect();
         $sql2 = "SELECT elections_alternatives.id AS id, elections_alternatives.name AS name, elections.name AS e_name FROM elections_alternatives
             LEFT JOIN elections ON (elections_alternatives.election_id = elections.id)
@@ -205,16 +206,23 @@ class Evote {
                 echo $conn->error;
             }
         }
-
         $conn->close();
-        $conn = $this->connect();
 
+        // aktivera koder och avsluta omgång
+        $conn = $this->connect();
         $sql = "UPDATE elections SET active=0;";
         $sql .= "UPDATE elections_codes SET active=NULL;";
         $r = $conn->multi_query($sql);
-
         $conn->close();
-        
+
+        // räkna totala antalet röster
+        $conn = $this->connect();
+        $sql3 = "UPDATE elections AS t1 SET tot_votes = ( SELECT SUM( nbr_votes ) 
+                FROM elections_alternatives AS t2
+                WHERE t2.election_id = ( 
+                SELECT MAX( t1.id ) ) )";
+        $conn->query($sql3);
+        $conn->close();
     }
 
     public function newCodes($codes){

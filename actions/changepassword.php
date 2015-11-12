@@ -4,27 +4,31 @@ require '../data/evote.php';
 $evote = new Evote();
 
 if(isset($_POST["button"])){
-	$input_ok = TRUE;
-	$msg = "";
-	$msgType == "";
-        if($_POST["psw1"] == ""){
-                $input_ok = FALSE;
-                $msg .= "Du har inte angett något lösenord";
-                $msgType = "error";
-        }
-	
-	if($input_ok){
-		$psw1 = $_POST["psw1"];
-		if($_POST["button"] == "change_admin"){
-		    $evote->createNewUser("macapar", $psw1, 1);		
-		}elseif($_POST["button"] == "change_adjust"){
-			
-		}
-                $msg .= "Lösenordet är nu bytt";
+        if($_POST["button"] == "change"){
+            
+        }else if ($_POST["button"] == "new"){
+            
+	    $input_ok = TRUE;
+	    $msg = "";
+	    $msgType == "";
+            if($_POST["psw"] == "" || $_POST["username"] == "" || $_POST["priv"] == ""){
+                    $input_ok = FALSE;
+                    $msg .= "Något av fälten är tomma.";
+                    $msgType = "error";
+            }
+	    
+	    if($input_ok){
+                $user = $_POST["username"];
+                $psw = $_POST["psw"];
+                $priv = $_POST["priv"];
+                $evote->createNewUser($user, $psw, $priv)
+
+                $msg .= "En ny användare har skapats ";
                 $msgType = "success";
-	}
-	$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-        header("Location: /useradmin");
+	    }
+	    $_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+            header("Location: /useradmin");
+        }
 	
 	
 

@@ -82,7 +82,7 @@ if(isset($_POST["button"])){
 			    $msg .= "Din röst har blivit registrerad.";
                             $msgType = "success";
                         }else{
-			    $msg .= "Din röst blev inte registrerad. ";
+			    $msg .= "Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat.";
                             $msgType = "error";
                         }
 		}
@@ -172,28 +172,31 @@ if(isset($_POST["button"])){
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
-		if($_POST["pswuser"] == ""){
+		if($_POST["pswpageadmin"] == "" || $_POST["namepageadmin"] == "" || $_POST["pswuser"] == ""){
 			$input_ok = FALSE;
-			$msg .= "Du har inte angett något lösenord. ";
-			$msgType = "error";
-		}
-		if($_POST["pswmacapar"] == ""){
-			$input_ok = FALSE;
-			$msg .= "Hemsideansvaring har inte angett sitt lösenord. ";
+			$msg .= "Alla fält är inte ifyllda. ";
 			$msgType = "error";
 		}
 		$redirect = "clear";
 		if($input_ok){
 			$psw1 = $_POST["pswuser"];
-			$psw2 = $_POST["pswmacapar"];
+                        $name_pageadmin = $_POST["namepageadmin"];
+			$psw2 = $_POST["pswpageadmin"];
 			$current_usr = $_SESSION["user"];
-			if($evote->login($current_usr, $psw1) && $evote->login("macapar", $psw2)){
-                                $evote->endSession();
-				$msg .= "Valet har blivit raderat. ";
-				$msgType = "success";
-				$redirect = "admin";
+			if($evote->login($current_usr, $psw1) && $evote->login($name_pageadmin, $psw2)){
+                                
+                                if($evote->verifyUser($name_pageadmin, 0)){
+                                    $evote->endSession();
+				    $msg .= "Valet har blivit raderat. ";
+				    $msgType = "success";
+				    $redirect = "admin";
+                                }else{
+				    $msg .= "Rättighetsfel. ";
+				    $msgType = "error";
+                                    
+                                }
 			}else{
-				$msg .= "Någon skrev in fel lösenord. ";
+				$msg .= "Fel lösenord och/eller användarnamn någonstans. ";
 				$msgType = "error";
 			}
 		}

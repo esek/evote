@@ -130,10 +130,12 @@
 		}else if($page == "useradmin"){
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "useradmin";
-				include "index/login.php";
+				//include "index/login.php";
 			}else{
 				include "index/useradminpanel.php";		
 			}
+		        include "index/useradminpanel.php";		
+
 		}
 	}else{
 		include "index/front.php";

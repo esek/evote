@@ -1,5 +1,5 @@
 <?php
-if(!($evote->verifyUser($_SESSION["user"], 0))){
+if(!($evote->verifyUser($_SESSION["user"], 1))){
 	echo "Du har inte behörighet att visa denna sida.";
 }else{
 
@@ -24,6 +24,10 @@ if($ongoingSession){
 ?></p>
 
 <?php #-------------NYTT VAL--------------
+if($evote->checkCheating()){
+    echo "Någon fuling har mixtrat i databasen.";
+}
+
 if(!$ongoingSession){ ?>
 
 	<div style="max-width: 400px">
@@ -115,7 +119,6 @@ if(!$ongoingSession){ ?>
 	}else{
 
 	$res = $evote->getOptions();
-        echo $res->num_rows;
         if($res->num_rows > 0){	
         ?>
 		<div style="max-width: 400px">

@@ -1,5 +1,5 @@
 <?php
-if(!($evote->verifyUser($_SESSION["user"], 0) || $evote->verifyUser($_SESSION["user"], 1))){
+if(!($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["user"], 2))){
 
         echo "Du har inte behörighet att visa denna sida.";
 }else{
@@ -16,7 +16,7 @@ if(!($evote->verifyUser($_SESSION["user"], 0) || $evote->verifyUser($_SESSION["u
 		$p = 1;
         	while($row = $res->fetch_assoc()) {
                         $tot = $row["tot"];
-                        $precent = "- %";
+                        $precent = "- ";
                         if($tot != 0){
                             $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
                         }

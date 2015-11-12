@@ -1,5 +1,5 @@
 <?php
-if($evote->verifyUser($_SESSION["user"], 0) || $evote->verifyUser($_SESSION["user"], 1)){
+if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["user"], 2)){
     $evote = new Evote();
     $res = $evote->getLastResult();
     if ($res->num_rows > 0) {
@@ -14,7 +14,7 @@ if($evote->verifyUser($_SESSION["user"], 0) || $evote->verifyUser($_SESSION["use
 		$p = 1;
         	while($row = $res->fetch_assoc()) {
                         $tot = $row["tot"];
-                        $precent = "- %";
+                        $precent = "- ";
                         if($tot != 0){
                             $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
                         }

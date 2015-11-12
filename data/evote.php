@@ -12,8 +12,14 @@ class Evote {
         return $conn;
     }
 
-    private function generateSalt(){
-        return "duvetvad";
+    private function generateSalt($length){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 //
 //--------------------------------------------------------------------------------------
@@ -47,7 +53,7 @@ class Evote {
             $ok = FALSE;
             while($row = $r->fetch_assoc()){
                 $hash = $row["password"];
-                $ok = crypt($password, "duvetvad") == $hash;
+                $ok = (crypt($password, $hash) == $hash) ;
             }
             return $ok;
         }else{
@@ -57,7 +63,7 @@ class Evote {
     }
 
     public function createNewUser($username, $password, $privilege){
-        $hash = crypt($password, "duvetvad"); 
+        $hash = crypt($password, '$6$'.$this->generateSalt(6).'$');
         $conn = $this->connect();
         $sql =  "INSERT INTO user (username, password, privilege) VALUES (\"$username\", \"$hash\", \"$privilege\")";
         $r = $conn->query($sql);
@@ -82,11 +88,44 @@ class Evote {
     }
 
     public function newPassword($username, $password){
-        $hash = crypt($password, "duvetvad");
+        $hash = crypt($password, '$6$'.$this->generateSalt(6).'$');
         $conn = $this->connect();
         $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
         $r = $conn->query($sql);
         
+    }
+
+    public function listUsers(){
+        $conn = $this->connect();
+        $sql =  "SELECT * FROM user";
+        return $conn->query($sql);
+    }
+
+    public function deleteUsers($users_id){
+        $conn = $this->connect();
+        $sql = "DELETE FROM user WHERE id IN ";    
+        $started = FALSE;
+        foreach($users_id as $id){
+            if(!$started){
+                $sql .= "($id ";
+                $started = TRUE;
+            }else{
+                $sql .=  ",$id";
+            }
+        }
+        if(!$started){
+            $sql .= "-1";
+        }else{
+            $sql .= ")";
+        }
+        $conn->query($sql);
+    }
+
+    public function usernameExists($username){
+        $conn = $this->connect();
+        $sql =  "SELECT * FROM user WHERE username=\"$username\"";
+        $res = $conn->query($sql);
+        return ($res->num_rows > 0); 
     }
 // DATA FUNCTIONS
 //-----------------------------------------------------------------------------
@@ -98,12 +137,12 @@ class Evote {
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $hash = $row["pass"];
-                $current_code_ok = crypt($current_code, "duvetvad") == $hash;
+                $current_code_ok = (crypt($current_code, $hash) == $hash);
             }
         }
 
-        $hash = crypt($personal_code);
-        $sql2 = "SELECT id FROM elections_codes WHERE (code=\"$personal_code\" AND active IS NULL)";
+        $hash = crypt($personal_code, "duvetvad");
+        $sql2 = "SELECT id FROM elections_codes WHERE (code=\"$hash\" AND active IS NULL)";
         $r2 = $conn->query($sql2);
         $personal_code_ok = FALSE;
         $id = -1;
@@ -128,7 +167,7 @@ class Evote {
     public function newRound($name, $code, $options){
         $conn = $this->connect();
         $ok = TRUE;
-        $hash = crypt($code, "duvetvad");
+        $hash = crypt($code, "$6$".$this->generateSalt(6)."$");
         $sql =  "INSERT INTO elections (name, pass, active) VALUES (\"$name\", \"$hash\", TRUE)";
         $last_id = -1;
         if ($conn->query($sql) === TRUE) {
@@ -204,8 +243,6 @@ class Evote {
             LEFT JOIN elections ON (elections_alternatives.election_id = elections.id)
             WHERE (elections.active = 1)";
         $r2 = $conn->query($sql2);
-        echo $conn->error;
-        echo "hej";
         if($r2->num_rows > 0){
             while($row = $r2->fetch_assoc()){
                 $alternative_id = $row["id"];
@@ -217,7 +254,17 @@ class Evote {
                 echo $conn->error;
             }
         }
+        $sql = "SELECT * FROM elections_alternatives WHERE election_id=(SELECT MAX(id) FROM elections)";
+        $r = $conn->query($sql);
+        if($r->num_rows > 0){
+            while($row = $r->fetch_assoc()){
+                $hash = crypt($row["name"].$row["nbr_votes"], "$6$".$this->generateSalt(6)."$");
+                $sql = "UPDATE elections_alternatives SET hash=\"$hash\" WHERE id=".$row["id"];
+                $conn->query($sql);
+            }
+        }
         $conn->close();
+
 
         // aktivera koder och avsluta omgång
         $conn = $this->connect();
@@ -241,8 +288,8 @@ class Evote {
 
         $sql = "";
         foreach($codes as $c){
-            $hash = crypt($c);
-            $sql .= "INSERT INTO elections_codes (code, active) VALUES (\"$c\", NULL);";
+            $hash = crypt($c, "duvetvad");
+            $sql .= "INSERT INTO elections_codes (code, active) VALUES (\"$hash\", NULL);";
         }
         $r = $conn->multi_query($sql);
 
@@ -268,6 +315,24 @@ class Evote {
         $conn->multi_query($sql);
         $conn->close();
 
+    }
+
+    public function checkCheating(){
+        $conn = $this->connect();
+        
+        $ok = FALSE;
+        $sql = "SELECT * FROM elections_alternatives WHERE hash IS NOT NULL";
+        $r = $conn->query($sql);
+        if($r->num_rows > 0){
+            while($row = $r->fetch_assoc()){
+                $test = $row["name"].$row["nbr_votes"];
+                if(!(crypt($test, $row["hash"]) == $row["hash"])){
+                    $ok = TRUE;
+                }
+            }
+        }
+
+        return $ok;        
     }
 
 }

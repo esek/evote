@@ -132,7 +132,7 @@
 				$_SESSION["redirect"] = "useradmin";
 				//include "index/login.php";
 			}else{
-				include "index/useradminpanel.php";
+				//include "index/useradminpanel.php";
 			}
 		        include "index/useradminpanel.php";
 

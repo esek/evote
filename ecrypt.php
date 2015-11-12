@@ -21,7 +21,7 @@ class ECrypt
     }
 
     /**
-        Generates an array of one-time passwords (OTPs). 
+        Generates an array of one-time passwords (OTPs).
         6 chars should be sufficient with 62**6 (56e9) possible values.
         Should only be generated once every annual election!
 
@@ -29,12 +29,12 @@ class ECrypt
         @return             A list of OTPs
     */
     public function generate_otp($number) {
-        
+
         $otp_array = array();
         $count = 0;
         while($count < $number) {
-            $pass = $this->generator->generateString(6, $this->alpha);
-            
+            $pass = $this->generator->generateString(5, $this->alpha);
+
             // don't want collisions
             if (in_array($pass, $otp_array)) continue;
 
@@ -56,15 +56,15 @@ class ECrypt
     */
     public function decrypt_results($enc_results, $passphrase) {
 
-        $privkey = openssl_get_privatekey(file_get_contents('keys/privkey.pem'), 
+        $privkey = openssl_get_privatekey(file_get_contents('keys/privkey.pem'),
                 $passphrase);
         $dec_results = array();
-        
+
         foreach ($enc_results as $enc) {
             openssl_private_decrypt($enc, $dec, $privkey);
             $dec_results[] = $dec;
         }
-        
+
         // destroy trace of key, else "all your base are belong to us"
         openssl_free_key($privkey);
 

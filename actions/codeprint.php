@@ -1,36 +1,36 @@
 <?php
+
+function decode_str($string){
+	return iconv('UTF-8', 'windows-1252', $string);
+}
 if($evote->verifyUser($_SESSION["user"], 0)){
 	require("../fpdf/fpdf.php");
 	$pdf = new FPDF();
 	$pdf->AddPage();
 	$pdf->SetFont('Courier','B',16);
-	
-	$title = "E-vote - PERSONLIGA KODER";
-	$pdf->Cell(190,10,$title);
-	$pdf->Ln();
-	
 
-	$pdf->SetFont('Courier','',15);
-        
-	$out = "";
-	$lenght = 0;
-	$breaklenght = 6;
-	$line = "";
-	for($i=0;$i<(6+3)*$breaklenght;$i++)
-		$line .= "-";
-	
+	$count = 0;
+	$instr_per_page = 3;
+	$instructions = decode_str(file_get_contents(__DIR__."/../data/code_instr.txt"));
 	foreach($codes as $c){
-		if($lenght >= $breaklenght){
-			$out .= "|\n";
-			$out .= $line."\n";
-			$lenght = 0; 
+		$count ++;
+		$title = decode_str("E-vote, E-sektionens röstningssystem evote.esek.se");
+		$pdf->Ln();
+		$pdf->Cell(190,10,$title);
+		$pdf->Ln();
+		$pdf->SetFont('Arial','',8);
+		$pdf->Multicell(190, 4, $instructions);
+		$pdf->SetFont('Arial','',12);
+		$pdf->Ln();
+		$pdf->Multicell(190,10,decode_str("Din personliga kod är"), 0, 'C', false);
+		$pdf->SetFont('Courier','B',16);
+		$pdf->SetFillColor(215, 215, 215);
+		$pdf->Multicell(190,10,$c, 0, 'C', true);
+		$pdf->Ln();
+		if($count % $instr_per_page == 0){
+			$pdf->AddPage();
 		}
-		$out .= "| ".$c." ";
-		$lenght++;
 	}
-	$out .= "|";
-	
-	$pdf->Multicell(190,10,$out);
 	$pdf->Output();
 }else{
 	echo "Fy! Så får du inte göra.";

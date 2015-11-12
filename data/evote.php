@@ -1,15 +1,16 @@
 <?php
+require __DIR__."/slask.php";
 class Evote {
 
     private function connect(){
-        $conn = new mysqli("localhost", "evote", "evote", "evote");
+	$conn = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB);
         if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
-        } 
+        }
         return $conn;
     }
-// 
-//--------------------------------------------------------------------------------------        
+//
+//--------------------------------------------------------------------------------------
     public function ongoingSession(){
         $conn = $this->connect();
         $sql =  "SELECT active FROM sessions WHERE (active=1)";
@@ -28,7 +29,7 @@ class Evote {
             return TRUE;
         }
 	return FALSE;
-    }   
+    }
 
 // USER FUNCTIONS
 //--------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ class Evote {
         }else{
 	    return FALSE;
         }
-        
+
     }
 
     public function createNewUser($username, $password, $privilege){
@@ -104,7 +105,7 @@ class Evote {
         if($r2->num_rows > 0){
             while($row = $r2->fetch_assoc()){
                     $personal_code_ok = TRUE;
-                    $id = $row["id"]; 
+                    $id = $row["id"];
             }
         }
 
@@ -144,7 +145,7 @@ class Evote {
                 echo "Error creating database: " . $conn->error;
                 $ok = FALSE;
         }
-        
+
         $conn->close();
         return $ok;
     }
@@ -152,7 +153,7 @@ class Evote {
     public function getOptions(){
         $conn = $this->connect();
         $ok = TRUE;
-        
+
         $sql = "SELECT elections_alternatives.id AS id, elections_alternatives.name AS name, elections.name AS e_name FROM elections_alternatives
             LEFT JOIN elections ON (elections_alternatives.election_id = elections.id)
             WHERE (elections.active = 1)";
@@ -166,7 +167,7 @@ class Evote {
 
     public function getResult(){
         $conn = $this->connect();
-        
+
         $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.active = 0)
@@ -224,9 +225,9 @@ class Evote {
 
         // räkna totala antalet röster
         $conn = $this->connect();
-        $sql3 = "UPDATE elections AS t1 SET tot_votes = ( SELECT SUM( nbr_votes ) 
+        $sql3 = "UPDATE elections AS t1 SET tot_votes = ( SELECT SUM( nbr_votes )
                 FROM elections_alternatives AS t2
-                WHERE t2.election_id = ( 
+                WHERE t2.election_id = (
                 SELECT MAX( t1.id ) ) )";
         $conn->query($sql3);
         $conn->close();
@@ -241,8 +242,8 @@ class Evote {
             $sql .= "INSERT INTO elections_codes (code, active) VALUES (\"$c\", NULL);";
         }
         $r = $conn->multi_query($sql);
-        
-        $conn->close(); 
+
+        $conn->close();
     }
 
     public function newSession($name){
@@ -263,7 +264,7 @@ class Evote {
         $sql .= "TRUNCATE TABLE elections_usage;";
         $conn->multi_query($sql);
         $conn->close();
-        
+
     }
 
 }

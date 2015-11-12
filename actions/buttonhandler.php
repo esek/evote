@@ -74,7 +74,7 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte angett någon tillfällig valkod. ";
 			$msgType = "error";
 		}
-                if(!$this->ongoingRound()){
+                if(!$evote->ongoingRound()){
                     $ok = FALSE;
 		    $msg .= "Valomgången har redan avslutats. ";
 		    $msgType = "error";
@@ -194,7 +194,7 @@ if(isset($_POST["button"])){
                                 
                                 if($evote->verifyUser($name_pageadmin, 0)){
                                     $evote->endSession();
-				    $msg .= "Valet har blivit raderat. ";
+				    $msg .= "Valet är nu stängt. ";
 				    $msgType = "success";
 				    $redirect = "admin";
                                 }else{

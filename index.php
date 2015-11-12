@@ -22,7 +22,8 @@
         <div class ="row">
             <div class="col-md-4">
                 <div class="logo">
-                    <div><h3><span class="label label-info">E-vote - Ditt digitala röstsystem</span></h3></div>
+                    <!--<div><h3><span class="label label-info">E-vote - Ditt digitala röstsystem</span></h3></div> -->
+										<img src="logo.jpg" />
                 </div>
             </div>
         </div>
@@ -54,7 +55,7 @@
                         </li>
                     </ul>
                 </div>-->
-            </div>  
+            </div>
         </div>
     </div>
 
@@ -92,7 +93,7 @@
 		echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";
 		echo "</div>";
 		unset($_SESSION["message"]);
-		
+
 	}
 	$page = trim($_SERVER['REQUEST_URI'],'/');
 	if(!empty($page)){
@@ -103,37 +104,37 @@
 				$_SESSION["redirect"] = "admin";
 				include "index/login.php";
 			}else{
-				include "index/adminpanel.php";		
+				include "index/adminpanel.php";
 			}
 		}else if($page == "stat"){
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "stat";
 				include "index/login.php";
 			}else{
-				include "index/stat.php";		
+				include "index/stat.php";
 			}
 		}else if($page == "clear"){
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "clear";
 				include "index/login.php";
 			}else{
-				include "index/clear.php";		
+				include "index/clear.php";
 			}
 		}else if($page == "adjust"){
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "adjust";
 				include "index/login.php";
 			}else{
-				include "index/adjustpanel.php";		
+				include "index/adjustpanel.php";
 			}
 		}else if($page == "useradmin"){
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "useradmin";
 				//include "index/login.php";
 			}else{
-				include "index/useradminpanel.php";		
+				include "index/useradminpanel.php";
 			}
-		        include "index/useradminpanel.php";		
+		        include "index/useradminpanel.php";
 
 		}
 	}else{

@@ -65,7 +65,7 @@
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-                <li class="nav-header disabled"><a>Paneler</a></li>
+                <!--<li class="nav-header disabled"><a>Paneler</a></li>-->
                 <li><a href="front">Röstningssida</a></li>
                 <li><a href="admin">Admin</a></li>
                 <li><a href="adjust">Justerare</a></li>
@@ -84,10 +84,10 @@
 		$info = "";
 		if($_SESSION["message"]["type"] == "error"){
 			echo "<div class=\"panel panel-danger\">";
-			$info = "Fel!";
+			$info = "*Ledset ljud*";
 		}else{
 			echo "<div class=\"panel panel-success\">";
-			$info = "Nice!";
+			$info = "*Glad trumpetfanfar*";
 		}
 		echo "<div class=\"panel-heading\">".$info."</div>";
 		echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";
@@ -130,12 +130,10 @@
 		}else if($page == "useradmin"){
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "useradmin";
-				//include "index/login.php";
+				include "index/login.php";
 			}else{
-				//include "index/useradminpanel.php";
+				include "index/useradminpanel.php";
 			}
-		        include "index/useradminpanel.php";
-
 		}
 	}else{
 		include "index/front.php";

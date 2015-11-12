@@ -35,11 +35,11 @@ if(!$ongoingSession){ ?>
 	<form action="actions/buttonhandler.php" method="POST">
 	<div class="form-group">
 	        <label for="vn">Namn på val:</label>
-	        <input type="text" name="valnamn" class="form-control" id="vn">
+	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
 	</div>
 	<div class="form-group" style="max-width: 150px">
 	        <label for="ap">Max antal personer:</label>
-	        <input type="number" name="antal_personer" class="form-control" id="ap" min="1">
+	        <input type="number" name="antal_personer" class="form-control" id="ap" min="1" autocomplete="off">
 	</div>
 	<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
 	</form>

@@ -42,7 +42,6 @@ class Evote {
             while($row = $r->fetch_assoc()){
                 $hash = $row["password"];
                 $ok = crypt($password, "duvetvad") == $hash;
-                $ok = password_verify($password, $hash);
             }
             return $ok;
         }else{
@@ -93,7 +92,7 @@ class Evote {
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $hash = $row["pass"];
-                $current_code_ok = password_verify($current_code, $hash);
+                $current_code_ok = crypt($current_code, "duvetvad") == $hash;
             }
         }
 
@@ -123,7 +122,7 @@ class Evote {
     public function newRound($name, $code, $options){
         $conn = $this->connect();
         $ok = TRUE;
-        $hash = password_hash($code, PASSWORD_DEFAULT);
+        $hash = crypt($code, "duvetvad");
         $sql =  "INSERT INTO elections (name, pass, active) VALUES (\"$name\", \"$hash\", TRUE)";
         $last_id = -1;
         if ($conn->query($sql) === TRUE) {

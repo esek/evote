@@ -51,6 +51,10 @@
   margin-bottom: 0px;
 }
 
+.row {
+    margin-right: 0px;
+}
+
 @media (min-width: 768px) {
   .navbar-collapse.collapse.sidebar {
     position: fixed;
@@ -113,7 +117,7 @@
   
   .logo {
     height: 75px;
-    padding: 12px 30px;
+    padding: 12px;
     display: block;
   }
 

@@ -36,7 +36,7 @@ if(!$evote->ongoingSession()){
 		<input type="text" class="form-control" name="code2">	
 		</div>
 		<br>
-		<button type="submit" class="btn btn-primary" value="vote" name="button">Rösta!</button>
+		<button type="submit" class="btn-lg btn-primary" value="vote" name="button">Rösta!</button>
 		</form>
 		</div>
 <?php

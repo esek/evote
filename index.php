@@ -13,7 +13,6 @@
 
     <link href="css/evote.css" rel="stylesheet">
 
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>

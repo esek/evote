@@ -160,8 +160,10 @@ if(isset($_POST["button"])){
 			    $msgType = "error";
 
                         }
+
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+                //header("HTTP/1.1 301 Moved Permanently");
 		header("Location: /admin");
 
 	}else if($_POST["button"]=="end_round"){ # AVSLUTA VALOMGÅNG KNAPPEN

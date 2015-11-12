@@ -1,5 +1,7 @@
 <?php
 require __DIR__."/slask.php";
+//crypt($pass, '$6$'.$salt.'$');
+//crypt($pass, $hash) == $hash;
 class Evote {
 
     private function connect(){
@@ -8,6 +10,10 @@ class Evote {
                 die("Connection failed: " . $conn->connect_error);
         }
         return $conn;
+    }
+
+    private function generateSalt(){
+        return "duvetvad";
     }
 //
 //--------------------------------------------------------------------------------------
@@ -133,12 +139,12 @@ class Evote {
                 $ok = FALSE;
         }
 
-        $sql2 = "";
+        $sql2 = "INSERT INTO elections_alternatives (election_id, name, nbr_votes) VALUES";
         foreach ($options as $opt){
-            $sql2 .= "INSERT INTO elections_alternatives (election_id, name, nbr_votes) VALUES (\"$last_id\",\"$opt\", 0);";
+            $sql2 .= "(\"$last_id\",\"$opt\", 0),";
         }
-        $sql2 .= "INSERT INTO elections_alternatives (election_id, name, nbr_votes) VALUES (\"$last_id\",\"-Blank-\" , 0);";
-        if ($conn->multi_query($sql2) === TRUE) {
+        $sql2 .= "(\"$last_id\",\"-Blank-\" , 0)";
+        if ($conn->query($sql2) === TRUE) {
                 echo "Database created successfully";
         } else {
                 echo "Error creating database: " . $conn->error;
@@ -151,8 +157,6 @@ class Evote {
 
     public function getOptions(){
         $conn = $this->connect();
-        $ok = TRUE;
-
         $sql = "SELECT elections_alternatives.id AS id, elections_alternatives.name AS name, elections.name AS e_name FROM elections_alternatives
             LEFT JOIN elections ON (elections_alternatives.election_id = elections.id)
             WHERE (elections.active = 1)";

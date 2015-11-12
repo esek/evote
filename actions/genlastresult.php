@@ -7,9 +7,9 @@ if($evote->verifyUser($_SESSION["user"], 0) || $evote->verifyUser($_SESSION["use
 
 
     <div style="max-width: 400px">
-		<h3>Förrgående valomgång</h3>
+		<h3>Föregående valomgång</h3>
 		<?php
-		echo "<table class=\"table table\">";
+		echo "<table class=\"table\">";
 		$head = "";
 		$p = 1;
         	while($row = $res->fetch_assoc()) {

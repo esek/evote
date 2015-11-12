@@ -3,9 +3,9 @@ if(!($evote->verifyUser($_SESSION["user"], 0))){
         echo "Du har inte behörighet att visa denna sida.";
 }else{
 ?>
-<h3>Radera nuvarnade val</h3>
+<h3>Stäng nuvarande val</h3>
 <div style="max-width: 400px">
-	För att det inte ska vara möjligt att radera ett val vid fel tillfälle (typ när valet pågår) måste du som är inloggad och hemsideansvarig båda slå in era lösenord nedan för att det ska gå igenom.
+	För att det inte ska vara möjligt att stänga ett val vid fel tillfälle (typ när valet pågår) måste du som är inloggad och hemsideansvarig båda slå in era lösenord nedan för att det ska gå igenom.
 </div>
 <br>
 <div style="max-width: 400px">

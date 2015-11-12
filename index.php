@@ -84,7 +84,7 @@
 		$info = "";
 		if($_SESSION["message"]["type"] == "error"){
 			echo "<div class=\"panel panel-danger\">";
-			$info = "*Ledset ljud*";
+			$info = "Whoops!";
 		}else{
 			echo "<div class=\"panel panel-success\">";
 			$info = "*Glad trumpetfanfar*";

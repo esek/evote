@@ -1,7 +1,5 @@
 <?php
-session_start();
-if($_SESSION["user"]=="admin"){
-	ini_set('display_errors', 1);
+if($evote->verifyUser($_SESSION["user"], 0)){
 	require("../fpdf/fpdf.php");
 	$pdf = new FPDF();
 	$pdf->AddPage();
@@ -11,16 +9,9 @@ if($_SESSION["user"]=="admin"){
 	$pdf->Cell(190,10,$title);
 	$pdf->Ln();
 	
-	/*
-		TODO
-		Listan $codes ska få sina värden från koderna i databasen
-	*/
+
 	$pdf->SetFont('Courier','',15);
-	$codes[0] = "0"; 
-	for($i = 0; $i<300; $i++){
-		$codes[$i] = "17xxCx";
-	}
-	
+        
 	$out = "";
 	$lenght = 0;
 	$breaklenght = 6;

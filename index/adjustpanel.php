@@ -1,15 +1,12 @@
 <?php
-#if(!($_SESSION["user"] == "adjust")){
-#        echo "Du har inte behörighet att visa denna sida.";
-#}else{
+if(!($evote->verifyUser($_SESSION["user"], 0))){
+        echo "Du har inte behörighet att visa denna sida.";
+}else{
 
-require "data/evote.php";
-$evote = new Evote();
-
-$election_id = $evote->getElectionId();
+$ongoingSession = $evote->ongoingSession();
 
 $buttonstate = "disabled";
-if($election_id != NULL){
+if($ongoingSession){
         $buttonstate = "active";
 }
 ?>
@@ -25,11 +22,11 @@ if($election_id != NULL){
 ?></p>
 
 <?php
-if($election_id !=  NULL){
+if($ongoingSession){
 	include "actions/genlastresult.php";
 }else{
 	echo "<h3>Det pågår inget val</h3>";
 }
 
-#}
+}
 ?>

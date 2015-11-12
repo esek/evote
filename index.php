@@ -78,6 +78,8 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <?php
 	session_start();
+        require "data/evote.php";
+        $evote = new Evote();
 	if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
 		$info = "";
 		if($_SESSION["message"]["type"] == "error"){

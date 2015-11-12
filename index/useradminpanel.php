@@ -1,5 +1,5 @@
 <?php
-if(!($_SESSION["user"] == "ddg")){
+if(!($evote->verifyUser($_SESSION["user"], 0))){
         echo "Du har inte behörighet att visa denna sida.";
 }else{
 
@@ -10,27 +10,30 @@ echo "</div>";
 echo "</form>";
 ?>
 
-<h3>Ändra lösenord</h3>
 <div style="max-width: 400px">
-
-</div>
-<br>
-<div style="max-width: 400px">
-<form action="actions/changepassword.php" method="POST">
-<div class="form-group">
-        <label>Nytt lösenord för valadmin:</label>
-        <input type="password" name="psw1" class="form-control" style="margin-bottom: 3px">
-<button type="submit" class="btn btn-warning" value="change_admin" name="button">Byt Lösenord</button>
-</div>
-</form>
-<br>
-<form action="actions/changepassword.php" method="POST">
-<div class="form-group">
-        <label>Nytt lösenord för justerare:</label>
-        <input type="password" name="psw1" class="form-control" style="margin-bottom: 3px">
-<button type="submit" class="btn btn-warning" value="change_adjust" name="button">Byt Lösenord</button>
-</div>
-</form>
+    <h3>Ändra lösenord</h3>
+    <form action="actions/changepassword.php" method="POST">
+    <div class="form-group">
+            <label>Användarnamn:</label>
+            <input type="text" name="username" class="form-control" style="margin-bottom: 3px">
+            <label>Nytt lösenord:</label>
+            <input type="password" name="psw" class="form-control" style="margin-bottom: 3px">
+    <button type="submit" class="btn btn-default" value="change" name="button">Byt Lösenord</button>
+    </div>
+    </form>
+    <br>
+    <h3>Ny användare</h3>
+    <form action="actions/changepassword.php" method="POST">
+    <div class="form-group">
+            <label>Användarnamn:</label>
+            <input type="text" name="username" class="form-control" style="margin-bottom: 3px">
+            <label>Lösenord:</label>
+            <input type="password" name="psw" class="form-control" style="margin-bottom: 3px">
+            <label>Privilegier:</label>
+            <input type="text" name="priv" class="form-control" style="margin-bottom: 3px">
+    <button type="submit" class="btn btn-default" value="new" name="button">Byt Lösenord</button>
+    </div>
+    </form>
 </div>
 
 <?php

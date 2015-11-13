@@ -79,15 +79,16 @@
 <?php
 	session_start();
         require "data/evote.php";
+        require "data/RandomInfo.php";
         $evote = new Evote();
+        $randomString = new RandomInfo();
 	if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
-		$info = "";
-		if($_SESSION["message"]["type"] == "error"){
+        $type = $_SESSION["message"]["type"];
+        $info = $randomString->generateTip($type);
+		if($type == "error"){
 			echo "<div class=\"panel panel-danger\">";
-			$info = "Whoops!";
-		}else{
+		}else if($type == "success"){
 			echo "<div class=\"panel panel-success\">";
-			$info = "*Glad trumpetfanfar*";
 		}
 		echo "<div class=\"panel-heading\">".$info."</div>";
 		echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";

@@ -92,7 +92,7 @@ class Evote {
         $conn = $this->connect();
         $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
         $r = $conn->query($sql);
-        
+
     }
 
     public function listUsers(){
@@ -103,7 +103,7 @@ class Evote {
 
     public function deleteUsers($users_id){
         $conn = $this->connect();
-        $sql = "DELETE FROM user WHERE id IN ";    
+        $sql = "DELETE FROM user WHERE id IN ";
         $started = FALSE;
         foreach($users_id as $id){
             if(!$started){
@@ -125,7 +125,7 @@ class Evote {
         $conn = $this->connect();
         $sql =  "SELECT * FROM user WHERE username=\"$username\"";
         $res = $conn->query($sql);
-        return ($res->num_rows > 0); 
+        return ($res->num_rows > 0);
     }
 // DATA FUNCTIONS
 //-----------------------------------------------------------------------------
@@ -319,7 +319,7 @@ class Evote {
 
     public function checkCheating(){
         $conn = $this->connect();
-        
+
         $ok = FALSE;
         $sql = "SELECT * FROM elections_alternatives WHERE hash IS NOT NULL";
         $r = $conn->query($sql);
@@ -332,7 +332,7 @@ class Evote {
             }
         }
 
-        return $ok;        
+        return $ok;
     }
 
 }

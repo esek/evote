@@ -1,12 +1,12 @@
 <?php
 if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["user"], 2)){
-    echo  "<h3>Föregående valomgång</h3>";
+
     $evote = new Evote();
     $res = $evote->getLastResult();
     if ($res->num_rows > 0) {
 ?>
 
-
+    <h3>Föregående valomgång</h3>
     <div style="max-width: 400px">
 		<?php
 		echo "<table class=\"table\">";
@@ -19,7 +19,9 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
                             $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
                         }
         		if($head != $row["e_name"]){
-                                echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]." ($tot röster)</th></tr>";
+                                echo "<tr style=\"background-color: rgb(232,232,232);\">
+                                    <th colspan=\"2\">".$row["e_name"]." <wbr>($tot röster)</th>
+                                    </tr>";
         			$head = $row["e_name"];
         			$p = 1;
         		}
@@ -32,10 +34,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 		</div>
 <?php
     }else{
-        echo "Ingenting har valts ännu";
-    }
-    if($evote->ongoingRound()){
-       echo "Vänta tills valomgången är slut." ;
+        echo "Var vänlig vänta. Röstning pågår.";
     }
 }
 ?>

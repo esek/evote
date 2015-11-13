@@ -22,7 +22,7 @@ if($ongoingSession){
 	echo "</div>";
 	echo "</form>";
 ?></p>
-
+	<hr>
 <?php #-------------NYTT VAL--------------
 if($evote->checkCheating()){
     echo "Någon fuling har mixtrat i databasen.";
@@ -71,7 +71,7 @@ if(!$ongoingSession){ ?>
 ?> -->
                 <br>
                 <div><h4><b>Alternativ:</b></h4></div>
-                <div class="form-group">Öka/minska antalet fält: 
+                <div class="form-group">Öka/minska antalet fält:
                     <div class="btn-group">
                     <button type="button" class="btn btn-default" id="remove_button" onclick="removeField()">-</button>
                     <button type="button" class="btn btn-default" id="add_button" onclick="addField()">+</button>
@@ -81,7 +81,7 @@ if(!$ongoingSession){ ?>
                 <div class="input_fields_wrap form-group" id="input_wrapper">
                     <div><input type="text" class="form-control" name="candidates[]" autocomplete="off"/><br></div>
                     <div><input type="text" class="form-control" name="candidates[]" autocomplete="off"/><br></div>
-                </div>                        
+                </div>
                 <script >
                    function addField(){
         		var container = document.getElementById("input_wrapper");
@@ -91,7 +91,7 @@ if(!$ongoingSession){ ?>
                         input.type = "text";
                         input.className = "form-control";
                         input.name = "candidates[]";
-                        input.setAttribute( "autocomplete", "off" ); 
+                        input.setAttribute( "autocomplete", "off" );
                         //cdiv.appendChild(t);
                         cdiv.appendChild(input);
                         cdiv.appendChild(document.createElement("br"));
@@ -111,21 +111,21 @@ if(!$ongoingSession){ ?>
 	        </form>
 	        </div>
 		<br><br>
-		
+
 		<?php
 		include "actions/genlastresult.php";
-                
+
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{
 
 	$res = $evote->getOptions();
-        if($res->num_rows > 0){	
+        if($res->num_rows > 0){
         ?>
 		<div style="max-width: 400px">
 		<h3>Röstning pågår:</h3>
 		<?php
                 $head = "";
-		echo "<table class=\"table table\">";	
+		echo "<table class=\"table table\">";
                 while($row = $res->fetch_assoc()){
                     if($head != $row["e_name"]){
 		        echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
@@ -134,7 +134,7 @@ if(!$ongoingSession){ ?>
 		    echo "<tr><td>".$row["name"]." </td></tr>\n";
                 }
 		echo "</table>";
-			
+
 		echo "<form action=actions/buttonhandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
@@ -145,4 +145,3 @@ if(!$ongoingSession){ ?>
 }
 }
 ?>
- 

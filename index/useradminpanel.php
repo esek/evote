@@ -9,7 +9,7 @@ echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-p
 echo "</div>";
 echo "</form>";
 ?>
-
+<hr>
 <div style="max-width: 400px">
     <h3>Ändra lösenord</h3>
     <form action="actions/userhandler.php" method="POST">
@@ -40,8 +40,8 @@ echo "</form>";
     <div class="form-group">
             <?php
             $res = $evote->listUsers();
-            if($res->num_rows > 0){	
-    		echo "<table class=\"table\">";	
+            if($res->num_rows > 0){
+    		echo "<table class=\"table\">";
                 echo "<tr style=\"background-color: rgb(232,232,232);\">
                         <th class=\"col-xs-2 col-md-2\">Välj</th>
                         <th class=\"col-xs-7 col-md-7\">Namn</th>
@@ -60,7 +60,7 @@ echo "</form>";
                         echo "</tr>";
                     }
     		echo "</table>";
-    			
+
     		}
             ?>
             <button type="submit" class="btn btn-primary" value="delete_users" name="button">Ta bort markerade användare</button>
@@ -71,4 +71,3 @@ echo "</form>";
 <?php
 }
 ?>
-

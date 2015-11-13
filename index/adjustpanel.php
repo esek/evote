@@ -20,7 +20,7 @@ if($ongoingSession){
 	echo "</div>";
         echo "</form>";
 ?></p>
-
+<hr>
 <?php
 if($ongoingSession){
 	include "actions/genlastresult.php";

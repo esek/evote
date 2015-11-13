@@ -1,6 +1,6 @@
-
-	<div style="max-width: 400px">
 	<h3>Logga in</h3>
+	<hr>
+	<div style="max-width: 400px">
 	<form action="actions/buttonhandler.php" method="POST">
 	<div class="form-group">
   		<label for="usr">Namn:</label>
@@ -13,4 +13,3 @@
 	<button type="submit" class="btn btn-primary" name="button" value="login" name="login">Logga in</button>
 	</form>
 	</div>
-

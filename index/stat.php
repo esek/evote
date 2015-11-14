@@ -27,8 +27,8 @@ if(!($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["u
         			$e_id = $row["e_id"];
         			$p = 1;
                         }
-        		echo "<tr><td class=\"col-md-4\"><b>$p</b> (".$row["votes"].", $precent) </td>
-                        	<td class=\"col-md-8\">".$row["name"]."</td></tr>\n";
+        		echo "<tr><td class=\"col-md-4 col-xs-4\"><b>$p</b> (".$row["votes"].", $precent) </td>
+                        	<td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";
                         $p++;
          	}
          	echo "</table>";

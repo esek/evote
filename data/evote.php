@@ -286,12 +286,19 @@ class Evote {
     public function newCodes($codes){
         $conn = $this->connect();
 
-        $sql = "";
+        $sql = "INSERT INTO elections_codes (code, active) VALUES ";
+        $count = 0;
         foreach($codes as $c){
             $hash = crypt($c, "duvetvad");
-            $sql .= "INSERT INTO elections_codes (code, active) VALUES (\"$hash\", NULL);";
+            if($count == 0){
+                $sql .= "(\"$hash\", NULL)";
+            }else{
+                $sql .= ", (\"$hash\", NULL)";
+            }
+            $count++;
+            //$sql .= "INSERT INTO elections_codes (code, active) VALUES (\"$hash\", NULL);";
         }
-        $r = $conn->multi_query($sql);
+        $r = $conn->query($sql);
 
         $conn->close();
     }

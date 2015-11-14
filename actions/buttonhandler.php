@@ -5,10 +5,10 @@ require '../data/evote.php';
 $evote = new Evote();
 
 if(isset($_POST["button"])){
-# ------------- NAV-BUTTONS ------------------------------------	
-	if($_POST["button"]=="login"){ 
+# ------------- NAV-BUTTONS ------------------------------------
+	if($_POST["button"]=="login"){
 		$input_ok = TRUE;
-		$msg = "";	
+		$msg = "";
 		$msgType = "";
 		if($_POST["usr"] == ""){
 			$input_ok = FALSE;
@@ -20,7 +20,7 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte angett något lösenord ";
 			$msgType = "error";
 		}
-		
+
 		if($input_ok){
 			$usr = $_POST["usr"];
 			$psw = $_POST["psw"];
@@ -28,11 +28,11 @@ if(isset($_POST["button"])){
 
 			if($correct){
 				$_SESSION["user"] = $usr;
-				
+
 			}else{
 				$msg .= "Användarnamet och/eller lösenordet är fel. ";
 				$msgType = "error";
-			}	
+			}
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		$redirect = $_SESSION["redirect"];
@@ -41,23 +41,23 @@ if(isset($_POST["button"])){
 	}else if($_POST["button"]=="stat"){
 		header("Location: /stat");
 
-	}else if($_POST["button"]=="print"){ 
+	}else if($_POST["button"]=="print"){
                 //require "../ecrypt.php";
                 //$ecrypt = new ECrypt();
                 //$codes = $ecrypt->generate_otp(50);
                 //include "codeprint.php";
                 $evote->endRound();
 
-	}else if($_POST["button"]=="clear"){ 
+	}else if($_POST["button"]=="clear"){
 		header("Location: /clear");
 
-	}else if($_POST["button"]=="logout"){ 
-		session_unset();	
+	}else if($_POST["button"]=="logout"){
+		session_unset();
 		header("Location: /front");
 # ------------ ACTION BUTTONS ---------------------------------
 	}else if($_POST["button"]=="vote"){ # RÖSTA KNAPPEN I FRONT-PANELEN
 		$ok = TRUE;
-		$msg = "";	
+		$msg = "";
 		$msgType = "";
 		if(!isset($_POST["person"])){
 			$ok = FALSE;
@@ -149,7 +149,7 @@ if(isset($_POST["button"])){
 			$input_ok = FALSE;
 			$msg .= "Du måste ange minst två kandidater. ";
 			$msgType = "error";
-			
+
 		}
 		if($input_ok){
 			$round_name = $_POST["round_name"];
@@ -191,7 +191,7 @@ if(isset($_POST["button"])){
 			$psw2 = $_POST["pswpageadmin"];
 			$current_usr = $_SESSION["user"];
 			if($evote->login($current_usr, $psw1) && $evote->login($name_pageadmin, $psw2)){
-                                
+
                                 if($evote->verifyUser($name_pageadmin, 0)){
                                     $evote->endSession();
 				    $msg .= "Valet är nu stängt. ";
@@ -200,7 +200,7 @@ if(isset($_POST["button"])){
                                 }else{
 				    $msg .= "Rättighetsfel. ";
 				    $msgType = "error";
-                                    
+
                                 }
 			}else{
 				$msg .= "Fel lösenord och/eller användarnamn någonstans. ";
@@ -213,4 +213,3 @@ if(isset($_POST["button"])){
 	}
 }
 ?>
-

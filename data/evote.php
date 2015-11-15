@@ -40,7 +40,18 @@ class Evote {
         if($r->num_rows > 0){
             return TRUE;
         }
-	return FALSE;
+	    return FALSE;
+    }
+
+    public function countRounds(){
+        $conn = $this->connect();
+        $sql =  "SELECT COUNT(id) FROM elections";
+        $r = $conn->query($sql);
+        $count = 0;
+        while($row = $r->fetch_array()){
+            $count = $row[0];
+        }
+        return $count;
     }
 
 // USER FUNCTIONS

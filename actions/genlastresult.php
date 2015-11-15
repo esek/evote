@@ -33,6 +33,8 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 		?>
 		</div>
 <?php
+    }else if($evote->countRounds() == 0){
+        echo "Ingenting har valts ännu.";
     }else{
         echo "Var vänlig vänta. Röstning pågår.";
     }

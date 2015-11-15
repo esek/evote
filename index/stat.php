@@ -6,6 +6,7 @@ if(!($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["u
 
 
     echo "<h3>Tidigare valomgångar</h3>";
+    echo "<hr>";
     $res = $evote->getResult();
     if ($res->num_rows > 0) {
 ?>

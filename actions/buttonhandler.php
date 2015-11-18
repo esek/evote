@@ -63,6 +63,11 @@ if(isset($_POST["button"])){
 			$ok = FALSE;
 			$msg .= "Du har inte valt någon att rösta på. ";
 			$msgType = "error";
+		}elseif($evote->getMaxAlternatives() < $_POST["person"].length){
+			// om någon stänger av javascriptet.
+			$ok = FALSE;
+		    $msg .= "FYY! Du får inte hacka sidan. ";
+		    $msgType = "error";
 		}
 		if($_POST["code1"] == ""){
 			$ok = FALSE;
@@ -74,22 +79,23 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte angett någon tillfällig valkod. ";
 			$msgType = "error";
 		}
-                if(!$evote->ongoingRound()){
-                    $ok = FALSE;
+        if(!$evote->ongoingRound()){
+            $ok = FALSE;
 		    $msg .= "Valomgången har redan avslutats. ";
 		    $msgType = "error";
-                }
+        }
+
 		if($ok){
 			$person_id = $_POST["person"];
 			$personal_code = $_POST["code1"];
 			$current_code = $_POST["code2"];
-                        if($evote->vote($person_id, $personal_code, $current_code)){
+            if($evote->vote($person_id, $personal_code, $current_code)){
 			    $msg .= "Din röst har blivit registrerad.";
-                            $msgType = "success";
-                        }else{
+                $msgType = "success";
+            }else{
 			    $msg .= "Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat.";
-                            $msgType = "error";
-                        }
+                $msgType = "error";
+            }
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /front");
@@ -127,7 +133,7 @@ if(isset($_POST["button"])){
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
-		if($_POST["round_name"] == ""){
+		if($_POST["round_name"] == "" ){
 			$input_ok = FALSE;
 			$msg .= "Du har inte angett vad som ska väljas. ";
 			$msgType = "error";
@@ -135,6 +141,11 @@ if(isset($_POST["button"])){
 		if($_POST["code"] == ""){
 			$input_ok = FALSE;
 			$msg .= "Du har inte angett någon tillfällig kod. ";
+			$msgType = "error";
+		}
+		if($_POST["max_num"] == ""){
+			$input_ok = FALSE;
+			$msg .= "Du har inte angett hur många man får rösta på. ";
 			$msgType = "error";
 		}
 		$cands[0] = "";
@@ -153,18 +164,19 @@ if(isset($_POST["button"])){
 		}
 		if($input_ok){
 			$round_name = $_POST["round_name"];
-                        $code = $_POST["code"];
+            $code = $_POST["code"];
+			$max = $_POST["max_num"];
 
-                        $insert_ok = $evote->newRound($round_name, $code,  $cands);
+            $insert_ok = $evote->newRound($round_name, $code, $max, $cands);
 
-                        if($insert_ok){
+            if($insert_ok){
 			    $msg .= "En ny valomgång har börjat. ";
 			    $msgType = "success";
                         }else{
 			    $msg .= "Fel. ";
 			    $msgType = "error";
 
-                        }
+            }
 
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);

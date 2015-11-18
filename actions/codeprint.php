@@ -23,7 +23,7 @@ if($evote->verifyUser($_SESSION["user"], 1)){
 		$pdf->SetFont('Arial','',12);
 		$pdf->Ln();
 		$pdf->Multicell(190,10,decode_str("Din personliga kod är"), 0, 'C', false);
-		$pdf->SetFont('Courier','B',16);
+		$pdf->SetFont('Times','B',16);
 		$pdf->SetFillColor(215, 215, 215);
 		$pdf->Multicell(190,10,$c, 0, 'C', true);
 		$pdf->Ln();

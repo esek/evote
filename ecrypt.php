@@ -6,7 +6,8 @@ class ECrypt
 {
 
     /* alphabet to be used when generating OTPs */
-    private $alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    // (tagit bort l,1,I,0,O,o från ursprunglig)
+    private $alpha = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 
     public function __construct() {

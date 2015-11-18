@@ -60,6 +60,10 @@ if(!$ongoingSession){ ?>
 	                <label>Tillfällig kod:</label>
 	                <input type="text" class="form-control" name="code" autocomplete="off">
 	        </div>
+			<div class="form-group" style="max-width: 200px">
+	                <label>Antal valbara alternativ:</label>
+	                <input type="number" class="form-control" name="max_num" autocomplete="off" values="1" min="1">
+	        </div>
 <!-- 		<?php
 		for($i = 0; $i < 5; $i++){
 			$p = $i + 1;

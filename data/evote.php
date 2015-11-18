@@ -27,16 +27,18 @@ class Evote {
         $conn = $this->connect();
         $sql =  "SELECT active FROM sessions WHERE (active=1)";
         $r = $conn->query($sql);
+        $conn->close();
         if($r->num_rows > 0){
             return TRUE;
         }
-	return FALSE;
+	    return FALSE;
     }
 
     public function ongoingRound(){
         $conn = $this->connect();
         $sql =  "SELECT active FROM elections WHERE (active=1)";
         $r = $conn->query($sql);
+        $conn->close();
         if($r->num_rows > 0){
             return TRUE;
         }
@@ -51,7 +53,41 @@ class Evote {
         while($row = $r->fetch_array()){
             $count = $row[0];
         }
+        $conn->close();
         return $count;
+    }
+
+    public function getMaxAlternatives(){
+        $conn = $this->connect();
+        $sql =  "SELECT nbr_choices FROM elections WHERE active=1";
+        $r = $conn->query($sql);
+        $count = 0;
+        while($row = $r->fetch_array()){
+            $count = $row[0];
+        }
+        $conn->close();
+        return $count;
+
+    }
+
+    // ser om en lista med val tillhör rätt valomgång
+    public function checkRightElection($alt_ids){
+        $conn = $this->connect();
+
+        foreach ($alt_ids as $id) {
+            $sql =  "SELECT active FROM elections
+                    WHERE id=(SELECT election_id FROM elections_alternatives WHERE id=$id)";
+            $r = $conn->query($sql);
+            $count = 0;
+            while($row = $r->fetch_array()){
+                if(!$row[0]){
+                    return FALSE;
+                }
+            }
+        }
+
+        return TRUE;
+
     }
 
 // USER FUNCTIONS
@@ -140,7 +176,7 @@ class Evote {
     }
 // DATA FUNCTIONS
 //-----------------------------------------------------------------------------
-    public function vote($option_id, $personal_code, $current_code){
+    public function vote($options, $personal_code, $current_code){
         $conn = $this->connect();
         $sql1 = "SELECT pass FROM elections WHERE (active=1)";
         $r = $conn->query($sql1);
@@ -164,22 +200,39 @@ class Evote {
             }
         }
 
-        if($personal_code_ok && $current_code_ok){
-            $sql3 = "INSERT INTO elections_usage (alternative_id, code_id, election_id) VALUES ($option_id, $id, (SELECT MAX(id) FROM elections));";
-            $sql3.= "UPDATE elections_codes SET active=(SELECT MAX(id) FROM elections) WHERE id=$id;";
-            $conn->multi_query($sql3);
+
+
+        // lägg in i databasen
+        if($personal_code_ok && $current_code_ok && $this->checkRightElection($options)){
+            $sql3 = "INSERT INTO elections_usage (alternative_id, code_id, election_id) VALUES ";
+            $p = 0;
+            foreach ($options as $option_id) {
+                if($p != 0){
+                    $sql3 .= ", ";
+                }
+                $sql3 .= "($option_id, $id, (SELECT MAX(id) FROM elections))";
+                $p++;
+            }
+            if($p > 0){
+                $conn->multi_query($sql3);
+                echo $conn->error;
+            }
+
+            $sql4 = "UPDATE elections_codes SET active=(SELECT MAX(id) FROM elections) WHERE id=$id";
+            $conn->multi_query($sql4);
             echo $conn->error;
+            echo $p;
             return TRUE;
         }else{
             return FALSE;
         }
     }
 
-    public function newRound($name, $code, $options){
+    public function newRound($name, $code, $max, $options){
         $conn = $this->connect();
         $ok = TRUE;
         $hash = crypt($code, "$6$".$this->generateSalt(6)."$");
-        $sql =  "INSERT INTO elections (name, pass, active) VALUES (\"$name\", \"$hash\", TRUE)";
+        $sql =  "INSERT INTO elections (name, pass, active, nbr_choices) VALUES (\"$name\", \"$hash\", TRUE, \"$max\")";
         $last_id = -1;
         if ($conn->query($sql) === TRUE) {
                 $last_id = $conn->insert_id;

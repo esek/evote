@@ -27,16 +27,18 @@ class Evote {
         $conn = $this->connect();
         $sql =  "SELECT active FROM sessions WHERE (active=1)";
         $r = $conn->query($sql);
+        $conn->close();
         if($r->num_rows > 0){
             return TRUE;
         }
-	return FALSE;
+	    return FALSE;
     }
 
     public function ongoingRound(){
         $conn = $this->connect();
         $sql =  "SELECT active FROM elections WHERE (active=1)";
         $r = $conn->query($sql);
+        $conn->close();
         if($r->num_rows > 0){
             return TRUE;
         }
@@ -51,6 +53,7 @@ class Evote {
         while($row = $r->fetch_array()){
             $count = $row[0];
         }
+        $conn->close();
         return $count;
     }
 
@@ -62,7 +65,29 @@ class Evote {
         while($row = $r->fetch_array()){
             $count = $row[0];
         }
+        $conn->close();
         return $count;
+
+    }
+
+    // ser om en lista med val tillhör rätt valomgång
+    public function checkRightElection($alt_ids){
+        $conn = $this->connect();
+
+        foreach ($alt_ids as $id) {
+            $sql =  "SELECT active FROM elections
+                    WHERE id=(SELECT election_id FROM elections_alternatives WHERE id=$id)";
+            $r = $conn->query($sql);
+            $count = 0;
+            while($row = $r->fetch_array()){
+                if(!$row[0]){
+                    return FALSE;
+                }
+            }
+        }
+
+        return TRUE;
+
     }
 
 // USER FUNCTIONS
@@ -175,8 +200,10 @@ class Evote {
             }
         }
 
+
+
         // lägg in i databasen
-        if($personal_code_ok && $current_code_ok){
+        if($personal_code_ok && $current_code_ok && $this->checkRightElection($options)){
             $sql3 = "INSERT INTO elections_usage (alternative_id, code_id, election_id) VALUES ";
             $p = 0;
             foreach ($options as $option_id) {

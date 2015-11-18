@@ -63,12 +63,14 @@ if(isset($_POST["button"])){
 			$ok = FALSE;
 			$msg .= "Du har inte valt någon att rösta på. ";
 			$msgType = "error";
-		}elseif($evote->getMaxAlternatives() < $_POST["person"].length){
+		}else if($evote->getMaxAlternatives() < count($_POST["person"])){
 			// om någon stänger av javascriptet.
+			echo count($_POST["person"]);
 			$ok = FALSE;
 		    $msg .= "FYY! Du får inte hacka sidan. ";
 		    $msgType = "error";
 		}
+
 		if($_POST["code1"] == ""){
 			$ok = FALSE;
 			$msg .= "Du har inte angett någon personlig valkod. ";

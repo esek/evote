@@ -29,7 +29,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
             }
 
             $style = "";
-            $style2 = ""
+            $style2 = "";
             if($p<=$max){
                 $style = "rowwin";
                 $style2 = "background-color: rgb(204, 255, 204);";

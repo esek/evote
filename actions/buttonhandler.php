@@ -59,15 +59,20 @@ if(isset($_POST["button"])){
 		$ok = TRUE;
 		$msg = "";
 		$msgType = "";
+		$ongoingR = $evote->ongoingRound();
 		if(!isset($_POST["person"])){
 			$ok = FALSE;
 			$msg .= "Du har inte valt någon att rösta på. ";
 			$msgType = "error";
+		}else if(!$evote->checkRightElection($_POST["person"])){
+			// om någon har en gammal sida uppe och försöker rösta
+			$ok = FALSE;
+		    $msg .= "Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen. ";
+		    $msgType = "error";
 		}else if($evote->getMaxAlternatives() < count($_POST["person"])){
 			// om någon stänger av javascriptet.
-			echo count($_POST["person"]);
 			$ok = FALSE;
-		    $msg .= "FYY! Du får inte hacka sidan. ";
+		    $msg .= "Du får inte välja för många kandidater. ";
 		    $msgType = "error";
 		}
 
@@ -81,7 +86,7 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte angett någon tillfällig valkod. ";
 			$msgType = "error";
 		}
-        if(!$evote->ongoingRound()){
+        if(!$ongoingR){
             $ok = FALSE;
 		    $msg .= "Valomgången har redan avslutats. ";
 		    $msgType = "error";
@@ -102,7 +107,7 @@ if(isset($_POST["button"])){
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
 		header("Location: /front");
 
-	}else if($_POST["button"]=="create"){ # SKAPA NYTT VAL KNAPPEN
+	}else if($_POST["button"]=="create"){ # SKAPA NYTT VAL
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
@@ -116,22 +121,28 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte angett det maximala antalet personer. ";
 			$msgType = "error";
 		}
+		if($evote->ongoingSession()){
+			$input_ok = FALSE;
+			$msg .= "Det pågår redan ett val. ";
+			$msgType = "error";
+		}
+
 		if($input_ok){
 			$name = $_POST["valnamn"];
 			$nop = $_POST["antal_personer"];
 
-                        require "../ecrypt.php";
-                        $ecrypt = new ECrypt();
-                        $codes = $ecrypt->generate_otp($nop);
-                        $evote->newCodes($codes);
-                        $evote->newSession($name);
-                        include "codeprint.php";
+        	require "../ecrypt.php";
+            $ecrypt = new ECrypt();
+            $codes = $ecrypt->generate_otp($nop);
+            $evote->newCodes($codes);
+            $evote->newSession($name);
+            include "codeprint.php";
 		}else{
-		        $_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		        header("Location: /admin");
-                }
+		    $_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		    header("Location: /admin");
+        }
 
-	}else if($_POST["button"]=="begin_round"){ # STARTA NYTT VAL KNAPPEN
+	}else if($_POST["button"]=="begin_round"){ # STARTA NYTT VAL
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
@@ -150,6 +161,12 @@ if(isset($_POST["button"])){
 			$msg .= "Du har inte angett hur många man får rösta på. ";
 			$msgType = "error";
 		}
+		if($evote->ongoingRound()){
+			$input_ok = FALSE;
+			$msg .= "En valomgång är redan igång. ";
+			$msgType = "error";
+		}
+
 		$cands[0] = "";
 		$n = 0;
 		foreach($_POST["candidates"] as $name){
@@ -164,6 +181,7 @@ if(isset($_POST["button"])){
 			$msgType = "error";
 
 		}
+
 		if($input_ok){
 			$round_name = $_POST["round_name"];
             $code = $_POST["code"];

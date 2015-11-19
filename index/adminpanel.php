@@ -54,16 +54,17 @@ if(!$ongoingSession){ ?>
 	        <form action="actions/buttonhandler.php" method="POST">
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>
-	                <input type="text" class="form-control" name="round_name" autocomplete="off">
+	                <input type="text" class="form-control" name="round_name" autocomplete="off" maxlength="240">
 			</div>
 	        <div class="form-group">
 	                <label>Tillfällig kod:</label>
-	                <input type="text" class="form-control" name="code" autocomplete="off">
+	                <input type="text" class="form-control" name="code" autocomplete="off" maxlength="240"/>
 	        </div>
 			<div class="form-group" style="max-width: 200px">
 	                <label>Antal valbara alternativ:</label>
-	                <input type="number" class="form-control" name="max_num" autocomplete="off" values="1" min="1">
+	                <input type="number" class="form-control" name="max_num" id="max" autocomplete="off" value="1" min="1"/>
 	        </div>
+
 <!-- 		<?php
 		for($i = 0; $i < 5; $i++){
 			$p = $i + 1;
@@ -83,8 +84,8 @@ if(!$ongoingSession){ ?>
                 </div>
 
                 <div class="input_fields_wrap form-group" id="input_wrapper">
-                    <div><input type="text" class="form-control" name="candidates[]" autocomplete="off"/><br></div>
-                    <div><input type="text" class="form-control" name="candidates[]" autocomplete="off"/><br></div>
+                    <div><input type="text" class="form-control" name="candidates[]" autocomplete="off" maxlength="240"/><br></div>
+                    <div><input type="text" class="form-control" name="candidates[]" autocomplete="off" maxlength="240"/><br></div>
                 </div>
                 <script >
                    function addField(){
@@ -96,6 +97,7 @@ if(!$ongoingSession){ ?>
                         input.className = "form-control";
                         input.name = "candidates[]";
                         input.setAttribute( "autocomplete", "off" );
+						input.setAttribute( "maxlength", "240" );
                         //cdiv.appendChild(t);
                         cdiv.appendChild(input);
                         cdiv.appendChild(document.createElement("br"));

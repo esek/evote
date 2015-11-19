@@ -67,7 +67,19 @@ class Evote {
         }
         $conn->close();
         return $count;
+    }
 
+    public function getMaxAltByAltId($id){
+        $conn = $this->connect();
+        $sql =  "SELECT nbr_choices FROM elections
+                WHERE id=(SELECT election_id FROM elections_alternatives WHERE id=$id)";
+        $r = $conn->query($sql);
+        $count = 0;
+        while($row = $r->fetch_array()){
+            $count = $row[0];
+        }
+        $conn->close();
+        return $count;
     }
 
     // ser om en lista med val tillhör rätt valomgång
@@ -274,7 +286,8 @@ class Evote {
     public function getResult(){
         $conn = $this->connect();
 
-        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot FROM elections_alternatives AS t1
+        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot, t1.id AS id
+            FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.active = 0)
             ORDER BY t2.id DESC, votes DESC, t1.id ASC";
@@ -288,7 +301,8 @@ class Evote {
     public function getLastResult(){
         $conn = $this->connect();
 
-        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.tot_votes AS tot FROM elections_alternatives AS t1
+        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot, t1.id AS id
+            FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.id = (SELECT MAX(elections.id) FROM elections) AND t2.active = 0)
             ORDER BY votes DESC, t1.id ASC";

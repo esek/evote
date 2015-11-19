@@ -21,18 +21,21 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
                 $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
             }
             if($e_id != $row["e_id"]){
-                echo "<tr class=\"rowheader\">
+                echo "<tr style=\"background-color: rgb(204, 204, 204);\">
                     <th colspan=\"2\">".$row["e_name"]." <wbr>($tot röster, $max alt.)</th>
                     </tr>";
         		$e_id = $row["e_id"];
         		$p = 1;
             }
 
-            $style = "" ;
+            $style = "";
+            $style2 = ""
             if($p<=$max){
                 $style = "rowwin";
+                $style2 = "background-color: rgb(204, 255, 204);";
             }else if($row["votes"] == $last_votes){
                 $style = "rowtie";
+                $style2 = "background-color: rgb(204, 255, 204);";
             }
             echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $precent) </td>
                 <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";

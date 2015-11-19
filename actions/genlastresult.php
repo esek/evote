@@ -21,7 +21,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
                 $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
             }
             if($e_id != $row["e_id"]){
-                echo "<tr style=\"background-color: rgb(204, 204, 204);\">
+                echo "<tr class=\"rowheader\">
                     <th colspan=\"2\">".$row["e_name"]." <wbr>($tot röster, $max alt.)</th>
                     </tr>";
         		$e_id = $row["e_id"];

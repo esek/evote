@@ -23,15 +23,40 @@ class RandomInfo {
             "Toppenbra!",
             "Jajamensan!",
             "Look at dem skillz!",
+            "You got some MAD voting skills!",
             "Din duktighetsgrad är hög!",
             "Fantastiskt!",
             "Storartat!",
             "Fenomenalt!",
             "Enastående!",
-            "Formidabelt",
+            "Formidabelt!",
             "Strålande!",
             "Magnifikt!",
-            "Förträffligt!"
+            "Förträffligt!",
+            "Smäckert!",
+            "Tufft!",
+            "Nice!",
+            "Niiiiiiicee!!",
+            "Najs!",
+            "Naaajs!",
+            "M-M-M-MONSTER VOTE!!!",
+            "Soft!",
+            "Du får en 5:a i användning av E-vote",
+            "Wupp!",
+            "WAPP!",
+            "Wopp!",
+            "Gosigt!",
+            ":)",
+            "Hacke hälsar att du är underbart duktig!",
+            "Wubwubwub.. DROP THE BASE!!!",
+            "Man ska ha E-vote - så att man slipper tänka alls",
+            "Man ska ha E-vote - det har jag sett att andra har",
+            "Man ska ha E-vote - då är kalkylen redan klar",
+            "Man ska ha E-vote - det bygger på nån slags logik",
+            "Ett KOOOMPLEEXT ord, vad f*n betyder acklamation",
+            "Min gode vän E-vote, han är en snabb kamrat, han har en ruta här och några knappar där.",
+            "Double rainbow!",
+            "GÖTTANS!!"
         );
         $err_info = array(
             "Något gick fel",
@@ -40,7 +65,13 @@ class RandomInfo {
             "Whoops",
             "Naj!",
             "Ojdå!",
-            "Hoppsan!"
+            "Hoppsan!",
+            "Rackarns!",
+            "Järnspikar!",
+            "Sablarns!",
+            "Attans järnspikar!",
+            "Whuuupps!",
+            "Neeeeeeeeejjjjjj detta var ju inte bra, nu har du gjort nått fel"
         );
 
         $msg = "";

@@ -60,6 +60,18 @@
     height: 1.2em;
 }
 
+.rowwin {
+    background-color: rgb(204, 255, 204);
+}
+
+.rowtie {
+    background-color: rgb(255, 255, 204);
+}
+
+.rowheader {
+    background-color: rgb(204, 204, 204);
+}
+
 @media (min-width: 768px) {
   .navbar-collapse.collapse.sidebar {
     position: fixed;

@@ -32,10 +32,10 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 
             $style = "";
             $style2 = "";
-            if($p<=$max){
+            if($row["votes"] != 0 && $p<=$max){
                 $style = "rowwin";
                 $style2 = "background-color: rgb(204, 255, 204);";
-            }else if($row["votes"] == $last_votes && $p - 1 <= $limit){
+            }else if($row["votes"] != 0 && $row["votes"] == $last_votes && $p - 1 <= $limit){
                 $style = "rowtie";
                 $style2 = "background-color: rgb(204, 255, 204);";
                 $limit++;

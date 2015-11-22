@@ -13,6 +13,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 		$e_id = -1;
 		$p = 1;
         $last_votes = "";
+        $limit = "";
         while($row = $res->fetch_assoc()) {
             $tot = $row["tot"];
             $precent = "- ";
@@ -26,6 +27,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
                     </tr>";
         		$e_id = $row["e_id"];
         		$p = 1;
+                $limit = $max;
             }
 
             $style = "";
@@ -33,9 +35,10 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
             if($p<=$max){
                 $style = "rowwin";
                 $style2 = "background-color: rgb(204, 255, 204);";
-            }else if($row["votes"] == $last_votes){
+            }else if($row["votes"] == $last_votes && $p - 1 <= $limit){
                 $style = "rowtie";
                 $style2 = "background-color: rgb(204, 255, 204);";
+                $limit++;
             }
             echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $precent) </td>
                 <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";

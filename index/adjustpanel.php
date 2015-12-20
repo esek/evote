@@ -8,21 +8,13 @@ $buttonstate = "disabled";
 if($ongoingSession){
         $buttonstate = "active";
 }
-?>
-<p><?php #------------KNAPPRAD-------------
-        $btns1 = "btn btn-success ".$buttonstate;
-        $btns2 = "btn btn-danger ".$buttonstate;
-        echo "<form action=actions/buttonhandler.php method=\"POST\">";
-	echo "<div class=\"btn-group\">";
-        echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-bottom: 5px;\" $buttonstate>Se tidigare omgångar</button>";
-        echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-bottom: 5px\">Logga ut</button>";
-	echo "</div>";
-        echo "</form>";
-?></p>
-<hr>
-<?php
+$mg->printAdjustPanelMenu(0);
+
+echo "<h3>Föregående omgång</h3>";
+echo "<hr>";
+
 if($ongoingSession){
-	include "actions/genlastresult.php";
+	$tg->generateResultTable("last");
 }else{
 	echo "<h3>Det pågår inget val</h3>";
 }

@@ -43,7 +43,7 @@ if(!$evote->ongoingSession()){
 					<script>
 					function maxCheck(){
     					var max = <?php echo $evote->getMaxAlternatives() ?>;
-						
+
     					var checkboxes = document.getElementsByName("person[]");
 						var countChecked = 0;
 						for(var i = 0; i<checkboxes.length; i++){

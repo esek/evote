@@ -1,40 +1,14 @@
 <?php
 $access = array(0);
-if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
+$priv = $evote->getPrivilege($_SESSION["user"]);
+if(in_array($priv, $access)){
+$mg->printUserhandlerPanelMenu(0);
 
-echo "<form action=actions/buttonhandler.php method=\"POST\">";
-echo "<div class=\"btn-group\">";
-echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-bottom: 5px\">Logga ut</button>";
-echo "</div>";
-echo "</form>";
 ?>
+
+<h3>Hantera användare</h3>
 <hr>
 <div style="max-width: 400px">
-    <h3>Ändra lösenord</h3>
-    <form action="actions/userhandler.php" method="POST">
-    <div class="form-group">
-            <label>Användarnamn:</label>
-            <input type="text" name="username" class="form-control" style="margin-bottom: 3px" autocomplete="off">
-            <label>Nytt lösenord:</label>
-            <input type="password" name="psw" class="form-control" style="margin-bottom: 3px" autocomplete="off">
-            <button type="submit" class="btn btn-primary" value="change" name="button">Byt Lösenord</button>
-    </div>
-    </form>
-    <br>
-    <h3>Ny användare</h3>
-    <form action="actions/userhandler.php" method="POST">
-    <div class="form-group">
-            <label>Användarnamn:</label>
-            <input type="text" name="username" class="form-control" style="margin-bottom: 3px" autocomplete="off">
-            <label>Lösenord:</label>
-            <input type="password" name="psw" class="form-control" style="margin-bottom: 3px" autocomplete="off">
-            <label>Privilegier: (0 - 2)</label>
-            <input type="number" name="priv" class="form-control" min="0" max="2" style="margin-bottom: 3px; max-width: 200px" autocomplete="off">
-            <button type="submit" class="btn btn-primary" value="new" name="button">Skapa ny användare</button>
-    </div>
-    </form>
-    <br>
-    <h3>Hantera användare</h3>
     <form action="actions/userhandler.php" method="POST">
     <div class="form-group">
             <?php

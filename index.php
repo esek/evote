@@ -77,10 +77,16 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <?php
 	session_start();
-        require "data/evote.php";
-        require "data/RandomInfo.php";
-        $evote = new Evote();
-        $randomString = new RandomInfo();
+    require "data/evote.php";
+    require "index/classes/TableGenerator.php";
+    require "index/classes/MenuGenerator.php";
+    require "data/RandomInfo.php";
+
+    $evote = new Evote();
+    $tg = new TableGenerator();
+    $mg = new MenuGenerator();
+    $randomString = new RandomInfo();
+
 	if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
         $type = $_SESSION["message"]["type"];
         $info = $randomString->generateTip($type);
@@ -95,44 +101,66 @@
 		unset($_SESSION["message"]);
 
 	}
+
 	$page = trim($_SERVER['REQUEST_URI'],'/');
 	if(!empty($page)){
 		if($page == "front"){
 			include "index/front.php";
-		}else if($page == "admin"){
+		}else if($page == "admin"){ //----------------- ADMIN
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "admin";
 				include "index/login.php";
 			}else{
 				include "index/adminpanel.php";
 			}
-		}else if($page == "stat"){
+		}else if($page == "stat"){ //------------------ STAT
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "stat";
 				include "index/login.php";
 			}else{
 				include "index/stat.php";
 			}
-		}else if($page == "clear"){
+		}else if($page == "clear"){ //----------------- CLEAR
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "clear";
 				include "index/login.php";
 			}else{
 				include "index/clear.php";
 			}
-		}else if($page == "adjust"){
+		}else if($page == "adjust"){ //----------------- ADJUST
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "adjust";
 				include "index/login.php";
 			}else{
 				include "index/adjustpanel.php";
 			}
-		}else if($page == "useradmin"){
+		}else if($page == "useradmin"){ //-------------- USERADMIN
 			if(!isset($_SESSION["user"])){
 				$_SESSION["redirect"] = "useradmin";
 				include "index/login.php";
 			}else{
 				include "index/useradminpanel.php";
+			}
+        }else if($page == "newuser"){ //---------------- NEW USER
+            if(!isset($_SESSION["user"])){
+                $_SESSION["redirect"] = "newuser";
+                include "index/login.php";
+            }else{
+                include "index/newuser.php";
+            }
+        }else if($page == "changepassword"){ //---------------- CHANGE USERPASSWORD
+            if(!isset($_SESSION["user"])){
+                $_SESSION["redirect"] = "changepassword";
+                include "index/login.php";
+            }else{
+                include "index/changepassword.php";
+            }
+        }else if($page == "logout"){ //---------------- LOGOUT
+			if(!isset($_SESSION["user"])){
+				$_SESSION["redirect"] = "logout";
+				include "index/login.php";
+			}else{
+				include "index/logout.php";
 			}
 		}
 	}else{

@@ -1,7 +1,6 @@
 <?php
-if(!($evote->verifyUser($_SESSION["user"], 1))){
-	echo "Du har inte behörighet att visa denna sida.";
-}else{
+$access = array(1);
+if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
 
 $ongoingSession = $evote->ongoingSession();
 
@@ -149,5 +148,7 @@ if(!$ongoingSession){ ?>
 	}
 
 }
+} else {
+	echo "Du har inte behörighet att visa denna sida.";
 }
 ?>

@@ -142,8 +142,20 @@ class Evote {
             }
             return $ok;
         }else{
-	    return FALSE;
+            return FALSE;
         }
+    }
+
+    public function getPrivilege($username){
+        $conn = $this->connect();
+        $sql =  "SELECT privilege FROM user WHERE (username=\"$username\")";
+        $r = $conn->query($sql);
+        if($r != FALSE){
+            while($row = $r->fetch_assoc()){
+                return intval($row["privilege"]);
+            }
+        }
+        return -1; // Default value
     }
 
     public function newPassword($username, $password){

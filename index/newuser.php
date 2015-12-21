@@ -8,7 +8,7 @@ $mg->printUserhandlerPanelMenu(1);
 <h3>Ny användare</h3>
 <hr>
 <div style="max-width: 400px">
-    <form action="actions/userhandler.php" method="POST">
+    <form action="actions/useradminpagehandler.php" method="POST">
     <div class="form-group">
             <label>Användarnamn:</label>
             <input type="text" name="username" class="form-control" style="margin-bottom: 3px" autocomplete="off">

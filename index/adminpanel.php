@@ -11,21 +11,6 @@ if($ongoingSession){
  #------------KNAPPRAD-------------
  $mg->printAdminPanelMenu(0);
 
- /*
-	echo "<p>";
-	$btns1 = "btn btn-success ".$buttonstate;
-	$btns2 = "btn btn-danger ".$buttonstate;
-	echo "<form action=actions/buttonhandler.php method=\"POST\">";
-	echo "<div class=\"btn-group\">";
-	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-bottom: 5px\" $buttonstate>Se tidigare omgångar</button>";
-	//echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-bottom: 5px\" $buttonstate>Skriv ut personliga koder</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-bottom: 5px\" $buttonstate>Stäng nuvarande val</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-bottom: 5px\">Logga ut</button>";
-	echo "</div>";
-	echo "</form>";
-	echo "</p>";
-
-*/
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){
     echo "Någon fuling har mixtrat i databasen.";
@@ -37,7 +22,7 @@ if(!$ongoingSession){ ?>
 	<h3>Skapa nytt val</h3>
 	<hr>
 	<div style="max-width: 400px">
-	<form action="actions/buttonhandler.php" method="POST">
+	<form action="actions/electionadminpagehandler.php" method="POST">
 	<div class="form-group">
 	        <label for="vn">Namn på val:</label>
 	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
@@ -58,7 +43,7 @@ if(!$ongoingSession){ ?>
 	    <h3>Skapa ny valomgång</h3>
 		<hr>
 		<div style="max-width: 400px">
-	        <form action="actions/buttonhandler.php" method="POST">
+	        <form action="actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>
 	                <input type="text" class="form-control" name="round_name" autocomplete="off" maxlength="240">
@@ -138,7 +123,7 @@ if(!$ongoingSession){ ?>
 
 		$tg->generateAvailableOptions();
 
-		echo "<form action=actions/buttonhandler.php method=\"POST\">";
+		echo "<form action=actions/electionadminpagehandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
 	}

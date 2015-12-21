@@ -41,9 +41,11 @@
                         <span>E-vote</span>
                     </a>
                 </div>
-<!--                <div>
+
+               <div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown user-dropdown">
+
+<!--                        <li class="dropdown user-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Dropdown<span class="caret"></span>
                             </a>
@@ -51,9 +53,9 @@
                                 <li>Insert link here</li>
                                 <li>Logga ut</li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
-                </div>-->
+                </div>
             </div>
         </div>
     </div>
@@ -66,7 +68,7 @@
             <ul class="nav nav-sidebar">
                 <!--<li class="nav-header disabled"><a>Paneler</a></li>-->
                 <li><a href="front">Röstningssida</a></li>
-                <li><a href="admin">Admin</a></li>
+                <li><a href="admin">Valansvarig</a></li>
                 <li><a href="adjust">Justerare</a></li>
                 <li><a href="useradmin">Användare</a></li>
             </ul>

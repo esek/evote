@@ -1,7 +1,7 @@
 	<h3>Logga in</h3>
 	<hr>
 	<div style="max-width: 400px">
-	<form action="actions/buttonhandler.php" method="POST">
+	<form action="actions/usersessionhandler.php" method="POST">
 	<div class="form-group">
   		<label for="usr">Namn:</label>
  		<input type="text" class="form-control" name="usr" autocomplete="off">

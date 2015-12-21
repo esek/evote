@@ -19,7 +19,7 @@ if(!$evote->ongoingSession()){
 					echo "<h4>Du får rösta på <b>".$max."</b> av alternativen</h4>";
 				echo "</div>";
 				?>
-	    	    <form action="actions/buttonhandler.php" method="POST" autocomplete="off">
+	    	    <form action="actions/votingpagehandler.php" method="POST" autocomplete="off">
 	    	        <?php
                         $head = "";
 						$type = "checkbox";

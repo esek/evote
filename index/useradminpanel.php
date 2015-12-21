@@ -9,7 +9,7 @@ $mg->printUserhandlerPanelMenu(0);
 <h3>Hantera användare</h3>
 <hr>
 <div style="max-width: 400px">
-    <form action="actions/userhandler.php" method="POST">
+    <form action="actions/useradminpagehandler.php" method="POST">
     <div class="form-group">
             <?php
             $res = $evote->listUsers();

@@ -15,7 +15,18 @@
 </head>
 
 <body>
+<?php
+session_start();
+require 'data/evote.php';
+require 'index/classes/TableGenerator.php';
+require 'index/classes/MenuGenerator.php';
+require 'data/RandomInfo.php';
 
+$evote = new Evote();
+$tg = new TableGenerator();
+$mg = new MenuGenerator();
+$randomString = new RandomInfo();
+?>
     <!-- Header -->
     <div class="fixed-header">
         <div class ="row">
@@ -66,11 +77,33 @@
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-                <!--<li class="nav-header disabled"><a>Paneler</a></li>-->
-                <li><a href="front">Röstningssida</a></li>
-                <li><a href="admin">Valansvarig</a></li>
-                <li><a href="adjust">Justerare</a></li>
-                <li><a href="useradmin">Användare</a></li>
+                <li><a href="front">Välj valrum</a></li>
+                <li class="nav-header disabled"><a><hr class=sidebarruler></a></li>
+
+                <?php
+                if (true) {
+
+                    echo "<li><a href=\"front\">Röstningssida</a></li>";
+
+                    if (!isset($_SESSION['user'])) {
+                        echo '<li><a href="login">Logga in</a></li>';
+                    } else {
+                        $priv = $evote->getPrivilege($_SESSION['user']);
+                        if ($priv == 1) {
+                            echo '<li><a href="electionadmin">Valansvarig</a></li>';
+                        } elseif ($priv == 2) {
+                            echo '<li><a href="adjust">Justerare</a></li>';
+                        } elseif ($priv == 0) {
+                            echo '<li><a href="useradmin">Hantera användare</a></li>';
+                        }
+                    }
+                    echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
+                }
+
+                ?>
+
+
+                <li><a href="adminaccount">Administratör</a></li>
             </ul>
         </div>
     </div>
@@ -78,96 +111,108 @@
     <!-- Main content -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <?php
-	session_start();
-    require "data/evote.php";
-    require "index/classes/TableGenerator.php";
-    require "index/classes/MenuGenerator.php";
-    require "data/RandomInfo.php";
 
-    $evote = new Evote();
-    $tg = new TableGenerator();
-    $mg = new MenuGenerator();
-    $randomString = new RandomInfo();
 
-	if(isset($_SESSION["message"]) && $_SESSION["message"]["message"] != ""){
-        $type = $_SESSION["message"]["type"];
+    if (isset($_SESSION['message']) && $_SESSION['message']['message'] != '') {
+        $type = $_SESSION['message']['type'];
         $info = $randomString->generateTip($type);
-		if($type == "error"){
-			echo "<div class=\"panel panel-danger\">";
-		}else if($type == "success"){
-			echo "<div class=\"panel panel-success\">";
-		}
-		echo "<div class=\"panel-heading\">".$info."</div>";
-		echo "<div class=\"panel-body\">".$_SESSION["message"]["message"]."</div>";
-		echo "</div>";
-		unset($_SESSION["message"]);
+        if ($type == 'error') {
+            echo '<div class="panel panel-danger">';
+        } elseif ($type == 'success') {
+            echo '<div class="panel panel-success">';
+        }
+        echo '<div class="panel-heading">'.$info.'</div>';
+        echo '<div class="panel-body">'.$_SESSION['message']['message'].'</div>';
+        echo '</div>';
+        unset($_SESSION['message']);
+    }
 
-	}
+    $page = trim($_SERVER['REQUEST_URI'], '/');
+    if (!empty($page)) {
+        if ($page == 'front') {
+            include 'index/front.php';
+        } elseif ($page == 'electionadmin') { //----------------- ADMIN
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/electionadminpanel.php';
+            }
+        } elseif ($page == 'stat') { //------------------ STAT
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/stat.php';
+            }
+        } elseif ($page == 'clear') { //----------------- CLEAR
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/clear.php';
+            }
+        } elseif ($page == 'adjust') { //----------------- ADJUST
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/adjustpanel.php';
+            }
+        } elseif ($page == 'useradmin') { //-------------- USERADMIN
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/useradminpanel.php';
+            }
+        } elseif ($page == 'newuser') { //---------------- NEW USER
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/newuser.php';
+            }
+        } elseif ($page == 'changepassword') { //---------------- CHANGE USERPASSWORD
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/changepassword.php';
+            }
+        } elseif ($page == 'logout') { //---------------- LOGOUT
+            if (!isset($_SESSION['user'])) {
+                include 'index/login.php';
+            } else {
+                include 'index/logout.php';
+            }
+        } elseif ($page == 'login') { //---------------- LOGIN
+            include 'index/login.php';
+        }
 
-	$page = trim($_SERVER['REQUEST_URI'],'/');
-	if(!empty($page)){
-		if($page == "front"){
-			include "index/front.php";
-		}else if($page == "admin"){ //----------------- ADMIN
-			if(!isset($_SESSION["user"])){
-				$_SESSION["redirect"] = "admin";
-				include "index/login.php";
-			}else{
-				include "index/adminpanel.php";
-			}
-		}else if($page == "stat"){ //------------------ STAT
-			if(!isset($_SESSION["user"])){
-				$_SESSION["redirect"] = "stat";
-				include "index/login.php";
-			}else{
-				include "index/stat.php";
-			}
-		}else if($page == "clear"){ //----------------- CLEAR
-			if(!isset($_SESSION["user"])){
-				$_SESSION["redirect"] = "clear";
-				include "index/login.php";
-			}else{
-				include "index/clear.php";
-			}
-		}else if($page == "adjust"){ //----------------- ADJUST
-			if(!isset($_SESSION["user"])){
-				$_SESSION["redirect"] = "adjust";
-				include "index/login.php";
-			}else{
-				include "index/adjustpanel.php";
-			}
-		}else if($page == "useradmin"){ //-------------- USERADMIN
-			if(!isset($_SESSION["user"])){
-				$_SESSION["redirect"] = "useradmin";
-				include "index/login.php";
-			}else{
-				include "index/useradminpanel.php";
-			}
-        }else if($page == "newuser"){ //---------------- NEW USER
-            if(!isset($_SESSION["user"])){
-                $_SESSION["redirect"] = "newuser";
-                include "index/login.php";
-            }else{
-                include "index/newuser.php";
+        if($page == 'adminlogin'){
+            include 'index/admin/adminlogin.php';
+        } elseif ($page == 'adminlogout'){
+            if (!isset($_SESSION['user'])) {
+                include 'index/admin/adminlogin.php';
+            } else {
+                include 'index/admin/adminlogout.php';
             }
-        }else if($page == "changepassword"){ //---------------- CHANGE USERPASSWORD
-            if(!isset($_SESSION["user"])){
-                $_SESSION["redirect"] = "changepassword";
-                include "index/login.php";
-            }else{
-                include "index/changepassword.php";
+        } elseif ($page == 'adminaccount'){
+            if (!isset($_SESSION['user'])) {
+                include 'index/admin/adminlogin.php';
+            } else {
+                include 'index/admin/account.php';
             }
-        }else if($page == "logout"){ //---------------- LOGOUT
-			if(!isset($_SESSION["user"])){
-				$_SESSION["redirect"] = "logout";
-				include "index/login.php";
-			}else{
-				include "index/logout.php";
-			}
-		}
-	}else{
-		include "index/front.php";
-	}
+        } elseif ($page == 'adminusers'){
+            if (!isset($_SESSION['user'])) {
+                include 'index/admin/adminlogin.php';
+            } else {
+                include 'index/admin/users.php';
+            }
+        } elseif ($page == 'adminsettings'){
+            if (!isset($_SESSION['user'])) {
+                include 'index/admin/adminlogin.php';
+            } else {
+                include 'index/admin/settings.php';
+            }
+        }
+    } else {
+        include 'index/front.php';
+    }
 ?>
 
     </div>

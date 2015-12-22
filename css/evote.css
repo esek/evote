@@ -72,6 +72,18 @@
     background-color: rgb(204, 204, 204);
 }
 
+.sidebarruler {
+    border-color: rgb(100, 100, 100);
+}
+
+.sidebarinfo {
+    color: rgb(255, 0, 0) !important;
+    pointer-events: none;
+    cursor: default;
+}
+
+
+
 @media (min-width: 768px) {
   .navbar-collapse.collapse.sidebar {
     position: fixed;

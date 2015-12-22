@@ -1,19 +1,8 @@
 <?php
 
-$priv = $evote->getPrivilege($_SESSION["user"]);
-switch($priv){
-    case 0:
-        $mg->printUserhandlerPanelMenu(3);
-        break;
-    case 1:
-        $mg->printElectionadminPanelMenu(3);
-        break;
-    case 2:
-        $mg->printAdjustPanelMenu(2);
-        break;
-}
+$mg->printAdminMenu(3);
 
-echo "<h3>Logga ut</h3>";
+echo "<h3>Logga ut som administratör</h3>";
 echo "<hr>";
 echo "<div style=\"max-width: 400px\">";
 echo "Är du säker på att du vill logga ut?";

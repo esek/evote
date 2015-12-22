@@ -5,7 +5,7 @@ if(in_array($priv, $access)){
 
     switch($priv){
         case 1:
-            $mg->printAdminPanelMenu(1);
+            $mg->printElectionadminPanelMenu(1);
             break;
         case 2:
             $mg->printAdjustPanelMenu(1);

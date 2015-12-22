@@ -1,6 +1,7 @@
 <?php
 $access = array(1);
-if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
+$priv = $evote->getPrivilege($_SESSION["user"]);
+if(in_array($priv, $access)){
 
 $ongoingSession = $evote->ongoingSession();
 
@@ -9,7 +10,7 @@ if($ongoingSession){
 	$buttonstate = "active";
 }
  #------------KNAPPRAD-------------
- $mg->printAdminPanelMenu(0);
+ $mg->printElectionadminPanelMenu(0);
 
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){

@@ -35,11 +35,26 @@ if(isset($_POST["button"])){
 			}
 		}
 		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
-		$redirect = $_SESSION["redirect"];
+
+		$priv = $evote->getPrivilege($_SESSION["user"]);
+		switch ($priv) {
+			case 0:
+				$redirect = "adminaccount";
+				break;
+			case 1:
+				$redirect = "electionadmin";
+				break;
+			case 2:
+				$redirect = "adjust";
+				break;
+			default:
+				$redirect = "login";
+				break;
+		}
 		header("Location: /".$redirect);
 
     }else if($_POST["button"]=="logout"){
-		session_unset();
+		unset($_SESSION['user']);
 		header("Location: /front");
     }
 }

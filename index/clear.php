@@ -1,7 +1,7 @@
 <?php
 $access = array(1);
 if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
-	$mg->printAdminPanelMenu(2);
+	$mg->printElectionadminPanelMenu(2);
 ?>
 	<h3>Stäng nuvarande val</h3>
 	<hr>

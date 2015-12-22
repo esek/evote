@@ -2,30 +2,30 @@
 
 session_start();
 require '../data/evote.php';
+require '../data/Dialogue.php';
 $evote = new Evote();
 
 if (isset($_POST['button'])) {
     if ($_POST['button'] == 'create') { # SKAPA NYTT VAL
+        $dialogue = new Dialogue();
         $input_ok = true;
         $msg = '';
         $msgType = '';
         if ($_POST['valnamn'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte angett något namn på valet. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett något namn på valet', 'error');
         }
         if ($_POST['antal_personer'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte angett det maximala antalet personer. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett det maximala antalet personer', 'error');
         }
         if ($evote->ongoingSession()) {
             $input_ok = false;
-            $msg .= 'Det pågår redan ett val. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Det pågår redan ett val', 'error');
         }
 
         if ($input_ok) {
+            $dialogue->setMessageType('success');
             $name = $_POST['valnamn'];
             $nop = $_POST['antal_personer'];
 
@@ -36,32 +36,27 @@ if (isset($_POST['button'])) {
             $evote->newSession($name);
             include 'codeprint.php';
         } else {
-            $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
+            $_SESSION['message'] = serialize($dialogue);
             header('Location: /electionadmin');
         }
     } elseif ($_POST['button'] == 'begin_round') { # STARTA NYTT VAL
+        $dialogue = new Dialogue();
         $input_ok = true;
-        $msg = '';
-        $msgType = '';
         if ($_POST['round_name'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte angett vad som ska väljas. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett vad som ska väljas', 'error');
         }
         if ($_POST['code'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte angett någon tillfällig kod. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett någon tillfällig kod', 'error');
         }
         if ($_POST['max_num'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte angett hur många man får rösta på. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett hur många man får rösta på', 'error');
         }
         if ($evote->ongoingRound()) {
             $input_ok = false;
-            $msg .= 'En valomgång är redan igång. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('En valomgång är redan igång', 'error');
         }
 
         $cands[0] = '';
@@ -74,8 +69,7 @@ if (isset($_POST['button'])) {
         }
         if ($n < 2) {
             $input_ok = false;
-            $msg .= 'Du måste ange minst två kandidater. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du måste ange minst två kandidater', 'error');
         }
 
         if ($input_ok) {
@@ -86,48 +80,40 @@ if (isset($_POST['button'])) {
             $insert_ok = $evote->newRound($round_name, $code, $max, $cands);
 
             if ($insert_ok) {
-                $msg .= 'En ny valomgång har börjat. ';
-                $msgType = 'success';
+                $dialogue->appendMessage('En ny valomgång har börjat', 'success');
             } else {
-                $msg .= 'Fel. ';
-                $msgType = 'error';
+                $dialogue->appendMessage('Fel', 'error');
             }
         }
-        $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
+        $_SESSION['message'] = serialize($dialogue);
                 //header("HTTP/1.1 301 Moved Permanently");
         header('Location: /electionadmin');
     } elseif ($_POST['button'] == 'end_round') { # AVSLUTA VALOMGÅNG KNAPPEN
                 $evote->endRound();
         header('Location: /electionadmin');
+
+
     } elseif ($_POST['button'] == 'delete_election') { # TA BORT VAL KNAPPEN
+        $dialogue = new Dialogue();
         $input_ok = true;
-        $msg = '';
-        $msgType = '';
         if ($_POST['pswuser'] == '') {
             $input_ok = false;
-            $msg .= 'Alla fält är inte ifyllda. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Alla fält är inte ifyllda', 'error');
         }
+
         $redirect = 'clear';
         if ($input_ok) {
             $psw1 = $_POST['pswuser'];
             $current_usr = $_SESSION['user'];
             if ($evote->login($current_usr, $psw1)) {
-                if ($evote->verifyUser($name_pageadmin, 0)) {
-                    $evote->endSession();
-                    $msg .= 'Valet är nu stängt. ';
-                    $msgType = 'success';
-                    $redirect = 'admin';
-                } else {
-                    $msg .= 'Rättighetsfel. ';
-                    $msgType = 'error';
-                }
+                $evote->endSession();
+                $dialogue->appendMessage('Valet är nu stängt', 'success');
+                $redirect = 'admin';
             } else {
-                $msg .= 'Fel lösenord och/eller användarnamn någonstans. ';
-                $msgType = 'error';
+                $dialogue->appendMessage('Fel lösenord och/eller användarnamn någonstans', 'error');
             }
         }
-        $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
+        $_SESSION['message'] = serialize($dialogue);
         header('Location: /'.$redirect);
     }
 }

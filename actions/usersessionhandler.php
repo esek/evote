@@ -2,23 +2,23 @@
 
 session_start();
 require '../data/evote.php';
+require '../data/Dialogue.php';
 $evote = new Evote();
 
 if(isset($_POST["button"])){
 
 	if($_POST["button"]=="login"){
+		$dialogue = new Dialogue();
 		$input_ok = TRUE;
 		$msg = "";
 		$msgType = "";
 		if($_POST["usr"] == ""){
 			$input_ok = FALSE;
-			$msg .= "Du har inte skrivit in något användarnamn. ";
-			$msgType = "error";
+			$dialogue->appendMessage('Du har inte skrivit in något användarnamn', 'error');
 		}
 		if($_POST["psw"] == ""){
 			$input_ok = FALSE;
-			$msg .= "Du har inte angett något lösenord ";
-			$msgType = "error";
+			$dialogue->appendMessage('Du har inte angett något lösenord', 'error');
 		}
 
 		if($input_ok){
@@ -30,11 +30,10 @@ if(isset($_POST["button"])){
 				$_SESSION["user"] = $usr;
 
 			}else{
-				$msg .= "Användarnamet och/eller lösenordet är fel. ";
-				$msgType = "error";
+				$dialogue->appendMessage('Användarnamet och/eller lösenordet är fel', 'error');
 			}
 		}
-		$_SESSION["message"] = array("type" => $msgType, "message" => $msg);
+		$_SESSION['message'] = serialize($dialogue);
 
 		$priv = $evote->getPrivilege($_SESSION["user"]);
 		switch ($priv) {

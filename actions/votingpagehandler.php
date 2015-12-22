@@ -1,59 +1,59 @@
 <?php
 
-session_start();
+
 require '../data/evote.php';
+require '../data/Dialogue.php';
 $evote = new Evote();
+
+session_start();
 if (isset($_POST['button'])) {
     if ($_POST['button'] == 'vote') {
+        $dialogue = new dialogue();
         $ok = true;
         $msg = '';
         $msgType = '';
         $ongoingR = $evote->ongoingRound();
         if (!isset($_POST['person'])) {
             $ok = false;
-            $msg .= 'Du har inte valt någon att rösta på. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte valt någon att rösta på', 'error');
         } elseif (!$evote->checkRightElection($_POST['person'])) {
             // om någon har en gammal sida uppe och försöker rösta
             $ok = false;
-            $msg .= 'Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen', 'error');
         } elseif ($evote->getMaxAlternatives() < count($_POST['person'])) {
             // om någon stänger av javascriptet.
             $ok = false;
-            $msg .= 'Du får inte välja för många kandidater. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du får inte välja för många kandidater', 'error');
         }
 
         if ($_POST['code1'] == '') {
             $ok = false;
-            $msg .= 'Du har inte angett någon personlig valkod. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett någon personlig valkod', 'error');
         }
         if ($_POST['code2'] == '') {
             $ok = false;
-            $msg .= 'Du har inte angett någon tillfällig valkod. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Du har inte angett någon tillfällig valkod', 'error');
         }
         if (!$ongoingR) {
             $ok = false;
-            $msg .= 'Valomgången har redan avslutats. ';
-            $msgType = 'error';
+            $dialogue->appendMessage('Valomgången har redan avslutats', 'error');
         }
+        $dialogue->setMessageType('error');
 
         if ($ok) {
+            $dialogue->setMessageType('success');
             $person_id = $_POST['person'];
             $personal_code = $_POST['code1'];
             $current_code = $_POST['code2'];
             if ($evote->vote($person_id, $personal_code, $current_code)) {
-                $msg .= 'Din röst har blivit registrerad.';
-                $msgType = 'success';
+                $dialogue->appendMessage('Din röst har blivit registrerad', 'success');
             } else {
-                $msg .= 'Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat.';
-                $msgType = 'error';
+                $dialogue->appendMessage('Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat', 'error');
+                $dialogue->setMessageType('error');
             }
         }
-        $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
+
+        $_SESSION['message'] = serialize($dialogue);
         header('Location: /front');
     }
 }

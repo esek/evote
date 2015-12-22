@@ -21,6 +21,7 @@ require 'data/evote.php';
 require 'index/classes/TableGenerator.php';
 require 'index/classes/MenuGenerator.php';
 require 'data/RandomInfo.php';
+require 'data/Dialogue.php';
 
 $evote = new Evote();
 $tg = new TableGenerator();
@@ -112,7 +113,14 @@ $randomString = new RandomInfo();
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <?php
 
+    
+    if(isset($_SESSION['message']) && is_string($_SESSION['message']) && $_SESSION['message'] != ''){
+        $d = unserialize($_SESSION['message']);
+        $d->printAlerts();
+        unset($_SESSION['message']);
+    }
 
+/*
     if (isset($_SESSION['message']) && $_SESSION['message']['message'] != '') {
         $type = $_SESSION['message']['type'];
         $info = $randomString->generateTip($type);
@@ -126,6 +134,7 @@ $randomString = new RandomInfo();
         echo '</div>';
         unset($_SESSION['message']);
     }
+*/
 
     $page = trim($_SERVER['REQUEST_URI'], '/');
     if (!empty($page)) {

@@ -6,6 +6,7 @@ if(in_array($priv, $access)){
     $mg->printAdminMenu(0);
     echo "<h3>Kontoinformation<h3>";
     echo "<hr>";
+    echo "";
 
 
 } else {

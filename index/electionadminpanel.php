@@ -18,8 +18,8 @@ if($evote->checkCheating()){
 }
 
 if(!$ongoingSession){ ?>
-
-
+	<h4>Det pågår inget valtillfälle.</h4>
+<!--
 	<h3>Skapa nytt val</h3>
 	<hr>
 	<div style="max-width: 400px">
@@ -35,7 +35,7 @@ if(!$ongoingSession){ ?>
 	<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
 	</form>
 	</div>
-
+-->
 <?php }else{
 	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------

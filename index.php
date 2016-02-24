@@ -34,7 +34,7 @@ $randomString = new RandomInfo();
             <div class="col-md-4">
                 <div class="logo">
                     <!--<div><h3><span class="label label-info">E-vote - Ditt digitala röstsystem</span></h3></div> -->
-										<img src="logo.jpg" />
+					<img src="logo.jpg" />
                 </div>
             </div>
         </div>
@@ -55,9 +55,10 @@ $randomString = new RandomInfo();
                 </div>
 
                <div>
-                    <ul class="nav navbar-nav navbar-right">
 
-<!--                        <li class="dropdown user-dropdown">
+<!--                      <ul class="nav navbar-nav navbar-right">
+
+                      <li class="dropdown user-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Dropdown<span class="caret"></span>
                             </a>
@@ -65,8 +66,8 @@ $randomString = new RandomInfo();
                                 <li>Insert link here</li>
                                 <li>Logga ut</li>
                             </ul>
-                        </li>-->
-                    </ul>
+                        </li>
+                    </ul>-->
                 </div>
             </div>
         </div>
@@ -78,14 +79,11 @@ $randomString = new RandomInfo();
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-                <li><a href="front">Välj valrum</a></li>
-                <li class="nav-header disabled"><a><hr class=sidebarruler></a></li>
 
                 <?php
                 if (true) {
-
                     echo "<li><a href=\"front\">Röstningssida</a></li>";
-
+                    echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                     if (!isset($_SESSION['user'])) {
                         echo '<li><a href="login">Logga in</a></li>';
                     } else {
@@ -96,15 +94,16 @@ $randomString = new RandomInfo();
                             echo '<li><a href="adjust">Justerare</a></li>';
                         } elseif ($priv == 0) {
                             echo '<li><a href="useradmin">Hantera användare</a></li>';
+                            echo '<li><a href="adminmain">Administratör</a></li>';
                         }
                     }
-                    echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
+                    #echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                 }
 
                 ?>
 
 
-                <li><a href="adminaccount">Administratör</a></li>
+
             </ul>
         </div>
     </div>
@@ -113,7 +112,7 @@ $randomString = new RandomInfo();
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <?php
 
-    
+
     if(isset($_SESSION['message']) && is_string($_SESSION['message']) && $_SESSION['message'] != ''){
         $d = unserialize($_SESSION['message']);
         $d->printAlerts();
@@ -137,6 +136,10 @@ $randomString = new RandomInfo();
 */
 
     $page = trim($_SERVER['REQUEST_URI'], '/');
+    $sideMenuPagesAvailable = ['front','login','electionadmin','adjust','useradmin','adminmain'];
+    if(in_array($page,$sideMenuPagesAvailable)){
+        $_SESSION['sideMenu'] = $page;
+    }
     if (!empty($page)) {
         if ($page == 'front') {
             include 'index/front.php';
@@ -198,19 +201,19 @@ $randomString = new RandomInfo();
             if (!isset($_SESSION['user'])) {
                 include 'index/admin/adminlogin.php';
             } else {
-                include 'index/admin/adminlogout.php';
+                include 'index/logout.php';
             }
-        } elseif ($page == 'adminaccount'){
+        } elseif ($page == 'adminmain'){
             if (!isset($_SESSION['user'])) {
                 include 'index/admin/adminlogin.php';
             } else {
-                include 'index/admin/account.php';
+                include 'index/admin/adminmain.php';
             }
-        } elseif ($page == 'adminusers'){
+        } elseif ($page == 'electionControl'){
             if (!isset($_SESSION['user'])) {
                 include 'index/admin/adminlogin.php';
             } else {
-                include 'index/admin/users.php';
+                include 'index/admin/electionControl.php';
             }
         } elseif ($page == 'adminsettings'){
             if (!isset($_SESSION['user'])) {

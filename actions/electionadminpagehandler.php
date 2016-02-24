@@ -101,7 +101,7 @@ if (isset($_POST['button'])) {
             $dialogue->appendMessage('Alla fält är inte ifyllda', 'error');
         }
 
-        $redirect = 'clear';
+        $redirect = '';
         if ($input_ok) {
             $psw1 = $_POST['pswuser'];
             $current_usr = $_SESSION['user'];
@@ -114,6 +114,6 @@ if (isset($_POST['button'])) {
             }
         }
         $_SESSION['message'] = serialize($dialogue);
-        header('Location: /'.$redirect);
+        header('Location: /adminmain');
     }
 }

@@ -49,7 +49,11 @@ class TableGenerator {
              echo "</table>";
              echo "</div>";
          }else{
-             echo "Ingenting har valts ännu";
+             if($evote->ongoingSession()){
+                echo "<h4>Ingenting har valts ännu<h4>";
+            }else{
+                echo "<h4>Inget valtillfälle i sikte<h4>";
+            }
          }
     }
 

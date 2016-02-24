@@ -16,7 +16,7 @@ echo "<hr>";
 if($ongoingSession){
 	$tg->generateResultTable("last");
 }else{
-	echo "<h3>Det pågår inget val</h3>";
+	echo "<h4>Det pågår inget val</h4>";
 }
 
 } else {

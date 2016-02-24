@@ -1,16 +1,24 @@
 <?php
 
 $priv = $evote->getPrivilege($_SESSION["user"]);
-switch($priv){
-    case 0:
+if(isset($_SESSION["sideMenu"])){
+switch($_SESSION["sideMenu"]){
+    case 'useradmin':
         $mg->printUserhandlerPanelMenu(3);
         break;
-    case 1:
+    case 'adminmain':
+        $mg->printAdminMenu(3);
+        break;
+    case 'electionadmin':
         $mg->printElectionadminPanelMenu(3);
         break;
-    case 2:
+    case 'adjust':
         $mg->printAdjustPanelMenu(2);
         break;
+}
+}
+if($_SESSION["sideMenu"] == "adminaccount"){
+
 }
 
 echo "<h3>Logga ut</h3>";

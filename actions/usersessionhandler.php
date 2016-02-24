@@ -38,7 +38,7 @@ if(isset($_POST["button"])){
 		$priv = $evote->getPrivilege($_SESSION["user"]);
 		switch ($priv) {
 			case 0:
-				$redirect = "adminaccount";
+				$redirect = "adminmain";
 				break;
 			case 1:
 				$redirect = "electionadmin";

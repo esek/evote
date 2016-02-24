@@ -10,8 +10,6 @@ if (isset($_POST['button'])) {
     if ($_POST['button'] == 'vote') {
         $dialogue = new dialogue();
         $ok = true;
-        $msg = '';
-        $msgType = '';
         $ongoingR = $evote->ongoingRound();
         if (!isset($_POST['person'])) {
             $ok = false;
@@ -38,10 +36,8 @@ if (isset($_POST['button'])) {
             $ok = false;
             $dialogue->appendMessage('Valomgången har redan avslutats', 'error');
         }
-        $dialogue->setMessageType('error');
 
         if ($ok) {
-            $dialogue->setMessageType('success');
             $person_id = $_POST['person'];
             $personal_code = $_POST['code1'];
             $current_code = $_POST['code2'];
@@ -49,7 +45,6 @@ if (isset($_POST['button'])) {
                 $dialogue->appendMessage('Din röst har blivit registrerad', 'success');
             } else {
                 $dialogue->appendMessage('Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat', 'error');
-                $dialogue->setMessageType('error');
             }
         }
 

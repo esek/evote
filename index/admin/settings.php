@@ -3,7 +3,7 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
-    $mg->printAdminMenu(1);
+    //$mg->printAdminMenu(1);
 
 
 } else {

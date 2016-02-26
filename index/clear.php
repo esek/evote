@@ -1,7 +1,7 @@
 <?php
 $access = array(1);
 if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
-	$mg->printElectionadminPanelMenu(2);
+	//$mg->printElectionadminPanelMenu(2);
 ?>
 	<h3>Stäng nuvarande val</h3>
 	<hr>
@@ -10,7 +10,7 @@ if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
 	</div>
 	<br>
 	<div style="max-width: 400px">
-		<form action="actions/electionadminpagehandler.php" method="POST">
+		<form action="/actions/electionadminpagehandler.php" method="POST">
 			<div class="form-group">
         <label for="psw1">Ditt lösenord:</label>
         <input type="password" name="pswuser" class="form-control" id="psw1">

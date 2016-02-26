@@ -8,7 +8,7 @@ $buttonstate = "disabled";
 if($ongoingSession){
         $buttonstate = "active";
 }
-$mg->printAdjustPanelMenu(0);
+//$mg->printAdjustPanelMenu(0);
 
 echo "<h3>Föregående omgång</h3>";
 echo "<hr>";

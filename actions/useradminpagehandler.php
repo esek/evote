@@ -13,7 +13,7 @@ if (isset($_POST['button'])) {
         $msgType = '';
         if ($_POST['psw'] == '' || $_POST['username'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Något av fälten är tomma', 'error');
+            $dialogue->appendMessage('Något av fälten var tomma', 'error');
             $msg .= 'Något av fälten är tomma.';
             $msgType = 'error';
         }
@@ -29,7 +29,7 @@ if (isset($_POST['button'])) {
         }
         $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
         $_SESSION['message'] = serialize($dialogue);
-        header('Location: /changepassword');
+        header('Location: /useradmin/changepassword');
     } elseif ($_POST['button'] == 'new') {
         $dialogue = new dialogue();
         $input_ok = true;
@@ -37,7 +37,7 @@ if (isset($_POST['button'])) {
         $msgType = '';
         if ($_POST['psw'] == '' || $_POST['username'] == '' || $_POST['priv'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Något av fälten är tomma', 'error');
+            $dialogue->appendMessage('Något av fälten var tomma', 'error');
             $msg .= 'Något av fälten är tomma.';
             $msgType = 'error';
         }
@@ -59,7 +59,7 @@ if (isset($_POST['button'])) {
         }
         $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
         $_SESSION['message'] = serialize($dialogue);
-        header('Location: /newuser');
+        header('Location: /useradmin/newuser');
 
 
     } elseif ($_POST['button'] == 'delete_users') {

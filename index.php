@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/evote.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/evote.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,7 +34,7 @@ $randomString = new RandomInfo();
             <div class="col-md-4">
                 <div class="logo">
                     <!--<div><h3><span class="label label-info">E-vote - Ditt digitala röstsystem</span></h3></div> -->
-					<img src="logo.jpg" />
+					<img src="/logo.jpg" />
                 </div>
             </div>
         </div>
@@ -82,20 +82,21 @@ $randomString = new RandomInfo();
 
                 <?php
                 if (true) {
-                    echo "<li><a href=\"front\">Röstningssida</a></li>";
+                    echo "<li><a href=\"/vote\">Röstningssida</a></li>";
                     echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                     if (!isset($_SESSION['user'])) {
-                        echo '<li><a href="login">Logga in</a></li>';
+                        echo '<li><a href="/login">Logga in</a></li>';
                     } else {
                         $priv = $evote->getPrivilege($_SESSION['user']);
                         if ($priv == 1) {
-                            echo '<li><a href="electionadmin">Valansvarig</a></li>';
+                            echo '<li><a href="/electionadmin">Valansvarig</a></li>';
                         } elseif ($priv == 2) {
-                            echo '<li><a href="adjust">Justerare</a></li>';
+                            echo '<li><a href="/adjust">Justerare</a></li>';
                         } elseif ($priv == 0) {
-                            echo '<li><a href="useradmin">Hantera användare</a></li>';
-                            echo '<li><a href="adminmain">Administratör</a></li>';
+                            echo '<li><a href="/useradmin">Hantera användare</a></li>';
+                            echo '<li><a href="/adminmain">Administratör</a></li>';
                         }
+                        echo '<li><a href="/logout">Logga ut</a></li>';
                     }
                     #echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                 }
@@ -136,10 +137,91 @@ $randomString = new RandomInfo();
 */
 
     $page = trim($_SERVER['REQUEST_URI'], '/');
+    $tr = trim($_SERVER['REQUEST_URI'], '/');
+    $nav = explode('/',$tr);
+
     $sideMenuPagesAvailable = ['front','login','electionadmin','adjust','useradmin','adminmain'];
     if(in_array($page,$sideMenuPagesAvailable)){
         $_SESSION['sideMenu'] = $page;
     }
+    $module = '';
+    $page = '';
+    if(isset($nav[0])){
+        $module = $nav[0];
+    }
+    if(isset($nav[1])){
+        $page = $nav[1];
+    }
+    #echo $module;
+    #echo $page;
+
+    //
+    if($module == 'vote'){
+        include 'index/vote/front.php';
+    }elseif($module == 'login'){
+        include 'index/session/login.php';
+    }elseif($module == 'electionadmin'){
+        if (!isset($_SESSION['user'])) {
+            include 'index/session/login.php';
+        } else {
+            $mg->printElectionadminPanelMenu($page);
+            if($page == 'control')
+                include 'index/electionadmin/electionadminpanel.php';
+            elseif($page == 'stat')
+                include 'index/adjust/stat.php';
+            else
+                include 'index/electionadmin/electionadminpanel.php';
+            }
+    }elseif($module == 'adjust'){
+        if (!isset($_SESSION['user'])) {
+            include 'index/session/login.php';
+        } else {
+            $mg->printAdjustPanelMenu($page);
+            if($page == 'adjustpanel')
+                include 'index/adjust/adjustpanel.php';
+            elseif($page == 'stat')
+                include 'index/adjust/stat.php';
+            else
+                include 'index/adjust/adjustpanel.php';
+            }
+    }elseif($module == 'useradmin'){
+        if (!isset($_SESSION['user'])) {
+            include 'index/session/login.php';
+        } else {
+            $mg->printUserhandlerPanelMenu($page);
+            if($page == 'handleusers')
+                include 'index/useradmin/useradminpanel.php';
+            elseif($page == 'changepassword')
+                include 'index/useradmin/changepassword.php';
+            elseif($page == 'newuser')
+                include 'index/useradmin/newuser.php';
+            else
+                include 'index/useradmin/useradminpanel.php';
+        }
+    }elseif($module == 'adminmain'){
+        if (!isset($_SESSION['user'])) {
+            include 'index/session/login.php';
+        } else {
+            $mg->printAdminMenu($page);
+            if($page == 'info')
+                include 'index/admin/electionsinfo.php';
+            elseif($page == 'electioncontrol')
+                include 'index/admin/electionControl.php';
+            elseif($page == 'electioncontrol')
+                include 'index/admin/electionControl.php';
+            else
+                include 'index/admin/electionsinfo.php';
+        }
+    }elseif($module == 'logout'){
+        if (!isset($_SESSION['user'])) {
+            include 'index/session/login.php';
+        } else {
+            include 'index/session/logout.php';
+        }
+    }else{
+        include 'index/vote/front.php';
+    }
+/*
     if (!empty($page)) {
         if ($page == 'front') {
             include 'index/front.php';
@@ -225,6 +307,7 @@ $randomString = new RandomInfo();
     } else {
         include 'index/front.php';
     }
+    */
 ?>
 
     </div>

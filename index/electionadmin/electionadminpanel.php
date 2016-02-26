@@ -10,7 +10,7 @@ if($ongoingSession){
 	$buttonstate = "active";
 }
  #------------KNAPPRAD-------------
- $mg->printElectionadminPanelMenu(0);
+ //$mg->printElectionadminPanelMenu(0);
 
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){
@@ -44,7 +44,7 @@ if(!$ongoingSession){ ?>
 	    <h3>Skapa ny valomgång</h3>
 		<hr>
 		<div style="max-width: 400px">
-	        <form action="actions/electionadminpagehandler.php" method="POST">
+	        <form action="/actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>
 	                <input type="text" class="form-control" name="round_name" autocomplete="off" maxlength="240">
@@ -124,7 +124,7 @@ if(!$ongoingSession){ ?>
 
 		$tg->generateAvailableOptions();
 
-		echo "<form action=actions/electionadminpagehandler.php method=\"POST\">";
+		echo "<form action=/actions/electionadminpagehandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
 	}

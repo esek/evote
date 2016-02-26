@@ -1,5 +1,5 @@
 <?php
-
+/*
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(isset($_SESSION["sideMenu"])){
 switch($_SESSION["sideMenu"]){
@@ -20,7 +20,7 @@ switch($_SESSION["sideMenu"]){
 if($_SESSION["sideMenu"] == "adminaccount"){
 
 }
-
+*/
 echo "<h3>Logga ut</h3>";
 echo "<hr>";
 echo "<div style=\"max-width: 400px\">";

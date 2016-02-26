@@ -3,7 +3,7 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
-    $mg->printAdminMenu(2);
+    //$mg->printAdminMenu(2);
 
     $ongoingSession = $evote->ongoingSession();
 
@@ -18,7 +18,7 @@ if(in_array($priv, $access)){
     	<h3>Skapa nytt val</h3>
     	<hr>
     	<div style="max-width: 400px">
-    	<form action="actions/electionadminpagehandler.php" method="POST">
+    	<form action="/actions/electionadminpagehandler.php" method="POST">
     	<div class="form-group">
     	        <label for="vn">Namn på val:</label>
     	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
@@ -40,7 +40,7 @@ if(in_array($priv, $access)){
     	</div>
     	<br>
     	<div style="max-width: 400px">
-    		<form action="actions/electionadminpagehandler.php" method="POST">
+    		<form action="/actions/electionadminpagehandler.php" method="POST">
     			<div class="form-group">
             <label for="psw1">Ditt lösenord:</label>
             <input type="password" name="pswuser" class="form-control" id="psw1">

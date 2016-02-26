@@ -52,9 +52,9 @@ if(isset($_POST["button"])){
 		}
 		header("Location: /".$redirect);
 
-    }else if($_POST["button"]=="logout"){
+    }elseif($_POST["button"]=="logout"){
 		unset($_SESSION['user']);
-		header("Location: /front");
+		header("Location: /vote");
     }
 }
 

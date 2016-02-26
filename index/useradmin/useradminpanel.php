@@ -2,14 +2,14 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
-$mg->printUserhandlerPanelMenu(0);
+//$mg->printUserhandlerPanelMenu($page);
 
 ?>
 
 <h3>Hantera användare</h3>
 <hr>
 <div style="max-width: 400px">
-    <form action="actions/useradminpagehandler.php" method="POST">
+    <form action="/actions/useradminpagehandler.php" method="POST">
     <div class="form-group">
             <?php
             $res = $evote->listUsers();

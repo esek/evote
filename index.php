@@ -140,10 +140,6 @@ $randomString = new RandomInfo();
     $tr = trim($_SERVER['REQUEST_URI'], '/');
     $nav = explode('/',$tr);
 
-    $sideMenuPagesAvailable = ['front','login','electionadmin','adjust','useradmin','adminmain'];
-    if(in_array($page,$sideMenuPagesAvailable)){
-        $_SESSION['sideMenu'] = $page;
-    }
     $module = '';
     $page = '';
     if(isset($nav[0])){

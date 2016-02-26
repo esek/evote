@@ -1,7 +1,7 @@
 <?php
-if(!($evote->verifyUser($_SESSION["user"], 1))){
-	echo "Du har inte behörighet att visa denna sida.";
-}else{
+$access = array(1);
+$priv = $evote->getPrivilege($_SESSION["user"]);
+if(in_array($priv, $access)){
 
 $ongoingSession = $evote->ongoingSession();
 
@@ -9,30 +9,21 @@ $buttonstate = "disabled";
 if($ongoingSession){
 	$buttonstate = "active";
 }
-?>
-<p><?php #------------KNAPPRAD-------------
-	$btns1 = "btn btn-success ".$buttonstate;
-	$btns2 = "btn btn-danger ".$buttonstate;
-	echo "<form action=actions/buttonhandler.php method=\"POST\">";
-	echo "<div class=\"btn-group\">";
-	echo "<button type=\"submit\" name=\"button\" value=\"stat\" class=\"$btns1\" style=\"margin-bottom: 5px\" $buttonstate>Se tidigare omgångar</button>";
-	//echo "<button type=\"submit\" name=\"button\" value=\"print\" class=\"$btns1\" style=\"margin-bottom: 5px\" $buttonstate>Skriv ut personliga koder</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"clear\" class=\"$btns2\" style=\"margin-bottom: 5px\" $buttonstate>Stäng nuvarande val</button>";
-	echo "<button type=\"submit\" name=\"button\" value=\"logout\" class=\"btn btn-primary\" style=\"margin-bottom: 5px\">Logga ut</button>";
-	echo "</div>";
-	echo "</form>";
-?></p>
-	<hr>
-<?php #-------------NYTT VAL--------------
+ #------------KNAPPRAD-------------
+ //$mg->printElectionadminPanelMenu(0);
+
+#-------------NYTT VAL--------------
 if($evote->checkCheating()){
     echo "Någon fuling har mixtrat i databasen.";
 }
 
 if(!$ongoingSession){ ?>
-
-	<div style="max-width: 400px">
+	<h4>Det pågår inget valtillfälle.</h4>
+<!--
 	<h3>Skapa nytt val</h3>
-	<form action="actions/buttonhandler.php" method="POST">
+	<hr>
+	<div style="max-width: 400px">
+	<form action="actions/electionadminpagehandler.php" method="POST">
 	<div class="form-group">
 	        <label for="vn">Namn på val:</label>
 	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
@@ -44,14 +35,16 @@ if(!$ongoingSession){ ?>
 	<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
 	</form>
 	</div>
-
+-->
 <?php }else{
 	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
 	if(!$ongoing){?>
+
+	    <h3>Skapa ny valomgång</h3>
+		<hr>
 		<div style="max-width: 400px">
-	        <h3>Skapa ny valomgång</h3>
-	        <form action="actions/buttonhandler.php" method="POST">
+	        <form action="/actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>
 	                <input type="text" class="form-control" name="round_name" autocomplete="off" maxlength="240">
@@ -119,35 +112,25 @@ if(!$ongoingSession){ ?>
 		<br><br>
 
 		<?php
-		include "actions/genlastresult.php";
+
+		// Generera tabell med förra omgångens resultat.
+		$tg->generateResultTable("last");
 
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{
+		echo "<h3>Röstning pågår:</h3>";
+		echo "<hr>";
+		echo "<div style=\"max-width: 400px\">";
 
-	$res = $evote->getOptions();
-        if($res->num_rows > 0){
-        ?>
-		<div style="max-width: 400px">
-		<h3>Röstning pågår:</h3>
-		<?php
-                $head = "";
-		echo "<table class=\"table table\">";
-                while($row = $res->fetch_assoc()){
-                    if($head != $row["e_name"]){
-		        echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
-                        $head = $row["e_name"];
-                    }
-		    echo "<tr><td>".$row["name"]." </td></tr>\n";
-                }
-		echo "</table>";
+		$tg->generateAvailableOptions();
 
-		echo "<form action=actions/buttonhandler.php method=\"POST\">";
+		echo "<form action=/actions/electionadminpagehandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
-		echo "</div>";
-		}
 	}
 
 }
+} else {
+	echo "Du har inte behörighet att visa denna sida.";
 }
 ?>

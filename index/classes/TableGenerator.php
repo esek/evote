@@ -14,6 +14,7 @@ class TableGenerator {
 
         if ($res->num_rows > 0) {
         	echo "<div style=\"max-width: 400px\">";
+            echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
     		$e_id = -1;
     		$p = 1;
@@ -47,6 +48,7 @@ class TableGenerator {
                 $last_votes = $row["votes"];
              }
              echo "</table>";
+             echo "</div>";
              echo "</div>";
          }else{
              if($evote->ongoingSession()){
@@ -115,16 +117,17 @@ class TableGenerator {
         if($res->num_rows > 0){
 
         $head = "";
+        echo "<div class=\"panel panel-default\">";
 		echo "<table class=\"table table\">";
                 while($row = $res->fetch_assoc()){
                     if($head != $row["e_name"]){
-		        echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
+		        echo "<tr class=\"rowheader\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                         $head = $row["e_name"];
                     }
 		    echo "<tr><td>".$row["name"]." </td></tr>\n";
                 }
 		echo "</table>";
-
+        echo "</div>";
 		echo "</div>";
 		}
     }
@@ -135,6 +138,7 @@ class TableGenerator {
         if($res->num_rows > 0){
             echo "<div style=\"max-width: 600px\">";
             $head = "";
+            echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
             echo "<tr class=\"rowheader\">
                     <th>Namn</th>
@@ -164,7 +168,7 @@ class TableGenerator {
             }
 
     		echo "</table>";
-
+            echo "</div>";
     		echo "</div>";
 		}
     }

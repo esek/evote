@@ -12,9 +12,9 @@ if(!$evote->ongoingSession()){
             if($res->num_rows > 0){
 ?>
 
-	    	<h3>Röstning pågår:</h3>
+	    	<h3>Röstning pågår</h3>
 			<hr>
-			<div class="well"style="max-width: 400px; background-color: rgb(251,251,251);">
+			<div class="well"style="max-width: 400px;">
 				<?php
 				$max = $evote->getMaxAlternatives();
 				echo "<div name=\"maxalt_header\" >";
@@ -30,10 +30,11 @@ if(!$evote->ongoingSession()){
 							$type = "radio";
 							$id = 1;
 						}
+						echo "<div class=\"panel panel-default\">";
 	    	        	echo "<table class=\"table table\">";
                         while($row = $res->fetch_assoc()){
                                 if($head != $row["e_name"]){
-	    	        	        echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
+	    	        	        echo "<tr class=\"rowheader\";><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                                 $head = $row["e_name"];
                                                 }
 	    	        			echo "<tr>
@@ -41,6 +42,7 @@ if(!$evote->ongoingSession()){
 	    	        				<td class=\"col-md-11 col-xs-11\">".$row["name"]." </td></tr>\n";
 	    	        		}
 	    	        	echo "</table>";
+						echo "</div>";
 	    	        ?>
 					<script>
 					function maxCheck(){

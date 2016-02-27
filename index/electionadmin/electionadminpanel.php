@@ -114,6 +114,8 @@ if(!$ongoingSession){ ?>
 		<?php
 
 		// Generera tabell med förra omgångens resultat.
+		echo "<h3>Föregående valomgång</h3>";
+		echo "<hr>";
 		$tg->generateResultTable("last");
 
 	# ------------- VALOMGÅNG PÅGÅR ----------------

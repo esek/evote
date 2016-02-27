@@ -129,6 +129,46 @@ class TableGenerator {
 		}
     }
 
+    public function generateOverview(){
+        $evote = new Evote();
+        $res = $evote->getAllSessions();
+        if($res->num_rows > 0){
+            echo "<div style=\"max-width: 600px\">";
+            $head = "";
+    		echo "<table class=\"table table\">";
+            echo "<tr class=\"rowheader\">
+                    <th>Namn</th>
+                    <th>Öppnad</th>
+                    <th>Stängd</th>
+                    </tr>";
+            while($row = $res->fetch_assoc()) {
+                $name = $row['name'];
+                $start = $row['start'];
+                $end = $row['end'];
+                $active = $row['active'];
+
+                $style = "" ;
+                if($active == 1){
+                    $style = "rowwin";
+                }
+                if($end == "0000-00-00 00:00:00")
+                    $end = "-";
+                if($start == "0000-00-00 00:00:00")
+                    $start = "-";
+
+                echo "<tr class=\"$style\">
+                        <th>$name</th>
+                        <th>$start</th>
+                        <th>$end</th>
+                        </tr>";
+            }
+
+    		echo "</table>";
+
+    		echo "</div>";
+		}
+    }
+
 }
 
 ?>

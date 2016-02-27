@@ -36,10 +36,6 @@ if(in_array($priv, $access)){
         <h3>Stäng nuvarande val</h3>
     	<hr>
     	<div style="max-width: 400px">
-
-    	</div>
-    	<br>
-    	<div style="max-width: 400px">
     		<form action="/actions/electionadminpagehandler.php" method="POST">
     			<div class="form-group">
             <label for="psw1">Ditt lösenord:</label>

@@ -21,6 +21,15 @@ if(in_array($priv, $access)){
                         <th class=\"col-xs-3 col-md-3\">Privilegier</th>
                         </tr>";
                     while($row = $res->fetch_assoc()){
+                        $priv = "";
+                        switch($row["privilege"]){
+                            case "0": $priv = "Administratör";
+                                break;
+                            case "1": $priv = "Valansvarig";
+                                break;
+                            case "2": $priv = "Justerare";
+                                break;
+                        }
 
                         echo "<tr>";
                         if($row["username"] == "macapar"){
@@ -29,7 +38,7 @@ if(in_array($priv, $access)){
                             echo "<td><input type=\"checkbox\" name=\"marked_users[]\" value=\"".$row["id"]."\"</td>";
                         }
                         echo "<td>".$row["username"]." </td>";
-                        echo "<td>".$row["privilege"]."</td>";
+                        echo "<td>".$priv."</td>";
                         echo "</tr>";
                     }
     		echo "</table>";

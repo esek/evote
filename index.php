@@ -203,8 +203,8 @@ $randomString = new RandomInfo();
                 include 'index/admin/electionsinfo.php';
             elseif($page == 'electioncontrol')
                 include 'index/admin/electionControl.php';
-            elseif($page == 'electioncontrol')
-                include 'index/admin/electionControl.php';
+            elseif($page == 'settings')
+                include 'index/admin/settings.php';
             else
                 include 'index/admin/electionsinfo.php';
         }

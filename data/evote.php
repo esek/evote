@@ -102,6 +102,16 @@ class Evote {
 
     }
 
+    public function getAllSessions(){
+        $conn = $this->connect();
+        $sql = "SELECT * FROM sessions ORDER BY id DESC;";
+        $res = $conn->query($sql);
+        echo $conn->error;
+        $conn->close();
+
+        return $res;
+    }
+
 // USER FUNCTIONS
 //--------------------------------------------------------------------------------------
     public function login($user, $password){
@@ -404,7 +414,8 @@ class Evote {
     public function endSession(){
         $conn = $this->connect();
 
-        $sql = "UPDATE sessions SET active=0;";
+        $sql .= "UPDATE sessions SET end=now() WHERE active=1;";
+        $sql .= "UPDATE sessions SET active=0;";
         $sql .= "TRUNCATE TABLE elections;";
         $sql .= "TRUNCATE TABLE elections_alternatives;";
         $sql .= "TRUNCATE TABLE elections_codes;";

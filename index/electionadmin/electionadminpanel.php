@@ -43,7 +43,7 @@ if(!$ongoingSession){ ?>
 
 	    <h3>Skapa ny valomgång</h3>
 		<hr>
-		<div style="max-width: 400px">
+		<div class="well" style="max-width: 400px">
 	        <form action="/actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>

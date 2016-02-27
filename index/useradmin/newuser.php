@@ -7,7 +7,7 @@ if(in_array($priv, $access)){
 
 <h3>Skapa ny användare</h3>
 <hr>
-<div style="max-width: 400px">
+<div class="well" style="max-width: 400px">
     <form action="/actions/useradminpagehandler.php" method="POST">
     <div>
             <label>Användarnamn:</label>

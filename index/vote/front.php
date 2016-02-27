@@ -11,8 +11,10 @@ if(!$evote->ongoingSession()){
             $res = $evote->getOptions();
             if($res->num_rows > 0){
 ?>
-	        <div style="max-width: 400px">
-	    	    <h3>Röstning pågår:</h3>
+
+	    	<h3>Röstning pågår:</h3>
+			<hr>
+			<div class="well"style="max-width: 400px; background-color: rgb(251,251,251);">
 				<?php
 				$max = $evote->getMaxAlternatives();
 				echo "<div name=\"maxalt_header\" >";

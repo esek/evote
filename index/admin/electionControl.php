@@ -17,7 +17,7 @@ if(in_array($priv, $access)){
 
     	<h3>Skapa nytt val</h3>
     	<hr>
-    	<div style="max-width: 400px">
+    	<div class="well" style="max-width: 400px">
     	<form action="/actions/electionadminpagehandler.php" method="POST">
     	<div class="form-group">
     	        <label for="vn">Namn på val:</label>
@@ -35,7 +35,7 @@ if(in_array($priv, $access)){
         ?>
         <h3>Stäng nuvarande val</h3>
     	<hr>
-    	<div style="max-width: 400px">
+    	<div class="well" style="max-width: 400px">
     		<form action="/actions/electionadminpagehandler.php" method="POST">
     			<div class="form-group">
             <label for="psw1">Ditt lösenord:</label>

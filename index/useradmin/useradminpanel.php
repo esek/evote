@@ -2,7 +2,7 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
-//$mg->printUserhandlerPanelMenu($page);
+    //require $_SERVER['DOCUMENT_ROOT'].'/data/config.php'
 
 ?>
 
@@ -34,7 +34,7 @@ if(in_array($priv, $access)){
                         }
 
                         echo "<tr>";
-                        if($row["username"] == "macapar"){
+                        if($row["username"] == SUPERUSER){
                             echo "<td>-</td>";
                         }else{
                             echo "<td><input type=\"checkbox\" name=\"marked_users[]\" value=\"".$row["id"]."\"</td>";

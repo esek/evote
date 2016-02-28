@@ -76,6 +76,13 @@
     border-color: rgb(100, 100, 100);
 }
 
+
+.center {
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 500px;
+}
+
 .sidebarinfo {
     color: rgb(255, 0, 0) !important;
     pointer-events: none;

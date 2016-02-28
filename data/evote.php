@@ -1,5 +1,6 @@
 <?php
-require __DIR__."/slask.php";
+//require __DIR__."/slask.php";
+include $_SERVER['DOCUMENT_ROOT']."/data/config.php";
 //crypt($pass, '$6$'.$salt.'$');
 //crypt($pass, $hash) == $hash;
 class Evote {

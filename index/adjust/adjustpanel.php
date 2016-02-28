@@ -10,7 +10,7 @@ if($ongoingSession){
 }
 //$mg->printAdjustPanelMenu(0);
 
-echo "<h3>Föregående omgång</h3>";
+echo "<h3>Föregående valomgång</h3>";
 echo "<hr>";
 
 if($ongoingSession){

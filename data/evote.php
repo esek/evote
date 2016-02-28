@@ -1,5 +1,6 @@
 <?php
-require __DIR__."/slask.php";
+//require __DIR__."/slask.php";
+include $_SERVER['DOCUMENT_ROOT']."/data/config.php";
 //crypt($pass, '$6$'.$salt.'$');
 //crypt($pass, $hash) == $hash;
 class Evote {
@@ -100,6 +101,16 @@ class Evote {
 
         return TRUE;
 
+    }
+
+    public function getAllSessions(){
+        $conn = $this->connect();
+        $sql = "SELECT * FROM sessions ORDER BY id DESC;";
+        $res = $conn->query($sql);
+        echo $conn->error;
+        $conn->close();
+
+        return $res;
     }
 
 // USER FUNCTIONS
@@ -404,7 +415,8 @@ class Evote {
     public function endSession(){
         $conn = $this->connect();
 
-        $sql = "UPDATE sessions SET active=0;";
+        $sql .= "UPDATE sessions SET end=now() WHERE active=1;";
+        $sql .= "UPDATE sessions SET active=0;";
         $sql .= "TRUNCATE TABLE elections;";
         $sql .= "TRUNCATE TABLE elections_alternatives;";
         $sql .= "TRUNCATE TABLE elections_codes;";

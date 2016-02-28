@@ -6,7 +6,7 @@ if(in_array($priv, $access)){
 ?>
 <h3>Ändra lösenord</h3>
 <hr>
-<div style="max-width: 400px">
+<div class="well" style="max-width: 400px">
     <form action="/actions/useradminpagehandler.php" method="POST">
     <div class="form-group">
             <label>Användarnamn:</label>

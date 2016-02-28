@@ -69,11 +69,18 @@
 }
 
 .rowheader {
-    background-color: rgb(204, 204, 204);
+    background-color: rgb(180, 180, 180);
 }
 
 .sidebarruler {
     border-color: rgb(100, 100, 100);
+}
+
+
+.center {
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 500px;
 }
 
 .sidebarinfo {
@@ -203,4 +210,14 @@
 
 .main .page-header h1 {
   margin: 10px 0px;
+}
+
+/*
+
+*/
+
+@media (max-width: 768px) {
+    .small-centered {
+        margin: 0 auto;
+    }
 }

@@ -17,11 +17,13 @@
 <body>
 <?php
 session_start();
-require 'data/evote.php';
+
+include $_SERVER['DOCUMENT_ROOT'].'/data/evote.php';
 require 'index/classes/TableGenerator.php';
 require 'index/classes/MenuGenerator.php';
 require 'data/RandomInfo.php';
 require 'data/Dialogue.php';
+
 
 $evote = new Evote();
 $tg = new TableGenerator();
@@ -148,11 +150,10 @@ $randomString = new RandomInfo();
     if(isset($nav[1])){
         $page = $nav[1];
     }
-    #echo $module;
-    #echo $page;
-
-    //
-    if($module == 'vote'){
+    $configured = file_exists($_SERVER['DOCUMENT_ROOT'].'/data/config.php');
+    if(!$configured){
+        echo '<h4>E-vote måste konfigureras</h4>';
+    }elseif($module == 'vote'){
         include 'index/vote/front.php';
     }elseif($module == 'login'){
         include 'index/session/login.php';
@@ -203,8 +204,8 @@ $randomString = new RandomInfo();
                 include 'index/admin/electionsinfo.php';
             elseif($page == 'electioncontrol')
                 include 'index/admin/electionControl.php';
-            elseif($page == 'electioncontrol')
-                include 'index/admin/electionControl.php';
+            elseif($page == 'settings')
+                include 'index/admin/settings.php';
             else
                 include 'index/admin/electionsinfo.php';
         }

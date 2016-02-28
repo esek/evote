@@ -17,6 +17,12 @@ if (isset($_POST['button'])) {
             $msg .= 'Något av fälten är tomma.';
             $msgType = 'error';
         }
+        if (!$evote->usernameExists($_POST['username'])) {
+            $input_ok = false;
+            $dialogue->appendMessage('Användaren du angav finns inte', 'error');
+            $msg .= 'Användarnamnet du angav finns redan. ';
+            $msgType = 'error';
+        }
 
         if ($input_ok) {
             $user = $_POST['username'];

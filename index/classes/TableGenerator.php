@@ -13,7 +13,8 @@ class TableGenerator {
         }
 
         if ($res->num_rows > 0) {
-        	echo "<div style=\"max-width: 400px\">";
+        	echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
+            echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
     		$e_id = -1;
     		$p = 1;
@@ -47,6 +48,7 @@ class TableGenerator {
                 $last_votes = $row["votes"];
              }
              echo "</table>";
+             echo "</div>";
              echo "</div>";
          }else{
              if($evote->ongoingSession()){
@@ -118,14 +120,54 @@ class TableGenerator {
 		echo "<table class=\"table table\">";
                 while($row = $res->fetch_assoc()){
                     if($head != $row["e_name"]){
-		        echo "<tr style=\"background-color: rgb(232,232,232);\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
+		                echo "<tr class=\"rowheader\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                         $head = $row["e_name"];
                     }
-		    echo "<tr><td>".$row["name"]." </td></tr>\n";
+		            echo "<tr><td>".$row["name"]." </td></tr>\n";
                 }
 		echo "</table>";
 
-		echo "</div>";
+		}
+    }
+
+    public function generateOverview(){
+        $evote = new Evote();
+        $res = $evote->getAllSessions();
+        if($res->num_rows > 0){
+            echo "<div class=\"well well-sm\" style=\"max-width: 600px\">";
+            $head = "";
+            echo "<div class=\"panel panel-default\">";
+    		echo "<table class=\"table table\">";
+            echo "<tr class=\"rowheader\">
+                    <th>Namn</th>
+                    <th>Öppnad</th>
+                    <th>Stängd</th>
+                    </tr>";
+            while($row = $res->fetch_assoc()) {
+                $name = $row['name'];
+                $start = $row['start'];
+                $end = $row['end'];
+                $active = $row['active'];
+
+                $style = "" ;
+                if($active == 1){
+                    $style = "rowwin";
+                }
+                if($end == "0000-00-00 00:00:00")
+                    $end = "-";
+                if($start == "0000-00-00 00:00:00")
+                    $start = "-";
+
+                echo "<tr class=\"$style\">
+                        <th>$name</th>
+                        <th>$start</th>
+                        <th>$end</th>
+                        </tr>";
+            }
+
+    		echo "</table>";
+            echo "</div>";
+    		echo "</div>";
 		}
     }
 

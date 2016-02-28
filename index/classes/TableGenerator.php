@@ -13,7 +13,7 @@ class TableGenerator {
         }
 
         if ($res->num_rows > 0) {
-        	echo "<div style=\"max-width: 400px\">";
+        	echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
     		$e_id = -1;
@@ -117,18 +117,16 @@ class TableGenerator {
         if($res->num_rows > 0){
 
         $head = "";
-        echo "<div class=\"panel panel-default\">";
 		echo "<table class=\"table table\">";
                 while($row = $res->fetch_assoc()){
                     if($head != $row["e_name"]){
-		        echo "<tr class=\"rowheader\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
+		                echo "<tr class=\"rowheader\"><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                         $head = $row["e_name"];
                     }
-		    echo "<tr><td>".$row["name"]." </td></tr>\n";
+		            echo "<tr><td>".$row["name"]." </td></tr>\n";
                 }
 		echo "</table>";
-        echo "</div>";
-		echo "</div>";
+
 		}
     }
 
@@ -136,7 +134,7 @@ class TableGenerator {
         $evote = new Evote();
         $res = $evote->getAllSessions();
         if($res->num_rows > 0){
-            echo "<div style=\"max-width: 600px\">";
+            echo "<div class=\"well well-sm\" style=\"max-width: 600px\">";
             $head = "";
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";

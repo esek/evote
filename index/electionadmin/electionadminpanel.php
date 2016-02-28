@@ -44,6 +44,7 @@ if(!$ongoingSession){ ?>
 	    <h3>Skapa ny valomgång</h3>
 		<hr>
 		<div class="well" style="max-width: 400px">
+		<div class=\"panel panel-default">
 	        <form action="/actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
 	                <label>Vad som ska väljas:</label>
@@ -120,15 +121,20 @@ if(!$ongoingSession){ ?>
 
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{
-		echo "<h3>Röstning pågår:</h3>";
+		echo "<h3>Röstning pågår</h3>";
 		echo "<hr>";
-		echo "<div style=\"max-width: 400px\">";
+		echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
+        echo "<div class=\"panel panel-default\">";
 
 		$tg->generateAvailableOptions();
 
+		echo "</div>";
+		echo "<div class=\"span7 text-center\">";
 		echo "<form action=/actions/electionadminpagehandler.php method=\"POST\">";
 		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
 		echo "</form>";
+		echo "</div>";
+		echo "</div>";
 	}
 
 }

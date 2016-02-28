@@ -11,10 +11,9 @@ if(!$evote->ongoingSession()){
             $res = $evote->getOptions();
             if($res->num_rows > 0){
 ?>
-
-	    	<h3>Röstning pågår</h3>
+	    	<h3 class="small-centered" style="max-width: 165px;">Röstning pågår</h3>
 			<hr>
-			<div class="well"style="max-width: 400px;">
+			<div class="well small-centered"style="max-width: 400px;">
 				<?php
 				$max = $evote->getMaxAlternatives();
 				echo "<div name=\"maxalt_header\" >";
@@ -31,15 +30,17 @@ if(!$evote->ongoingSession()){
 							$id = 1;
 						}
 						echo "<div class=\"panel panel-default\">";
-	    	        	echo "<table class=\"table table\">";
+	    	        	echo "<table class=\"table table\" id=\"contentTable\">";
                         while($row = $res->fetch_assoc()){
                                 if($head != $row["e_name"]){
 	    	        	        echo "<tr class=\"rowheader\";><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                                 $head = $row["e_name"];
                                                 }
 	    	        			echo "<tr>
-									<td class=\"col-md-1 col-xs-1\"><input type=$type class=\"big\" name=\"person[]\" id=$id value=".$row["id"]." onclick=\"maxCheck()\"></td>
-	    	        				<td class=\"col-md-11 col-xs-11\">".$row["name"]." </td></tr>\n";
+									<td class=\"col-md-1 col-xs-1\">
+									<input type=$type class=\"big\" name=\"person[]\" id=$id value=".$row["id"]." onclick=\"maxCheck()\"></td>
+	    	        				<td class=\"col-md-11 col-xs-11\">".$row["name"]." </td>
+									</tr>\n";
 	    	        		}
 	    	        	echo "</table>";
 						echo "</div>";
@@ -64,6 +65,7 @@ if(!$evote->ongoingSession()){
 
 
 					}
+
 					</script>
 
 					</script>

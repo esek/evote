@@ -19,7 +19,7 @@ The admin is the user that is responsible for that the system works. This user c
 ##### Election admin
 The election admin is responsible for the voting (often the election leader). This user creates and ends the voting sessions and can also see the voting result.
 
-######Adjuster
+#####Adjuster
 The adjuster is only an observer. This user can only see the result of the different voting sessions.
 
 ### How to create a new election meeting

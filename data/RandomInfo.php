@@ -41,13 +41,12 @@ class RandomInfo {
             "Naaajs!",
             "M-M-M-MONSTER VOTE!!!",
             "Soft!",
-            "Du får en 5:a i användning av E-vote",
+            "Du får en 5:a i användning av E-vote!",
             "Wupp!",
             "WAPP!",
             "Wopp!",
-            "Gosigt!",
             ":)",
-            "Hacke hälsar att du är underbart duktig!",
+            "Du är underbart duktig!",
             "D-D-D-DROP THE BASE!!!",
             "WubWubWub",
             "Double rainbow!",
@@ -55,10 +54,10 @@ class RandomInfo {
             "Sweet!!"
         );
         $err_info = array(
-            "Något gick fel",
+            "Något gick fel.",
             "Ajdå!",
             "Attans!",
-            "Whoops",
+            "Whoops!",
             "Naj!",
             "Ojdå!",
             "Hoppsan!",

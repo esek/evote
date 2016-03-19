@@ -1,20 +1,11 @@
 <?php
 
-require_once __DIR__ . '/RandomLib/vendor/autoload.php';
-
 class ECrypt
 {
 
     /* alphabet to be used when generating OTPs */
     // (tagit bort l,1,I,0,O,o från ursprunglig)
     private $alpha = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-
-    public function __construct() {
-        $factory = new RandomLib\Factory;
-        // the low-strength generator is fast and sufficient for OTPs, see docs
-        $this->generator = $factory->getLowStrengthGenerator();
-    }
 
     /**
         Generates an array of one-time passwords (OTPs).
@@ -29,7 +20,7 @@ class ECrypt
         $otp_array = array();
         $count = 0;
         while($count < $number) {
-            $pass = $this->generator->generateString(5, $this->alpha);
+            $pass = $this->generateRandomString(5, $this->alpha);
 
             // don't want collisions
             if (in_array($pass, $otp_array)) continue;
@@ -40,6 +31,15 @@ class ECrypt
         }
 
         return $otp_array;
+    }
+
+    function generateRandomString($nbrOfLetters, $availableLetters){
+        $charactersLength = strlen($availableLetters);
+        $randomString = '';
+        for ($i = 0; $i < $nbrOfLetters; $i++) {
+            $randomString .= $availableLetters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
 }

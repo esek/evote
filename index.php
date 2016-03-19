@@ -122,21 +122,6 @@ $randomString = new RandomInfo();
         unset($_SESSION['message']);
     }
 
-/*
-    if (isset($_SESSION['message']) && $_SESSION['message']['message'] != '') {
-        $type = $_SESSION['message']['type'];
-        $info = $randomString->generateTip($type);
-        if ($type == 'error') {
-            echo '<div class="panel panel-danger">';
-        } elseif ($type == 'success') {
-            echo '<div class="panel panel-success">';
-        }
-        echo '<div class="panel-heading">'.$info.'</div>';
-        echo '<div class="panel-body">'.$_SESSION['message']['message'].'</div>';
-        echo '</div>';
-        unset($_SESSION['message']);
-    }
-*/
 
     $page = trim($_SERVER['REQUEST_URI'], '/');
     $tr = trim($_SERVER['REQUEST_URI'], '/');
@@ -218,93 +203,7 @@ $randomString = new RandomInfo();
     }else{
         include 'index/vote/front.php';
     }
-/*
-    if (!empty($page)) {
-        if ($page == 'front') {
-            include 'index/front.php';
-        } elseif ($page == 'electionadmin') { //----------------- ADMIN
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/electionadminpanel.php';
-            }
-        } elseif ($page == 'stat') { //------------------ STAT
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/stat.php';
-            }
-        } elseif ($page == 'clear') { //----------------- CLEAR
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/clear.php';
-            }
-        } elseif ($page == 'adjust') { //----------------- ADJUST
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/adjustpanel.php';
-            }
-        } elseif ($page == 'useradmin') { //-------------- USERADMIN
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/useradminpanel.php';
-            }
-        } elseif ($page == 'newuser') { //---------------- NEW USER
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/newuser.php';
-            }
-        } elseif ($page == 'changepassword') { //---------------- CHANGE USERPASSWORD
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/changepassword.php';
-            }
-        } elseif ($page == 'logout') { //---------------- LOGOUT
-            if (!isset($_SESSION['user'])) {
-                include 'index/login.php';
-            } else {
-                include 'index/logout.php';
-            }
-        } elseif ($page == 'login') { //---------------- LOGIN
-            include 'index/login.php';
-        }
 
-        if($page == 'adminlogin'){
-            include 'index/admin/adminlogin.php';
-        } elseif ($page == 'adminlogout'){
-            if (!isset($_SESSION['user'])) {
-                include 'index/admin/adminlogin.php';
-            } else {
-                include 'index/logout.php';
-            }
-        } elseif ($page == 'adminmain'){
-            if (!isset($_SESSION['user'])) {
-                include 'index/admin/adminlogin.php';
-            } else {
-                include 'index/admin/adminmain.php';
-            }
-        } elseif ($page == 'electionControl'){
-            if (!isset($_SESSION['user'])) {
-                include 'index/admin/adminlogin.php';
-            } else {
-                include 'index/admin/electionControl.php';
-            }
-        } elseif ($page == 'adminsettings'){
-            if (!isset($_SESSION['user'])) {
-                include 'index/admin/adminlogin.php';
-            } else {
-                include 'index/admin/settings.php';
-            }
-        }
-    } else {
-        include 'index/front.php';
-    }
-    */
 ?>
 
     </div>

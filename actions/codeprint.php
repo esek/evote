@@ -15,7 +15,7 @@ if($evote->verifyUser($_SESSION["user"], 0)){
 	foreach($codes as $c){
 		$count ++;
 		$pdf->SetFont('Courier','B',16);
-		$title = decode_str("E-vote, E-sektionens röstningssystem evote.esek.se");
+		$title = decode_str("E-vote, E-sektionens röstningssystem ".$_SERVER['SERVER_NAME']);
 		$pdf->Ln();
 		$pdf->Cell(190,10,$title);
 		$pdf->Ln();

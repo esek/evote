@@ -66,7 +66,7 @@ class Dialogue
                 }
                 $tip = $rand->generateTip($type);
                 echo "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>";
-                echo "<strong>$tip</strong> ".$msg;
+                echo "<strong>$tip</strong>  ".$msg;
                 echo '</div>';
 
                 $head = $rand->generateTip($this->type);

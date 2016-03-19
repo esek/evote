@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.7deb7
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Värd: oddput
--- Skapad: 24 februari 2016 kl 18:04
--- Serverversion: 5.1.73
--- PHP-version: 5.3.3-7+squeeze19
+-- Värd: localhost
+-- Skapad: 19 mars 2016 kl 11:54
+-- Serverversion: 5.5.47-0ubuntu0.14.04.1
+-- PHP-version: 5.5.9-1ubuntu4.14
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,12 +23,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Struktur för tabell `elections`
+-- Tabellstruktur `elections`
 --
 
 CREATE TABLE IF NOT EXISTS `elections` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
+  `name` varchar(128) COLLATE utf8_swedish_ci NOT NULL,
   `pass` varchar(254) COLLATE utf8_swedish_ci DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
   `tot_votes` int(11) DEFAULT NULL,
@@ -38,13 +39,13 @@ CREATE TABLE IF NOT EXISTS `elections` (
 -- --------------------------------------------------------
 
 --
--- Struktur för tabell `elections_alternatives`
+-- Tabellstruktur `elections_alternatives`
 --
 
 CREATE TABLE IF NOT EXISTS `elections_alternatives` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `election_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `name` varchar(64) COLLATE utf8_swedish_ci DEFAULT NULL,
   `nbr_votes` int(11) DEFAULT NULL,
   `hash` varchar(256) COLLATE utf8_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -53,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `elections_alternatives` (
 -- --------------------------------------------------------
 
 --
--- Struktur för tabell `elections_codes`
+-- Tabellstruktur `elections_codes`
 --
 
 CREATE TABLE IF NOT EXISTS `elections_codes` (
@@ -61,12 +62,12 @@ CREATE TABLE IF NOT EXISTS `elections_codes` (
   `code` varchar(254) COLLATE utf8_swedish_ci NOT NULL,
   `active` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur för tabell `elections_usage`
+-- Tabellstruktur `elections_usage`
 --
 
 CREATE TABLE IF NOT EXISTS `elections_usage` (
@@ -80,20 +81,22 @@ CREATE TABLE IF NOT EXISTS `elections_usage` (
 -- --------------------------------------------------------
 
 --
--- Struktur för tabell `sessions`
+-- Tabellstruktur `sessions`
 --
 
 CREATE TABLE IF NOT EXISTS `sessions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) COLLATE utf8_swedish_ci DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=66 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur för tabell `user`
+-- Tabellstruktur `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -102,4 +105,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(512) COLLATE utf8_swedish_ci DEFAULT NULL,
   `privilege` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=20 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -35,7 +35,7 @@ The election admin creates voting sessions by logging in and enter the correct i
 A good strategy of handling the personal codes of a meeting is to create the election meeting before the actual meeting starts and print out the codes. Then the personal codes have to be distributed to the voters and this is easiest handled by letting those who are responsible for the election meeting see the ID of every participant and then give the code. It is very important that every voter only has one personal code and sticks to it during the whole meeting.
 
 ## Installation guide
-E-vote is written in php and works as a ordinary website. Therefore you just have to install and configure your server to host the site. Down below is a small guide on how you do this on a linux (distributions based on Debian) server.
+E-vote is written in php and works as an ordinary website. Therefore you just have to install and configure your server to host the site. Down below is a small guide on how you do this on a linux (distributions based on Debian) server.
 
 1. Download the source code of this repository and put it on your server.
 
@@ -77,7 +77,7 @@ E-vote is written in php and works as a ordinary website. Therefore you just hav
   }
   ```
 
-  Create or replace the content of `php.conf` and `fastcgi_params` in `/etc/nginx/` so they have the following content:
+  Create the files or replace the content of `php.conf` and `fastcgi_params` in `/etc/nginx/` so they have the following content:
 
   php.conf:
   ```
@@ -136,7 +136,7 @@ E-vote is written in php and works as a ordinary website. Therefore you just hav
 5. The site should now be working and you can access it in your browser at the host address you entered in the configuration file. (For example http://evote.yourdomain.com)
 
   If it works you will see the E-vote website in your browser but you will be prompted that you have to configure E-vote. Do so by entering http://evote.yourdomain.com/install/setup.php in your browser and enter the correct data. By doing this you create the websites configuration file.
-But to be able to do this the “data/” folder in the repository must have full write privileges. If the setup script won´t work for some reason the config file has the following structure:
+  But to be able to do this the “data/” folder in the repository must have full write privileges. If the setup script won´t work for some reason the config file has the following structure:
   ```
   <?php
   define("MYSQL_PASS", "password");

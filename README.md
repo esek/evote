@@ -35,11 +35,16 @@ The election admin creates voting sessions by logging in and enter the correct i
 A good strategy of handling the personal codes of a meeting is to create the election meeting before the actual meeting starts and print out the codes. Then the personal codes have to be distributed to the voters and this is easiest handled by letting those who are responsible for the election meeting see the ID of every participant and then give the code. It is very important that every voter only has one personal code and sticks to it during the whole meeting.
 
 ## Installation guide
-E-vote is written in php and works as a ordinary website. Therefore you just have to install and configure your server to host the site. Down below is a small guide on how you do this on a linux server.
+E-vote is written in php and works as a ordinary website. Therefore you just have to install and configure your server to host the site. Down below is a small guide on how you do this on a linux (distributions based on Debian) server.
 
 1. Download the source code of this repository and put it on your server.
 
 2.  Install your web server program, DataBase Management System (preferably MySQL) and PHP.
+
+    The following command should provide the required packages for MySQL and PHP:
+    ```
+    sudo apt-get install mysql-server php5-fpm php5-mysql php5-ldap
+    ```
 
 3. Configure your web server to host a PHP website.
 
@@ -70,6 +75,45 @@ E-vote is written in php and works as a ordinary website. Therefore you just hav
         	include php.conf;
         }
   }
+  ```
+
+  Create or replace the content of `php.conf` and `fastcgi_params` in `/etc/nginx/` so they have the following content:
+
+  php.conf:
+  ```
+  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+  fastcgi_pass unix:/var/run/php5-fpm.sock;
+  fastcgi_index index.php;
+  include fastcgi_params;
+
+  ```
+  fastcgi_params:
+  ```
+  fastcgi_param  QUERY_STRING       $query_string;
+  fastcgi_param  REQUEST_METHOD     $request_method;
+  fastcgi_param  CONTENT_TYPE       $content_type;
+  fastcgi_param  CONTENT_LENGTH     $content_length;
+
+  fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+  fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+  fastcgi_param  PATH_INFO          $fastcgi_path_info;
+  fastcgi_param  REQUEST_URI        $request_uri;
+  fastcgi_param  DOCUMENT_URI       $document_uri;
+  fastcgi_param  DOCUMENT_ROOT      $document_root;
+  fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+  fastcgi_param  HTTPS              $https if_not_empty;
+
+  fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+  fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;
+
+  fastcgi_param  REMOTE_ADDR        $remote_addr;
+  fastcgi_param  REMOTE_PORT        $remote_port;
+  fastcgi_param  SERVER_ADDR        $server_addr;
+  fastcgi_param  SERVER_PORT        $server_port;
+  fastcgi_param  SERVER_NAME        $server_name;
+
+  # PHP only, required if PHP was built with --enable-force-cgi-redirect
+  fastcgi_param  REDIRECT_STATUS    200;
   ```
 
 4. In the installation folder of the E-vote code there is a SQL dump that creates the needed tables for the database. Login as root to MySQL and create the database evote:

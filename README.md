@@ -133,7 +133,7 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
 
   (\<username\> is the username of the user you just created in MySQL and evote.sql is the SQL dump given in this repository in the install/ folder)
 
-5. The site should now be working and you can access it in your browser at the host address you entered in the configuration file. For example http://evote.yourdomain.com. (To be able to          do this you must redirect that subdomain to your server, or edit the `/etc/hosts` file if you are running Linux on you laptop/desktop)
+5. The site should now be working and you can access it in your browser at the host address you entered in the configuration file. For example http://evote.yourdomain.com. (To be able to          do this you must redirect that subdomain to your server, or edit the `/etc/hosts` file if you are running Linux on your laptop/desktop)
 
   If it works you will see the E-vote website in your browser but you will be prompted that you have to configure E-vote. Do so by entering http://evote.yourdomain.com/install/setup.php in your browser and enter the correct data. By doing this you create the websites configuration file.
   But to be able to do this the “data/” folder in the repository must have full write privileges. If the setup script won´t work for some reason the config file has the following structure:

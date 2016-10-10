@@ -95,7 +95,7 @@ if(!$ongoingSession){ ?>
                         //cdiv.appendChild(t);
                         cdiv.appendChild(input);
                         cdiv.appendChild(document.createElement("br"));
-                        if(container.childElementCount < 20){
+                        if(container.childElementCount < 100){
                             container.appendChild(cdiv);
                         }
                     }

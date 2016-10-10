@@ -9,7 +9,7 @@ Down below follows a user and a installation guide.
 The system has three kind of users that can log in on the website:
 * Admin
 * Election admin
-* Ajuster
+* Adjuster
 
 When the system is installed you will have an admin user. Log in with this user and you can easily create other users.
 

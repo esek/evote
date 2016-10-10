@@ -1,3 +1,9 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style>
+tr.alternative:hover {
+    background-color: rgb(245, 245, 245);
+}
+</style>
 <?php
 
 if(!$evote->ongoingSession()){
@@ -36,9 +42,9 @@ if(!$evote->ongoingSession()){
 	    	        	        echo "<tr class=\"rowheader\";><th colspan=\"2\">".$row["e_name"]."</th></tr>";
                                 $head = $row["e_name"];
                                                 }
-	    	        			echo "<tr>
+	    	        			echo "<tr class=\"alternative\" style=\"cursor: pointer;\">
 									<td class=\"col-md-1 col-xs-1\">
-									<input type=$type class=\"big\" name=\"person[]\" id=$id value=".$row["id"]." onclick=\"maxCheck()\"></td>
+									<input type=$type class=\"big\" name=\"person[]\" style=\"cursor: pointer;\" id=$id value=".$row["id"]." onclick=\"maxCheck()\"></td>
 	    	        				<td class=\"col-md-11 col-xs-11\">".$row["name"]." </td>
 									</tr>\n";
 	    	        		}
@@ -88,3 +94,18 @@ if(!$evote->ongoingSession()){
 		}
 	}
 ?>
+
+<script>
+// Script for selecting the checkbox when the table row is selected
+$('tr').on('click', function() {
+		var checkbox = $(this).find('input');
+		if(!checkbox.prop("disabled")){
+			checkbox.prop("checked", !checkbox.prop("checked"));
+		}
+
+		maxCheck()
+	});
+$("tr input").on("click", function(e){
+	e.stopPropagation();
+});
+</script>

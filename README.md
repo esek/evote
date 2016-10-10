@@ -26,7 +26,7 @@ The adjuster is only an observer. This user can only see the result of the diffe
 Log in as an admin user. Press the tab “Hantera valtillfälle”. If no election meeting is ongoing you  should be prompted with the name of the meeting and the maximum number of personal codes that will be generated. When you have filled the information in and press “Skapa” the codes will be prompted in a pdf-document. Print this document now, as the codes only will be generated once. Then the election meeting is open and the election admin can start voting sessions.
 
 ### How to close a election meeting
-Log in as an admin user. Press the tab “Hantera valtillfälle”. Enter your password and press “Stäng”.
+Log in as an admin user. Press the tab “Hantera valtillfälle”. Enter your password and press “Stäng val”.
 
 ### How the voting works
 The election admin creates voting sessions by logging in and enter the correct information. The “temporary code” is the code that is needed to vote in just this voting session. Press the button “Starta ny valomgång” to start the election session. Now can the persons present in the voting room vote at the different options given. They do this by marking the option/options they want and entering their personal code along with the temporary code and then pressing “Rösta”. When the voting is finished the election admin closes the voting session and the result is now shown for the election admin and the adjuster.

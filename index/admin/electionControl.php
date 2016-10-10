@@ -41,7 +41,7 @@ if(in_array($priv, $access)){
             <label for="psw1">Ditt lösenord:</label>
             <input type="password" name="pswuser" class="form-control" id="psw1">
     	</div>
-    	<button type="submit" class="btn btn-primary" value="delete_election" name="button">Radera val</button>
+    	<button type="submit" class="btn btn-primary" value="delete_election" name="button">Stäng val</button>
     	</form>
     	</div>
         <?php

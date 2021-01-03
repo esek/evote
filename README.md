@@ -71,8 +71,8 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
 
         # Always rewrite to index.php
         location @evote {
-        	rewrite ^(.*)$  /index.php$1    break;
-        	include php.conf;
+            rewrite ^(.*)$  /index.php$1    break;
+            include php.conf;
         }
   }
   ```

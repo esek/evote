@@ -4,6 +4,7 @@ function decode_str($string){
 	return iconv('UTF-8', 'windows-1252', $string);
 }
 if($evote->verifyUser($_SESSION["user"], 0)){
+
 	require("../fpdf/fpdf.php");
 	$pdf = new FPDF();
 	$pdf->AddPage();

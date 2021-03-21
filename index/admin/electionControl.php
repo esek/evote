@@ -27,6 +27,8 @@ if(in_array($priv, $access)){
     	        <label for="ap">Max antal personer:</label>
     	        <input type="number" name="antal_personer" class="form-control" id="ap" min="1" autocomplete="off">
     	</div>
+		<input type="checkbox" id="csv_checkbox" name="csv_checkbox">
+		<label for="csv_checkbox">Få koder i CSV-format (för distansröstning)</label>
     	<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
     	</form>
     	</div>

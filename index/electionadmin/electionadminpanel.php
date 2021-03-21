@@ -106,8 +106,6 @@ if(!$ongoingSession){ ?>
                         }
                     }
                 </script>
-			<input type="checkbox" id="csv_checkbox" name="csv_checkbox">
-			<label for="csv_checkbox">Få koder i CSV format (för distansröstning)</label>
 	        <button type="submit" class="btn btn-primary" value="begin_round" name="button">Starta ny valomgång</button>
 	        </form>
 	        </div>

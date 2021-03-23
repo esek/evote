@@ -106,7 +106,6 @@ if(!$ongoingSession){ ?>
                         }
                     }
                 </script>
-
 	        <button type="submit" class="btn btn-primary" value="begin_round" name="button">Starta ny valomgång</button>
 	        </form>
 	        </div>

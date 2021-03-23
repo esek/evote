@@ -34,7 +34,12 @@ if (isset($_POST['button'])) {
             $codes = $ecrypt->generate_otp($nop);
             $evote->newCodes($codes);
             $evote->newSession($name);
-            include 'codeprint.php';
+            // Om man har distansval vill man ha CSV-fil istället
+            if (isset($_POST['csv_checkbox'])) {
+                include 'csvcodesend.php';
+            } else {
+                include 'codeprint.php';
+            }
         } else {
             $_SESSION['message'] = serialize($dialogue);
             header('Location: /electionadmin');

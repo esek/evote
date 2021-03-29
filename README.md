@@ -19,7 +19,7 @@ The admin is the user that is responsible for that the system works. This user c
 ##### Election admin
 The election admin is responsible for the voting (often the election leader). This user creates and ends the voting sessions and can also see the voting result.
 
-#####Adjuster
+##### Adjuster
 The adjuster is only an observer. This user can only see the result of the different voting sessions.
 
 ### How to create a new election meeting
@@ -115,6 +115,7 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
   # PHP only, required if PHP was built with --enable-force-cgi-redirect
   fastcgi_param  REDIRECT_STATUS    200;
   ```
+  (if your get a white page when trying to access your E-vote, try adding `fastcgi_param PATH_TRANSLATED $document_root$fastcgi_script_name;`)
 
 4. In the installation folder of the E-vote code there is a SQL dump that creates the needed tables for the database. Login as root to MySQL and create the database evote:
   ```

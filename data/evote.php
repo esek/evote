@@ -239,7 +239,7 @@ class Evote {
             }
         }
 
-        $hash = crypt($personal_code, LOCAL__CONST_HASH_SALT); // LOCAL_CONST_HASH_SALT is generated to data/config.php
+        $hash = crypt($personal_code, LOCAL_CONST_HASH_SALT); // LOCAL_CONST_HASH_SALT is generated to data/config.php by setup.py
         $sql2 = "SELECT id FROM elections_codes WHERE (code=\"$hash\" AND active IS NULL)";
         $r2 = $conn->query($sql2);
         $personal_code_ok = FALSE;

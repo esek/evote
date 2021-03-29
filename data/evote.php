@@ -123,7 +123,7 @@ class Evote {
             $ok = FALSE;
             while($row = $r->fetch_assoc()){
                 $hash = $row["password"];
-                $ok = (crypt($password, $hash) == $hash) ;
+                $ok = password_verify($password, $hash);
             }
             return $ok;
         }else{
@@ -133,7 +133,7 @@ class Evote {
     }
 
     public function createNewUser($username, $password, $privilege){
-        $hash = crypt($password, '$6$'.$this->generateSalt(6).'$');
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $conn = $this->connect();
         $sql =  "INSERT INTO user (username, password, privilege) VALUES (\"$username\", \"$hash\", \"$privilege\")";
         $r = $conn->query($sql);
@@ -170,7 +170,7 @@ class Evote {
     }
 
     public function newPassword($username, $password){
-        $hash = crypt($password, '$6$'.$this->generateSalt(6).'$');
+        $hash = password_hash($password, );
         $conn = $this->connect();
         $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
         $r = $conn->query($sql);
@@ -219,7 +219,7 @@ class Evote {
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $hash = $row["pass"];
-                $current_code_ok = (crypt($current_code, $hash) == $hash);
+                $current_code_ok = password_verify($current_code, $hash);
             }
         }
 
@@ -234,8 +234,6 @@ class Evote {
                     $id = $row["id"];
             }
         }
-
-
 
         // lägg in i databasen
         if($personal_code_ok && $current_code_ok && $this->checkRightElection($options)){
@@ -266,7 +264,7 @@ class Evote {
     public function newRound($name, $code, $max, $options){
         $conn = $this->connect();
         $ok = TRUE;
-        $hash = crypt($code, "$6$".$this->generateSalt(6)."$");
+        $hash = password_hash($code, PASSWORD_DEFAULT);
         $sql =  "INSERT INTO elections (name, pass, active, nbr_choices) VALUES (\"$name\", \"$hash\", TRUE, \"$max\")";
         $last_id = -1;
         if ($conn->query($sql) === TRUE) {
@@ -359,7 +357,7 @@ class Evote {
         $r = $conn->query($sql);
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
-                $hash = crypt($row["name"].$row["nbr_votes"], "$6$".$this->generateSalt(6)."$");
+                $hash = password_hash($row["name"].$row["nbr_votes"], PASSWORD_DEFAULT);
                 $sql = "UPDATE elections_alternatives SET hash=\"$hash\" WHERE id=".$row["id"];
                 $conn->query($sql);
             }
@@ -415,7 +413,7 @@ class Evote {
     public function endSession(){
         $conn = $this->connect();
 
-        $sql .= "UPDATE sessions SET end=now() WHERE active=1;";
+        $sql = "UPDATE sessions SET end=now() WHERE active=1;";
         $sql .= "UPDATE sessions SET active=0;";
         $sql .= "TRUNCATE TABLE elections;";
         $sql .= "TRUNCATE TABLE elections_alternatives;";
@@ -432,10 +430,12 @@ class Evote {
         $ok = FALSE;
         $sql = "SELECT * FROM elections_alternatives WHERE hash IS NOT NULL";
         $r = $conn->query($sql);
+        
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $test = $row["name"].$row["nbr_votes"];
-                if(!(crypt($test, $row["hash"]) == $row["hash"])){
+                $hash = $row["hash"];
+                if(!password_verify($test, $hash)) {
                     $ok = TRUE;
                 }
             }

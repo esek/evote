@@ -1,5 +1,6 @@
 <?php
 //require __DIR__."/slask.php";
+// Loading config files
 include $_SERVER['DOCUMENT_ROOT']."/data/config.php";
 //crypt($pass, '$6$'.$salt.'$');
 //crypt($pass, $hash) == $hash;
@@ -238,7 +239,7 @@ class Evote {
             }
         }
 
-        $hash = crypt($personal_code, "duvetvad");
+        $hash = crypt($personal_code, LOCAL__CONST_HASH_SALT); // LOCAL_CONST_HASH_SALT is generated to data/config.php
         $sql2 = "SELECT id FROM elections_codes WHERE (code=\"$hash\" AND active IS NULL)";
         $r2 = $conn->query($sql2);
         $personal_code_ok = FALSE;
@@ -403,7 +404,7 @@ class Evote {
         $sql = "INSERT INTO elections_codes (code, active) VALUES ";
         $count = 0;
         foreach($codes as $c){
-            $hash = crypt($c, "duvetvad");
+            $hash = crypt($c, LOCAL_CONST_HASH_SALT); // Generated to data/config.php on setup
             if($count == 0){
                 $sql .= "(\"$hash\", NULL)";
             }else{

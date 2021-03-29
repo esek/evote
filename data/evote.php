@@ -14,6 +14,9 @@ class Evote {
         return $conn;
     }
 
+    /**
+     * Deprecated: We should NOT generate our own salts
+     */
     private function generateSalt($length){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -23,6 +26,19 @@ class Evote {
         }
         return $randomString;
     }
+
+    /**
+     * Checks and updates password hash to default algo
+     * Should ONLY be used on verified users!
+     */
+    private function verifyPasswordHash($user, $password, $hash) {
+        if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+            $this->newPassword($user, $password);
+        } else {
+            return;
+        }
+    }
+
 //
 //--------------------------------------------------------------------------------------
     public function ongoingSession(){
@@ -133,18 +149,6 @@ class Evote {
             return $ok;
         }else{
 	        return FALSE;
-        }
-    }
-
-    /**
-     * Checks and updates password hash to default algo
-     * Should ONLY be used on verified users!
-     */
-    private function verifyPasswordHash($user, $password, $hash) {
-        if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
-            $this->newPassword($user, $password);
-        } else {
-            return;
         }
     }
 

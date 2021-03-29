@@ -124,12 +124,27 @@ class Evote {
             while($row = $r->fetch_assoc()){
                 $hash = $row["password"];
                 $ok = password_verify($password, $hash);
+                // If we have an OK password, we should make sure that the hash is up-to-date
+                if ($ok == TRUE) {
+                    $this->verifyPasswordHash($user, $password, $hash);
+                }
             }
             return $ok;
         }else{
-	    return FALSE;
+	        return FALSE;
         }
+    }
 
+    /**
+     * Checks and updates password hash to default algo
+     * Should ONLY be used on verified users!
+     */
+    private function verifyPasswordHash($user, $password, $hash) {
+        if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+            $this->newPassword($user, $password);
+        } else {
+            return;
+        }
     }
 
     public function createNewUser($username, $password, $privilege){
@@ -170,7 +185,7 @@ class Evote {
     }
 
     public function newPassword($username, $password){
-        $hash = password_hash($password, );
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $conn = $this->connect();
         $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
         $r = $conn->query($sql);
@@ -430,7 +445,7 @@ class Evote {
         $ok = FALSE;
         $sql = "SELECT * FROM elections_alternatives WHERE hash IS NOT NULL";
         $r = $conn->query($sql);
-        
+
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $test = $row["name"].$row["nbr_votes"];

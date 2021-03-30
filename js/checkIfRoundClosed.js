@@ -1,15 +1,15 @@
 /**
- * Checks if the current session is closed by calling checkSessionStatus.php
+ * Checks if the current session is closed by calling checkRoundStatus.php
  * 
  * Requires jQuery
  */
-(function checkIfSessionClosed() {
+(function checkIfRoundClosed() {
     $.get('checkSessionStatus.php', (result, status) => {
         if(result === false) {
             // Reload page
         } else {
             // We start a countdown
-            createCountdown(checkIfSessionClosed);
+            createCountdown(checkIfRoundClosed);
         }
     });
 })();

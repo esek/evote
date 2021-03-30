@@ -13,7 +13,7 @@ if(!$evote->ongoingSession()){
 
 	if(!$ongoing){
 		echo "<p><h3>Det finns inget att rösta på för tillfället. Ta en kaka.</h3></p><br>";
-	}else{
+	} else{
             $res = $evote->getOptions();
             if($res->num_rows > 0){
 ?>

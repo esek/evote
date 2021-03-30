@@ -1,4 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/countdown.js"></script>
 <style>
 tr.alternative:hover {
     background-color: rgb(245, 245, 245);
@@ -12,7 +13,15 @@ if(!$evote->ongoingSession()){
 	$ongoing = $evote->ongoingRound();
 
 	if(!$ongoing){
-		echo "<p><h3>Det finns inget att rösta på för tillfället. Ta en kaka.</h3></p><br>";
+		?>
+		<p><h3>Det finns inget att rösta på för tillfället. Ta en kaka.</h3></p><br>
+		<!-- Countdown timer for rechecking round -->
+		<div id="countdown-container">
+			<p><h5 id="countdown-counter"></h5><p>
+		</div>
+		<!-- TODO: Lägg till knapp här -->
+		<script src="js/checkForNewRound.js"></script>
+		<?php
 	} else{
             $res = $evote->getOptions();
             if($res->num_rows > 0){

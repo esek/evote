@@ -6,7 +6,10 @@
 (function checkForNewRound() {
     $.get('checkSessionStatus.php', (result, status) => {
         if(result === true) {
-            // Ask user to reload page
+            // Hide countdown-container
+            document.getElementById("countdown-container").setAttribute("display", "none")
+            // Make reload button visible
+            // TODO: This
         } else {
             // We start a countdown
             createCountdown(checkForNewRound);

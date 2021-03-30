@@ -4,7 +4,7 @@
  * Requires jQuery
  */
 (function checkIfRoundClosed() {
-    $.get('checkSessionStatus.php', (result, status) => {
+    $.get('checkRoundStatus.php', (result, status) => {
         if(result === false) {
             // Reload page from server
             //Construct the current URL.

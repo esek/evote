@@ -4,7 +4,7 @@
  * Requires jQuery
  */
 (function checkForNewRound() {
-    $.get('checkSessionStatus.php', (result, status) => {
+    $.get('checkRoundStatus.php', (result, status) => {
         if(result === true) {
             // Hide countdown-container
             document.getElementById("countdown-container").setAttribute("display", "none")

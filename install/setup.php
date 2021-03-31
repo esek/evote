@@ -28,13 +28,37 @@ if (isset($_POST['db_host']) &&
     if ($db_host != '' && $db_name != '' && $db_user != '' && $db_pass != '' && $su_name != '' && $su_pass1 != '' && $su_pass2 != '') {
         if ($su_pass1 == $su_pass2) {
 
+            // Generate strong constant salt, taken from PHP forums
+            function generateRandomToken($length = 32){
+                if(!isset($length) || intval($length) <= 8 ){
+                  $length = 32;
+                }
+                if (function_exists("random_bytes")) {
+                    return bin2hex(random_bytes($length));
+                }
+                if (function_exists("mcrypt_create_iv")) {
+                    return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
+                }
+                if (function_exists("openssl_random_pseudo_bytes")) {
+                    return bin2hex(openssl_random_pseudo_bytes($length));
+                }
+            }
+            
+            function generatePepper(){
+                // $6$ denotes SHA-512
+                return "$6$".substr(strtr(base64_encode(hex2bin(generateRandomToken(32))), "+", "."), 0, 44)."$";
+            }
 
+            $local_const_hash_pepper = generatePepper();
+
+            // Content of config.php
             $content = "<?php\n";
             $content .= "define(\"MYSQL_PASS\", \"$db_pass\");\n";
             $content .= "define(\"MYSQL_USER\", \"$db_user\");\n";
             $content .= "define(\"MYSQL_DB\", \"$db_name\");\n";
             $content .= "define(\"MYSQL_HOST\", \"$db_host\");\n";
             $content .= "define(\"SUPERUSER\", \"$su_name\");\n";
+            $content .= "define(\"LOCAL_CONST_HASH_PEPPER\", \"$local_const_hash_pepper\");\n"; // Used for personal codes, needs to be constant
             $content .= '?>';
 
             $file = fopen($filename, 'w') or die('Unable to open file!');

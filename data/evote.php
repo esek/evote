@@ -1,5 +1,6 @@
 <?php
 //require __DIR__."/slask.php";
+// Loading config files
 include $_SERVER['DOCUMENT_ROOT']."/data/config.php";
 //crypt($pass, '$6$'.$salt.'$');
 //crypt($pass, $hash) == $hash;
@@ -13,6 +14,9 @@ class Evote {
         return $conn;
     }
 
+    /**
+     * Deprecated: We should NOT generate our own salts
+     */
     private function generateSalt($length){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -22,6 +26,19 @@ class Evote {
         }
         return $randomString;
     }
+
+    /**
+     * Checks and updates password hash to default algo
+     * Should ONLY be used on verified users!
+     */
+    private function verifyPasswordHash($user, $password, $hash) {
+        if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+            $this->newPassword($user, $password);
+        } else {
+            return;
+        }
+    }
+
 //
 //--------------------------------------------------------------------------------------
     public function ongoingSession(){
@@ -123,17 +140,20 @@ class Evote {
             $ok = FALSE;
             while($row = $r->fetch_assoc()){
                 $hash = $row["password"];
-                $ok = (crypt($password, $hash) == $hash) ;
+                $ok = password_verify($password, $hash);
+                // If we have an OK password, we should make sure that the hash is up-to-date
+                if ($ok == TRUE) {
+                    $this->verifyPasswordHash($user, $password, $hash);
+                }
             }
             return $ok;
         }else{
-	    return FALSE;
+	        return FALSE;
         }
-
     }
 
     public function createNewUser($username, $password, $privilege){
-        $hash = crypt($password, '$6$'.$this->generateSalt(6).'$');
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $conn = $this->connect();
         $sql =  "INSERT INTO user (username, password, privilege) VALUES (\"$username\", \"$hash\", \"$privilege\")";
         $r = $conn->query($sql);
@@ -170,7 +190,7 @@ class Evote {
     }
 
     public function newPassword($username, $password){
-        $hash = crypt($password, '$6$'.$this->generateSalt(6).'$');
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $conn = $this->connect();
         $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
         $r = $conn->query($sql);
@@ -219,11 +239,11 @@ class Evote {
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $hash = $row["pass"];
-                $current_code_ok = (crypt($current_code, $hash) == $hash);
+                $current_code_ok = password_verify($current_code, $hash);
             }
         }
 
-        $hash = crypt($personal_code, "duvetvad");
+        $hash = crypt($personal_code, LOCAL_CONST_HASH_PEPPER); // LOCAL_CONST_HASH_PEPPER is generated to data/config.php by setup.py
         $sql2 = "SELECT id FROM elections_codes WHERE (code=\"$hash\" AND active IS NULL)";
         $r2 = $conn->query($sql2);
         $personal_code_ok = FALSE;
@@ -234,8 +254,6 @@ class Evote {
                     $id = $row["id"];
             }
         }
-
-
 
         // lägg in i databasen
         if($personal_code_ok && $current_code_ok && $this->checkRightElection($options)){
@@ -266,7 +284,7 @@ class Evote {
     public function newRound($name, $code, $max, $options){
         $conn = $this->connect();
         $ok = TRUE;
-        $hash = crypt($code, "$6$".$this->generateSalt(6)."$");
+        $hash = password_hash($code, PASSWORD_DEFAULT);
         $sql =  "INSERT INTO elections (name, pass, active, nbr_choices) VALUES (\"$name\", \"$hash\", TRUE, \"$max\")";
         $last_id = -1;
         if ($conn->query($sql) === TRUE) {
@@ -359,7 +377,7 @@ class Evote {
         $r = $conn->query($sql);
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
-                $hash = crypt($row["name"].$row["nbr_votes"], "$6$".$this->generateSalt(6)."$");
+                $hash = password_hash($row["name"].$row["nbr_votes"], PASSWORD_DEFAULT);
                 $sql = "UPDATE elections_alternatives SET hash=\"$hash\" WHERE id=".$row["id"];
                 $conn->query($sql);
             }
@@ -390,7 +408,7 @@ class Evote {
         $sql = "INSERT INTO elections_codes (code, active) VALUES ";
         $count = 0;
         foreach($codes as $c){
-            $hash = crypt($c, "duvetvad");
+            $hash = crypt($c, LOCAL_CONST_HASH_PEPPER); // Generated to data/config.php on setup
             if($count == 0){
                 $sql .= "(\"$hash\", NULL)";
             }else{
@@ -415,7 +433,7 @@ class Evote {
     public function endSession(){
         $conn = $this->connect();
 
-        $sql .= "UPDATE sessions SET end=now() WHERE active=1;";
+        $sql = "UPDATE sessions SET end=now() WHERE active=1;";
         $sql .= "UPDATE sessions SET active=0;";
         $sql .= "TRUNCATE TABLE elections;";
         $sql .= "TRUNCATE TABLE elections_alternatives;";
@@ -432,10 +450,12 @@ class Evote {
         $ok = FALSE;
         $sql = "SELECT * FROM elections_alternatives WHERE hash IS NOT NULL";
         $r = $conn->query($sql);
+
         if($r->num_rows > 0){
             while($row = $r->fetch_assoc()){
                 $test = $row["name"].$row["nbr_votes"];
-                if(!(crypt($test, $row["hash"]) == $row["hash"])){
+                $hash = $row["hash"];
+                if(!password_verify($test, $hash)) {
                     $ok = TRUE;
                 }
             }

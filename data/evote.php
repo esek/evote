@@ -243,7 +243,7 @@ class Evote {
             }
         }
 
-        $hash = crypt($personal_code, LOCAL_CONST_HASH_SALT); // LOCAL_CONST_HASH_SALT is generated to data/config.php by setup.py
+        $hash = crypt($personal_code, LOCAL_CONST_HASH_PEPPER); // LOCAL_CONST_HASH_PEPPER is generated to data/config.php by setup.py
         $sql2 = "SELECT id FROM elections_codes WHERE (code=\"$hash\" AND active IS NULL)";
         $r2 = $conn->query($sql2);
         $personal_code_ok = FALSE;
@@ -408,7 +408,7 @@ class Evote {
         $sql = "INSERT INTO elections_codes (code, active) VALUES ";
         $count = 0;
         foreach($codes as $c){
-            $hash = crypt($c, LOCAL_CONST_HASH_SALT); // Generated to data/config.php on setup
+            $hash = crypt($c, LOCAL_CONST_HASH_PEPPER); // Generated to data/config.php on setup
             if($count == 0){
                 $sql .= "(\"$hash\", NULL)";
             }else{

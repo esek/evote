@@ -44,12 +44,12 @@ if (isset($_POST['db_host']) &&
                 }
             }
             
-            function generateSalt(){
+            function generatePepper(){
                 // $6$ denotes SHA-512
                 return "$6$".substr(strtr(base64_encode(hex2bin(generateRandomToken(32))), "+", "."), 0, 44)."$";
             }
 
-            $local_const_hash_salt = generateSalt();
+            $local_const_hash_pepper = generatePepper();
 
             // Content of config.php
             $content = "<?php\n";
@@ -58,7 +58,7 @@ if (isset($_POST['db_host']) &&
             $content .= "define(\"MYSQL_DB\", \"$db_name\");\n";
             $content .= "define(\"MYSQL_HOST\", \"$db_host\");\n";
             $content .= "define(\"SUPERUSER\", \"$su_name\");\n";
-            $content .= "define(\"LOCAL_CONST_HASH_SALT\", \"$local_const_hash_salt\");\n"; // Used for personal codes, needs to be constant
+            $content .= "define(\"LOCAL_CONST_HASH_PEPPER\", \"$local_const_hash_pepper\");\n"; // Used for personal codes, needs to be constant
             $content .= '?>';
 
             $file = fopen($filename, 'w') or die('Unable to open file!');

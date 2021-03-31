@@ -11,7 +11,7 @@
             window.location.reload();
         } else {
             // We start a countdown
-            createCountdown(checkIfRoundClosed);
+            createCountdown(checkIfRoundClosed, false);
         }
     });
 })();

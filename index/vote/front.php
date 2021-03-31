@@ -12,7 +12,7 @@ if(!$evote->ongoingSession()){
 	?>
 	<!-- Countdown timer for rechecking round, works with sessions as well I guess -->
 		<div id="countdown-container">
-			<p><h5 id="countdown-counter"></h5><p>
+			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
 		</div>
 		<script src="js/checkForNewRound.js"></script>
 	<?php
@@ -24,7 +24,7 @@ if(!$evote->ongoingSession()){
 		<p><h3>Det finns inget att rösta på för tillfället. Ta en kaka.</h3></p><br>
 		<!-- Countdown timer for rechecking round -->
 		<div id="countdown-container">
-			<p><h5 id="countdown-counter"></h5><p>
+			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
 		</div>
 		<script src="js/checkForNewRound.js"></script>
 		<?php

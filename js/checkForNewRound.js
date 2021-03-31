@@ -10,7 +10,7 @@
             window.location.reload();
         } else {
             // We start a countdown
-            createCountdown(checkForNewRound);
+            createCountdown(checkForNewRound, true);
         }
     });
 })();

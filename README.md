@@ -144,7 +144,7 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
   define("MYSQL_DB", "evote");
   define("MYSQL_HOST", "localhost");
   define("SUPERUSER", "superuser"); // This user can never be deleted
-  define("LOCAL_CONST_HASH_SALT"); // Used to hash personal codes (must be constant)
+  define("LOCAL_CONST_HASH_PEPPER"); // Used to hash personal codes (must be constant)
   ?>
   ```
 

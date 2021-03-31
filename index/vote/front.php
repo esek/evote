@@ -19,10 +19,13 @@ if(!$evote->ongoingSession()){
 		<div id="countdown-container">
 			<p><h5 id="countdown-counter"></h5><p>
 		</div>
-		<!-- TODO: Lägg till knapp här -->
 		<script src="js/checkForNewRound.js"></script>
 		<?php
 	} else{
+			?>
+			<!-- Countdown timer for rechecking if round open -->
+			<script src="js/checkIfRoundClosed.js"></script>
+			<?php
             $res = $evote->getOptions();
             if($res->num_rows > 0){
 ?>
@@ -80,7 +83,6 @@ if(!$evote->ongoingSession()){
 
 
 					}
-
 					</script>
 
 					</script>

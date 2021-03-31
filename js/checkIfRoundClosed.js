@@ -1,10 +1,10 @@
 /**
- * Checks if the current session is closed by calling actions/checkRoundStatus.php
+ * Checks if the current session is closed by calling actions/pollRoundStatus.php
  * 
  * Requires jQuery
  */
 (function checkIfRoundClosed() {
-    $.get('action/checkRoundStatus.php', (result, status) => {
+    $.get('actions/pollRoundStatus.php', (result, status) => {
         if(result === false) {
             // Reload page from server
             //Construct the current URL.

@@ -4,12 +4,13 @@
  * Requires jQuery
  */
 (function checkForNewRound() {
-    $.get('action/checkRoundStatus.php', (result, status) => {
+    $.get('actions/pollRoundStatus.php', (result, status) => {
         if(result === true) {
-            // Hide countdown-container
-            document.getElementById("countdown-container").setAttribute("display", "none")
-            // Make reload button visible
-            // TODO: This
+            // Reload page from server
+            //Construct the current URL.
+            var currentURL = window.location.pathname + window.location.search + window.location.hash;
+            //"Replace" the current URL with the current URL.
+            window.location.replace(currentURL);
         } else {
             // We start a countdown
             createCountdown(checkForNewRound);

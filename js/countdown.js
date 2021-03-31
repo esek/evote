@@ -22,7 +22,7 @@ function createCountdown(callback, visual) {
             // Set element with id countdown-counter to cd
             // if visual cue
             if (visual) {
-                document.getElementById("countdown-counter").innerHTML = `Kollar efter ny omröstning om ${cd}...`;
+                document.getElementById("countdown-counter").innerHTML = `${cd}`;
             }
             setTimeout(countdown, 1000);
         }

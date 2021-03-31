@@ -5,12 +5,9 @@
  */
 (function checkForNewRound() {
     $.get('actions/pollRoundStatus.php', (result, status) => {
-        if(result === true) {
+        if(result === "true") {
             // Reload page from server
-            //Construct the current URL.
-            var currentURL = window.location.pathname + window.location.search + window.location.hash;
-            //"Replace" the current URL with the current URL.
-            window.location.replace(currentURL);
+            window.location.reload();
         } else {
             // We start a countdown
             createCountdown(checkForNewRound);

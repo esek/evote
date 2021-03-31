@@ -5,12 +5,10 @@
  */
 (function checkIfRoundClosed() {
     $.get('actions/pollRoundStatus.php', (result, status) => {
-        if(result === false) {
+        console.log(result)
+        if(result === "false") {
             // Reload page from server
-            //Construct the current URL.
-            var currentURL = window.location.pathname + window.location.search + window.location.hash;
-            //"Replace" the current URL with the current URL.
-            window.location.replace(currentURL);
+            window.location.reload();
         } else {
             // We start a countdown
             createCountdown(checkIfRoundClosed);

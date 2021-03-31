@@ -9,6 +9,13 @@ tr.alternative:hover {
 
 if(!$evote->ongoingSession()){
 	echo "<p><h3>Det finns inget pågående val för tillfället.</h3></p><br>";
+	?>
+	<!-- Countdown timer for rechecking round, works with sessions as well I guess -->
+		<div id="countdown-container">
+			<p><h5 id="countdown-counter"></h5><p>
+		</div>
+		<script src="js/checkForNewRound.js"></script>
+	<?php
 }else{
 	$ongoing = $evote->ongoingRound();
 

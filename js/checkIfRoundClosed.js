@@ -5,7 +5,7 @@
  */
 (function checkIfRoundClosed() {
     $.get('actions/pollRoundStatus.php', (result, status) => {
-        if(result === "false") {
+        if(result.trim() === "false") {
             // Reload page from server
             window.location.reload();
         } else {

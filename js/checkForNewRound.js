@@ -5,7 +5,7 @@
  */
 (function checkForNewRound() {
     $.get("actions/pollRoundStatus.php", (result, status) => {
-        if(result === "true") {
+        if(result.trim() === "true") {
             // Reload page from server
             window.location.reload();
         } else {

@@ -12,5 +12,8 @@
             // We start a countdown
             createCountdown(checkForNewRound, true);
         }
-    });
+    }).catch(err => {
+        console.log(`Error when polling for round status: ${err.toString()}`);
+        createCountdown(checkForNewRound, true);
+    }); // If we get an error
 })();

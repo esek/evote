@@ -14,6 +14,7 @@
         }
     }).fail(() => {
         console.log('Error when polling for round status, retrying...');
-        createCountdown(checkIfRoundClosed, false);
+        // Alert is annoying but should be ok here (not being able to vote is worse)
+        alert('Kunde inte kontrollera om omröstningen är öppen. Testa att ladda om sidan');
     }); // If we get an error
 })();

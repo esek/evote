@@ -4,7 +4,7 @@
  * Requires jQuery
  */
 (function checkForNewRound() {
-    $.get('actions/pollRoundStatus.php', (result, status) => {
+    $.get("actions/pollRoundStatus.php", (result, status) => {
         if(result === "true") {
             // Reload page from server
             window.location.reload();
@@ -13,7 +13,9 @@
             createCountdown(checkForNewRound, true);
         }
     }).fail(() => {
-        console.log('Error when polling for round status, retrying...');
-        createCountdown(checkForNewRound, true);
+        console.log("Error when polling for round status");
+        // Tell user they need to reload the page
+        document.getElementById("countdown-container").setAttribute("display", "none");
+        document.getElementById("polling-failure").setAttribute("display", "");
     }); // If we get an error
 })();

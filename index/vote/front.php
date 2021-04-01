@@ -14,6 +14,11 @@ if(!$evote->ongoingSession()){
 		<div id="countdown-container">
 			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
 		</div>
+		<!-- If the check fails -->
+		<div id="polling-failure">
+			<p><h5>Hoppsan! Kunde inte kolla efter ny omröstning. Testa att ladda om sidan!</h5></p>
+			<button class="btn-lg btn-primary" onClick="window.location.reload();">Refresh Page</button>
+		</div>
 		<script src="js/checkForNewRound.js"></script>
 	<?php
 }else{
@@ -25,6 +30,11 @@ if(!$evote->ongoingSession()){
 		<!-- Countdown timer for rechecking round -->
 		<div id="countdown-container">
 			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
+		</div>
+		<!-- If the check fails -->
+		<div id="polling-failure">
+			<p><h5>Hoppsan! Kunde inte kolla efter ny omröstning. Testa att ladda om sidan!</h5></p>
+			<button class="btn-lg btn-primary" onClick="window.location.reload();">Ladda om</button>
 		</div>
 		<script src="js/checkForNewRound.js"></script>
 		<?php

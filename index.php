@@ -205,9 +205,14 @@ $randomString = new RandomInfo();
     }
 
 ?>
-
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="text-center p-3">
+            <p>Skapad av E-sektionen inom TLTH<p>
+            <p>E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på <a href="https://github.com/esek/evote">github.com/esek/evote</a></p>
+        </div>
+    </footer>
     </div>
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

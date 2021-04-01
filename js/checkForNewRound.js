@@ -13,7 +13,7 @@
             createCountdown(checkForNewRound, true);
         }
     }).fail(() => {
-        console.log("Error when polling for round status");
+        console.error("Error when polling for round status");
         // Tell user they need to reload the page
         document.getElementById("countdown-container").style.display = "none";
         document.getElementById("polling-failure").style.display = "";

@@ -1,4 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/countdown.js"></script>
 <style>
 tr.alternative:hover {
     background-color: rgb(245, 245, 245);
@@ -8,12 +9,40 @@ tr.alternative:hover {
 
 if(!$evote->ongoingSession()){
 	echo "<p><h3>Det finns inget pågående val för tillfället.</h3></p><br>";
+	?>
+	<!-- Countdown timer for rechecking round, works with sessions as well I guess -->
+		<div id="countdown-container">
+			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
+		</div>
+		<!-- If the check fails -->
+		<div id="polling-failure" style="display: none;">
+			<p><h5>Hoppsan! Kunde inte kolla efter ny omröstning. Testa att ladda om sidan!</h5></p>
+			<button class="btn-lg btn-primary" onClick="window.location.reload();">Refresh Page</button>
+		</div>
+		<script src="js/checkForNewRound.js"></script>
+	<?php
 }else{
 	$ongoing = $evote->ongoingRound();
 
 	if(!$ongoing){
-		echo "<p><h3>Det finns inget att rösta på för tillfället. Ta en kaka.</h3></p><br>";
-	}else{
+		?>
+		<p><h3>Det finns inget att rösta på för tillfället. Ta en kaka.</h3></p><br>
+		<!-- Countdown timer for rechecking round -->
+		<div id="countdown-container">
+			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
+		</div>
+		<!-- If the check fails -->
+		<div id="polling-failure" style="display: none;">
+			<p><h4>Hoppsan! Kunde inte kolla efter ny omröstning. Testa att ladda om sidan!</h4></p>
+			<button class="btn-lg btn-primary" onClick="window.location.reload();">Ladda om</button>
+		</div>
+		<script src="js/checkForNewRound.js"></script>
+		<?php
+	} else{
+			?>
+			<!-- Countdown timer for rechecking if round open -->
+			<script src="js/checkIfRoundClosed.js"></script>
+			<?php
             $res = $evote->getOptions();
             if($res->num_rows > 0){
 ?>
@@ -71,7 +100,6 @@ if(!$evote->ongoingSession()){
 
 
 					}
-
 					</script>
 
 					</script>

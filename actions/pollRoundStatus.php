@@ -7,11 +7,5 @@
  */
 require '../data/evote.php';
 $evote = new Evote();
-
-if ($evote->ongoingRound()) {
-    echo "true";
-} else {
-    echo "false";
-}
-
+echo $evote->ongoingRound();
 ?>

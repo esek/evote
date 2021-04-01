@@ -15,7 +15,7 @@
     }).fail(() => {
         console.log("Error when polling for round status");
         // Tell user they need to reload the page
-        document.getElementById("countdown-container").setAttribute("display", "none");
-        document.getElementById("polling-failure").setAttribute("display", "");
+        document.getElementById("countdown-container").style.display = "none";
+        document.getElementById("polling-failure").style.display = "";
     }); // If we get an error
 })();

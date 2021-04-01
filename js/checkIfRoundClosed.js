@@ -12,8 +12,8 @@
             // We start a countdown
             createCountdown(checkIfRoundClosed, false);
         }
-    }).catch(err => {
-        console.log(`Error when polling for round status: ${err.toString()}`);
+    }).fail(() => {
+        console.log('Error when polling for round status, retrying...');
         createCountdown(checkIfRoundClosed, false);
     }); // If we get an error
 })();

@@ -212,7 +212,7 @@ $randomString = new RandomInfo();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
     <!-- Footer -->
-    <footer class="text-center">
+    <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
             <p>Skapad av Informationsutskottet inom E-sektionen inom TLTH<p>
             <p>E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>

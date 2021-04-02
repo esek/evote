@@ -51,6 +51,8 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
   (Guides can be found on the internet. For example: https://secure.php.net/manual/en/install.php)
 
   Down below is a example of the configuration file for E-vote for Nginx.
+  
+  __Note: Your website must use a proper SSL-certificate to provide proper encryption, otherwise E-vote will _not_ be secure. _Let's Encrypt_ provide free certification and is a good alternative.__
   ```
   server {
         listen   80;

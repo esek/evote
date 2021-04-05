@@ -18,7 +18,7 @@
 <?php
 session_start();
 
-include $_SERVER['DOCUMENT_ROOT'].'/data/evote.php';
+include 'data/evote.php';
 require 'index/classes/TableGenerator.php';
 require 'index/classes/MenuGenerator.php';
 require 'data/RandomInfo.php';
@@ -135,7 +135,7 @@ $randomString = new RandomInfo();
     if(isset($nav[1])){
         $page = $nav[1];
     }
-    $configured = file_exists($_SERVER['DOCUMENT_ROOT'].'/data/config.php');
+    $configured = file_exists('data/config.php');
     if(!$configured){
         echo '<h4>E-vote måste konfigureras</h4>';
     }elseif($module == 'vote'){

@@ -1,6 +1,6 @@
 <?php
 // Loading config files
-include "./config.php";
+include "config.php";
 
 class Evote {
 

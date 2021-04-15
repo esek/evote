@@ -1,9 +1,7 @@
 <?php
-//require __DIR__."/slask.php";
 // Loading config files
-include $_SERVER['DOCUMENT_ROOT']."/data/config.php";
-//crypt($pass, '$6$'.$salt.'$');
-//crypt($pass, $hash) == $hash;
+include "config.php";
+
 class Evote {
 
     private function connect(){

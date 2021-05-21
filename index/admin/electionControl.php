@@ -37,13 +37,13 @@ if(in_array($priv, $access)){
 				<h4>Ett nytt val har skapats!</h4>
 			</div>
     	</div>
-		<scrip>
+		<script>
 		// Give user feedback of new election
 		function placeholder() {
 			document.getElementById("new-election-form").style.display = "none";
 			document.getElementById("submit-placeholder").style.display = "";
 		}
-		</scrip>
+		</script>
 
     <?php }else{
         ?>

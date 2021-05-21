@@ -40,10 +40,11 @@ if(in_array($priv, $access)){
 		<script>
 		// Give user feedback of new election
 		function placeholder() {
+			// Small timeout for server to catch up
 			setTimeout(() => {
 				document.getElementById("new-election-form").style.display = "none";
 				document.getElementById("submit-placeholder").style.display = "";
-			},200);
+			}, 450);
 		}
 		</script>
 

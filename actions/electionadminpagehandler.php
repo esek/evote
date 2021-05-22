@@ -42,7 +42,7 @@ if (isset($_POST['button'])) {
             }
         } else {
             $_SESSION['message'] = serialize($dialogue);
-            header('Location: /electionadmin');
+            header('Location: /adminmain/electioncontrol');
         }
     } elseif ($_POST['button'] == 'begin_round') { # STARTA NYTT VAL
         $dialogue = new Dialogue();

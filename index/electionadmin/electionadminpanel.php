@@ -67,7 +67,7 @@ if(!$ongoingSession){ ?>
         		var container = document.getElementById("input_wrapper");
                         var cdiv = document.createElement("div");
                         var input = document.createElement("input");
-                        var t = document.createTextNode(<?php echoLanguageChoice("Alt ", "Opt ")?> + (container.childElementCount+1));
+                        var t = document.createTextNode("Alt " + (container.childElementCount+1));
                         input.type = "text";
                         input.className = "form-control";
                         input.name = "candidates[]";

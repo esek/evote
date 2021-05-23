@@ -55,8 +55,17 @@ $randomString = new RandomInfo();
                     <a class="navbar-brand" href="/">
                         <span>E-vote</span>
                     </a>
+                    </div>
                     <!-- Language options -->
-                    <h5 style="text-align: right; float: right;"><a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a></h5>
+                    <ul class="navbar-nav">
+                    <li class="nav-item dropdown navbar-text">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            🌐 Language
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a>
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
+                        </div>
                         <!-- Add language URL parameter -->
                         <script>
                             function addURLParameter(name, value) {
@@ -67,7 +76,6 @@ $randomString = new RandomInfo();
                         </script>
                     </li>
                     </ul>
-                    </div>
                 </div>
 
                <div>

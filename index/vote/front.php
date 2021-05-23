@@ -8,7 +8,7 @@ tr.alternative:hover {
 <?php
 
 if(!$evote->ongoingSession()){
-	echo "<p><h3>".pickLanguage("Det finns inget pågående val för tillfället.", "There is no election session currently")."</h3></p><br>";
+	echo "<p><h3>".pickLanguage("Det finns inget pågående val för tillfället.", "There is currently no election session.")."</h3></p><br>";
 	?>
 	<!-- Countdown timer for rechecking round, works with sessions as well I guess -->
 		<div id="countdown-container">

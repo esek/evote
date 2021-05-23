@@ -43,12 +43,12 @@ $randomString = new RandomInfo();
             <!-- Language options -->
             <div class="col-md-4 col-sm-8 navbar-text" style="float: right; text-align: right;">
                 <h4>
-                    <a href="#/" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#/" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
+                    <a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
                 </h4>
                 <!-- Add language URL parameter -->
                 <script>
                 function addURLParameter(name, value) {
-                    window.location.href = "/" + updateQueryStringParameter(window.location.href, name, value);
+                    window.location.href = updateQueryStringParameter(window.location.href, name, value);
                 }
                 // Let's us update the language parameter when we click again using regex
                 function updateQueryStringParameter(uri, key, value) {
@@ -58,7 +58,7 @@ $randomString = new RandomInfo();
                         return uri.replace(re, '$1' + key + "=" + value + '$2');
                     }
                     else {
-                        return uri + separator + key + "=" + value;
+                        return uri + "/" + separator + key + "=" + value;
                     }
                 }
                 </script>

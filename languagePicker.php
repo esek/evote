@@ -4,8 +4,8 @@
         // the remainder of the session
         $_SESSION["lang"] = $_GET["lang"];
     
-        // Save choice of language in a 365 day cookie
-        setcookie("lang", $_GET["lang"], time() + (3600 * 24 * 365));
+        // Save choice of language in a 365 day cookie at root of site
+        setcookie("lang", $_GET["lang"], time() + (3600 * 24 * 365), "/");
     }
     else if(isSet($_COOKIE["lang"])) {
         // Updates session according to found cookie

@@ -1,5 +1,11 @@
 <?php
 #	I denna fil bestäms vad som händer när en knapp trycks på sidan
+
+/**
+ * I suspect this whole file is left here, but is
+ * never used (the other actions have replaced it... 
+ * Weird...) // Emil
+ */
 session_start();
 require '../data/evote.php';
 include '../languagePicker.php';
@@ -32,7 +38,7 @@ if(isset($_POST["button"])){
 				$_SESSION["user"] = $usr;
 
 			}else{
-				$msg .= pickLanguage("Användarnamet och/eller lösenordet är fel. ", "The username and/or password is wrong. ";
+				$msg .= pickLanguage("Användarnamet och/eller lösenordet är fel. ", "The username and/or password is wrong. ");
 				$msgType = "error";
 			}
 		}

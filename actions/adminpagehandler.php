@@ -13,12 +13,12 @@ if (isset($_POST['button'])) {
         $msgType = '';
         if ($_POST['usr'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte skrivit in något användarnamn. ';
+            $msg .= pickLanguage("Du har inte skrivit in något användarnamn. ", "You have not entered an username. ");
             $msgType = 'error';
         }
         if ($_POST['psw'] == '') {
             $input_ok = false;
-            $msg .= 'Du har inte angett något lösenord ';
+            $msg .= pickLanguage("Du har inte angett något lösenord. ", "You have not entered a password. ");
             $msgType = 'error';
         }
 
@@ -30,7 +30,7 @@ if (isset($_POST['button'])) {
             if ($correct) {
                 $_SESSION['superuser'] = $usr;
             } else {
-                $msg .= 'Användarnamet och/eller lösenordet är fel. ';
+                $msg .= pickLanguage("Användarnamet och/eller lösenordet är fel. ", "The username and/or password is wrong. ");
                 $msgType = 'error';
             }
         }

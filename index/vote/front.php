@@ -48,7 +48,7 @@ if(!$evote->ongoingSession()){
             $res = $evote->getOptions();
             if($res->num_rows > 0){
 ?>
-	    	<h3 class="small-centered" style="max-width: 180px;"><?php echoLanguageChoice("Röstning pågår", "Voting in progress")?></h3>
+	    	<h3 class="small-centered" style="max-width: 200px;"><?php echoLanguageChoice("Röstning pågår", "Voting in progress")?></h3>
 			<hr>
 			<div class="well small-centered"style="max-width: 400px;">
 				<?php

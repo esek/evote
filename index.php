@@ -57,6 +57,20 @@ $randomString = new RandomInfo();
                     <a class="navbar-brand" href="/">
                         <span>E-vote</span>
                     </a>
+                    <!-- Language options -->
+                    <div style="text-align: right">
+                    <a onclick="addURLParameter('lang', 'sv')">Svenska</a>
+                    <span>|</span>
+                    <a onclick="addURLParameter('lang', 'en')">English</a>
+                    <!-- Add language URL parameter -->
+                    <script>
+                        function addUrlParameter(name, value) {
+                            var searchParams = new URLSearchParams(window.location.search)
+                            searchParams.set(name, value)
+                            window.location.search = searchParams.toString()
+                        }
+                        </script>
+                    </div>
                 </div>
 
                <div>
@@ -217,7 +231,7 @@ $randomString = new RandomInfo();
     <!-- Footer -->
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
-            <p>Skapad av Informationsutskottet inom E-sektionen inom TLTH<p>
+            <p><?php echo pickLanguage("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
             <p>E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>

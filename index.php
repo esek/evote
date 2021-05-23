@@ -40,6 +40,20 @@ $randomString = new RandomInfo();
 					<img src="/logo.jpg" />
                 </div>
             </div>
+            <!-- Language options -->
+            <div class="col-md-4 col-sm-8 navbar-text" style="float: right; text-align: right;">
+                <h4>
+                    <a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
+                </h4>
+                <!-- Add language URL parameter -->
+                <script>
+                function addURLParameter(name, value) {
+                    var searchParams = new URLSearchParams(window.location.search)
+                    searchParams.set(name, value)
+                    window.location.search = searchParams.toString()
+                }
+                </script>
+            </div>
         </div>
 
 
@@ -99,7 +113,7 @@ $randomString = new RandomInfo();
     </div>
 
     <!-- Main content -->
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="min-height: 91vh">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="min-height: 90vh">
 <?php
 
 
@@ -198,19 +212,10 @@ $randomString = new RandomInfo();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
-    <!-- Add language URL parameter -->
-    <script>
-    function addURLParameter(name, value) {
-        var searchParams = new URLSearchParams(window.location.search)
-        searchParams.set(name, value)
-        window.location.search = searchParams.toString()
-    }
-    </script>
 
     <!-- Footer -->
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
-            <h4><a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a></h4>
             <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
             <p><?php echoLanguageChoice("E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på",
             "E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>

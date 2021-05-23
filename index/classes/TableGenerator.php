@@ -29,7 +29,7 @@ class TableGenerator {
                 }
                 if($e_id != $row["e_id"]){
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot röster, $max alt.)</th>
+                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".pickLanguage("röster", "votes").", $max ".pickLanguage("alt.", "opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;

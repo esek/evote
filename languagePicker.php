@@ -19,7 +19,7 @@
      * call anywhere where included (since this is in index, that is everywhere)
      * to display the correct language
      * 
-     * Echo response to display in html 
+     * For use in existing PHP code (for example in echo)
      * 
      * @param $sv Swedish text
      * @param $en Corresponding English text
@@ -36,7 +36,7 @@
     }
 
     /**
-     * Echoes the session language
+     * Echoes the session language, for use directly in HTML
      * 
      * @param $sv Swedish language text
      * @param $en English language text

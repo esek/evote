@@ -57,7 +57,7 @@ $randomString = new RandomInfo();
                     </a>
                     <!-- Language options -->
                     <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown navbar-text">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             🌐 Language
                         </a>

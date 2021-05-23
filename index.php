@@ -224,7 +224,7 @@ $randomString = new RandomInfo();
         <div class="text-center p-3">
             <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
             <p><?php echoLanguageChoice("E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på",
-            "E-vote is open and free software licensed under MPL-2.0. Source code can be found at") ?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
+            "E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>
 </body>

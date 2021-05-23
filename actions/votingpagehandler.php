@@ -1,13 +1,11 @@
 <?php
 
-
+session_start();
 require '../data/evote.php';
 require '../data/Dialogue.php';
-include '../languagePicker.php';
 
 $evote = new Evote();
 
-session_start();
 if (isset($_POST['button'])) {
     if ($_POST['button'] == 'vote') {
         $dialogue = new dialogue();

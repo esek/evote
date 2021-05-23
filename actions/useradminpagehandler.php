@@ -13,14 +13,14 @@ if (isset($_POST['button'])) {
         $msgType = '';
         if ($_POST['psw'] == '' || $_POST['username'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Något av fälten var tomma', 'error');
-            $msg .= 'Något av fälten är tomma.';
+            $dialogue->appendMessage(pickLanguage('Något av fälten var tomma', 'One or more of the fields were empty'), 'error');
+            $msg .= pickLanguage('Något av fälten var tomma. ', 'One or more of the fields were empty. ');
             $msgType = 'error';
         }
         if (!$evote->usernameExists($_POST['username'])) {
             $input_ok = false;
-            $dialogue->appendMessage('Användaren du angav finns inte', 'error');
-            $msg .= 'Användarnamnet du angav finns redan. ';
+            $dialogue->appendMessage(pickLanguage('Användarnamnet du angav finns redan', 'The username you entered already exists'), 'error');
+            $msg .= pickLanguage('Användarnamnet du angav finns redan. ', 'The username you entered already exists. ');
             $msgType = 'error';
         }
 
@@ -29,8 +29,8 @@ if (isset($_POST['button'])) {
             $psw = $_POST['psw'];
             $evote->newPassword($user, $psw);
 
-            $dialogue->appendMessage('Lösenordet är bytt', 'success');
-            $msg .= 'Lösenordet är bytt ';
+            $dialogue->appendMessage(pickLanguage('Lösenordet är bytt', 'The password has been changed'), 'success');
+            $msg .= pickLanguage('Lösenordet är bytt. ', 'The password has been changed. ');
             $msgType = 'success';
         }
         $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
@@ -43,14 +43,14 @@ if (isset($_POST['button'])) {
         $msgType = '';
         if ($_POST['psw'] == '' || $_POST['username'] == '' || $_POST['priv'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Något av fälten var tomma', 'error');
-            $msg .= 'Något av fälten är tomma.';
+            $dialogue->appendMessage(pickLanguage('Något av fälten var tomma', 'One or more of the fields were empty'), 'error');
+            $msg .= pickLanguage('Något av fälten var tomma. ', 'One or more of the fields were empty. ');
             $msgType = 'error';
         }
         if ($evote->usernameExists($_POST['username'])) {
             $input_ok = false;
-            $dialogue->appendMessage('Användarnamnet du angav finns redan', 'error');
-            $msg .= 'Användarnamnet du angav finns redan. ';
+            $dialogue->appendMessage(pickLanguage('Användarnamnet du angav finns redan', 'The username you entered already exists'), 'error');
+            $msg .= pickLanguage('Användarnamnet du angav finns redan. ', 'The username you entered already exists. ');
             $msgType = 'error';
         }
 
@@ -59,8 +59,8 @@ if (isset($_POST['button'])) {
             $psw = $_POST['psw'];
             $priv = $_POST['priv'];
             $evote->createNewUser($user, $psw, $priv);
-            $dialogue->appendMessage('En ny användare har skapats', 'success');
-            $msg .= 'En ny användare har skapats ';
+            $dialogue->appendMessage(pickLanguage('En ny användare har skapats', 'A new user has been created'), 'success');
+            $msg .= pickLanguage('En ny användare har skapats. ', 'A new user has been created. ');
             $msgType = 'success';
         }
         $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
@@ -73,12 +73,12 @@ if (isset($_POST['button'])) {
         $selected_users = $_POST['marked_users'];
         if (count($selected_users) > 0) {
             $evote->deleteUsers($selected_users);
-            $dialogue->appendMessage('Användare raderades', 'success');
-            $msg = 'Användare raderades. ';
+            $dialogue->appendMessage(pickLanguage('Användare raderades', 'User deleted'), 'success');
+            $msg = pickLanguage('Användare raderades. ', 'User deleted. ');
             $msgType = 'success';
         } else {
-            $dialogue->appendMessage('Du har inte valt några användare att radera', 'error');
-            $msg = 'Du har inte valt några användare att radera. ';
+            $dialogue->appendMessage(pickLanguage('Du har inte valt några användare att radera', 'You have not chosen any users to delete'), 'error');
+            $msg = pickLanguage('Du har inte valt några användare att radera. ', 'You have not chosen any users to delete. ');
             $msgType = 'error';
         }
 

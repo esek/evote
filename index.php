@@ -62,8 +62,8 @@ $randomString = new RandomInfo();
                             🌐 Language
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">Svenska</a>
-                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">English</a>
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a>
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
                         </div>
                         <!-- Add language URL parameter -->
                         <script>
@@ -79,19 +79,6 @@ $randomString = new RandomInfo();
                 </div>
 
                <div>
-
-<!--                      <ul class="nav navbar-nav navbar-right">
-
-                      <li class="dropdown user-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Dropdown<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>Insert link here</li>
-                                <li>Logga ut</li>
-                            </ul>
-                        </li>
-                    </ul>-->
                 </div>
             </div>
         </div>
@@ -106,23 +93,22 @@ $randomString = new RandomInfo();
 
                 <?php
                 if (true) {
-                    echo "<li><a href=\"/vote\">Röstningssida</a></li>";
+                    echo "<li><a href=\"/vote\">".pickLanguage("Röstningssida", "Voting page")."</a></li>";
                     echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                     if (!isset($_SESSION['user'])) {
-                        echo '<li><a href="/login">Logga in</a></li>';
+                        echo '<li><a href="/login">'.pickLanguage("Logga in","Log in").'</a></li>';
                     } else {
                         $priv = $evote->getPrivilege($_SESSION['user']);
                         if ($priv == 1) {
-                            echo '<li><a href="/electionadmin">Valansvarig</a></li>';
+                            echo '<li><a href="/electionadmin">'.pickLanguage("Valansvarig", "Election admin").'</a></li>';
                         } elseif ($priv == 2) {
-                            echo '<li><a href="/adjust">Justerare</a></li>';
+                            echo '<li><a href="/adjust">'.pickLanguage("Justerare", "Adjuster").'</a></li>';
                         } elseif ($priv == 0) {
-                            echo '<li><a href="/useradmin">Hantera användare</a></li>';
-                            echo '<li><a href="/adminmain">Administratör</a></li>';
+                            echo '<li><a href="/useradmin">'.pickLanguage("Hantera användare", "Handle users").'</a></li>';
+                            echo '<li><a href="/adminmain">'.pickLanguage("Administratör", "Administrator").'</a></li>';
                         }
-                        echo '<li><a href="/logout">Logga ut</a></li>';
+                        echo '<li><a href="/logout">'.pickLanguage("Logga ut", "Log out").'</a></li>';
                     }
-                    #echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                 }
 
                 ?>
@@ -159,7 +145,7 @@ $randomString = new RandomInfo();
     }
     $configured = file_exists('data/config.php');
     if(!$configured){
-        echo '<h4>E-vote måste konfigureras</h4>';
+        echo '<h4>'.pickLanguage("E-vote måste konfigureras", "E-vote must be configured").'</h4>';
     }elseif($module == 'vote'){
         include 'index/vote/front.php';
     }elseif($module == 'login'){
@@ -237,7 +223,8 @@ $randomString = new RandomInfo();
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
             <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
-            <p>E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
+            <p><?php echoLanguageChoice("E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på",
+            "E-vote is open and free software licensed under MPL-2.0. Source code can be found at") ?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>
 </body>

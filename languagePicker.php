@@ -34,4 +34,14 @@
                 return $sv;
         }
     }
+
+    /**
+     * Echoes the session language
+     * 
+     * @param $sv Swedish language text
+     * @param $en English language text
+     */
+    function echoLanguageChoice($sv, $en) {
+        echo pickLanguage($sv, $en);
+    }
 ?>

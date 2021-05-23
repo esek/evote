@@ -19,7 +19,7 @@ $randomString = new RandomInfo();
 <html>
 
 <head>
-    <title><?php echo pickLanguage("E-vote - Ditt digitala röstsystem", "E-vote - Your digital voting system")?></title>
+    <title><?php echoLanguageChoice("E-vote - Ditt digitala röstsystem", "E-vote - Your digital voting system")?></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,18 +56,25 @@ $randomString = new RandomInfo();
                         <span>E-vote</span>
                     </a>
                     <!-- Language options -->
-                    <div style="text-align: right">
-                    <a onclick="addURLParameter('lang', 'sv')">Svenska</a>
-                    <span>|</span>
-                    <a onclick="addURLParameter('lang', 'en')">English</a>
-                    <!-- Add language URL parameter -->
-                    <script>
-                        function addUrlParameter(name, value) {
-                            var searchParams = new URLSearchParams(window.location.search)
-                            searchParams.set(name, value)
-                            window.location.search = searchParams.toString()
-                        }
+                    <ul class="navbar-nav">
+                    <li class="navbar-item-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            🌐 Language
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">Svenska</a>
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">English</a>
+                        </div>
+                        <!-- Add language URL parameter -->
+                        <script>
+                            function addUrlParameter(name, value) {
+                                var searchParams = new URLSearchParams(window.location.search)
+                                searchParams.set(name, value)
+                                window.location.search = searchParams.toString()
+                            }
                         </script>
+                    </li>
+                    </ul>
                     </div>
                 </div>
 
@@ -229,7 +236,7 @@ $randomString = new RandomInfo();
     <!-- Footer -->
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
-            <p><?php echo pickLanguage("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
+            <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
             <p>E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>

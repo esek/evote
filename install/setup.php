@@ -1,6 +1,8 @@
 <?php
 require '../data/RandomInfo.php';
 require '../data/Dialogue.php';
+include 'languagePicker.php';
+
 $dialogue = new dialogue();
 
 $startup = true;
@@ -87,6 +89,8 @@ if (isset($_POST['db_host']) &&
 $_SESSION['message'] = serialize($dialogue);
 
 ?>
+<!DOCTYPE HTML>
+
 <html>
 <head>
     <title>E-vote Setup</title>

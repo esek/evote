@@ -25,11 +25,11 @@ if(in_array($priv, $access)){
                     while($row = $res->fetch_assoc()){
                         $priv = "";
                         switch($row["privilege"]){
-                            case "0": $priv = "Administratör";
+                            case "0": $priv = pickLanguage("Administratör", "Administrator");
                                 break;
-                            case "1": $priv = "Valansvarig";
+                            case "1": $priv = pickLanguage("Valansvarig", "Election admin");
                                 break;
-                            case "2": $priv = "Justerare";
+                            case "2": $priv = pickLanguage("Justerare", "Adjuster");
                                 break;
                         }
 
@@ -47,7 +47,7 @@ if(in_array($priv, $access)){
             echo "</div>";
     		}
             ?>
-            <button type="submit" class="btn btn-primary" value="delete_users" name="button">Ta bort markerade användare</button>
+            <button type="submit" class="btn btn-primary" value="delete_users" name="button"><?php echoLanguageChoice("Ta bort markerade användare", "Remove selected users")?></button>
             </div>
     </div>
     </form>
@@ -55,6 +55,6 @@ if(in_array($priv, $access)){
 
 <?php
 } else {
-    echo "Du har inte behörighet att visa denna sida.";
+    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page");
 }
 ?>

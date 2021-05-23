@@ -56,28 +56,7 @@ $randomString = new RandomInfo();
                         <span>E-vote</span>
                     </a>
                     </div>
-                    <!-- Language options -->
-                    <ul class="navbar-nav">
-                    <li class="nav-item dropdown navbar-text">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            🌐 Language
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a>
-                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
-                        </div>
-                        <!-- Add language URL parameter -->
-                        <script>
-                            function addURLParameter(name, value) {
-                                var searchParams = new URLSearchParams(window.location.search)
-                                searchParams.set(name, value)
-                                window.location.search = searchParams.toString()
-                            }
-                        </script>
-                    </li>
-                    </ul>
                 </div>
-
                <div>
                 </div>
             </div>
@@ -219,9 +198,19 @@ $randomString = new RandomInfo();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
+    <!-- Add language URL parameter -->
+    <script>
+    function addURLParameter(name, value) {
+        var searchParams = new URLSearchParams(window.location.search)
+        searchParams.set(name, value)
+        window.location.search = searchParams.toString()
+    }
+    </script>
+
     <!-- Footer -->
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
+            <h5 style="text-align: right; float: right;"><a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a></h5>
             <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
             <p><?php echoLanguageChoice("E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på",
             "E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>

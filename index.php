@@ -57,17 +57,17 @@ $randomString = new RandomInfo();
                     </a>
                     <!-- Language options -->
                     <ul class="navbar-nav">
-                    <li class="navbar-item-dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             🌐 Language
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">Svenska</a>
-                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">English</a>
+                            <a class="dropdown-item" href="" onclick="addURLParameter('lang', 'sv')">Svenska</a>
+                            <a class="dropdown-item" href="" onclick="addURLParameter('lang', 'en')">English</a>
                         </div>
                         <!-- Add language URL parameter -->
                         <script>
-                            function addUrlParameter(name, value) {
+                            function addURLParameter(name, value) {
                                 var searchParams = new URLSearchParams(window.location.search)
                                 searchParams.set(name, value)
                                 window.location.search = searchParams.toString()

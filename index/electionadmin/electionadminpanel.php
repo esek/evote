@@ -9,53 +9,34 @@ $buttonstate = "disabled";
 if($ongoingSession){
 	$buttonstate = "active";
 }
- #------------KNAPPRAD-------------
- //$mg->printElectionadminPanelMenu(0);
 
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){
-    echo "Någon fuling har mixtrat i databasen.";
+    echoLanguageChoice("Någon fuling har mixtrat i databasen.", "Some shady character has done something with the database.");
 }
 
 if(!$ongoingSession){ ?>
-	<h4>Det pågår inget valtillfälle.</h4>
-<!--
-	<h3>Skapa nytt val</h3>
-	<hr>
-	<div style="max-width: 400px">
-	<form action="actions/electionadminpagehandler.php" method="POST">
-	<div class="form-group">
-	        <label for="vn">Namn på val:</label>
-	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
-	</div>
-	<div class="form-group" style="max-width: 150px">
-	        <label for="ap">Max antal personer:</label>
-	        <input type="number" name="antal_personer" class="form-control" id="ap" min="1" autocomplete="off">
-	</div>
-	<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
-	</form>
-	</div>
--->
+	<h4><?php echoLanguageChoice("Det pågår inget valtillfälle.", "There is no ongoing election session.")?></h4>
 <?php }else{
 	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
 	if(!$ongoing){?>
 
-	    <h3>Skapa ny valomgång</h3>
+	    <h3><?php echoLanguageChoice("Skapa ny valomgång", "Create new election round")?></h3>
 		<hr>
 		<div class="well" style="max-width: 400px">
 		<div class=\"panel panel-default">
 	        <form action="/actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
-	                <label>Vad som ska väljas:</label>
+	                <label><?php echoLanguageChoice("Vad som ska väljas:", "What to be elected:")?></label>
 	                <input type="text" class="form-control" name="round_name" autocomplete="off" maxlength="240">
 			</div>
 	        <div class="form-group">
-	                <label>Tillfällig kod:</label>
+	                <label><?php echoLanguageChoice("Tillfällig kod:", "Temporary code:")?></label>
 	                <input type="text" class="form-control" name="code" autocomplete="off" maxlength="240"/>
 	        </div>
 			<div class="form-group" style="max-width: 200px">
-	                <label>Antal valbara alternativ:</label>
+	                <label><?php echoLanguageChoice("Antal valbara alternativ:", "Number of selectable options:")?></label>
 	                <input type="number" class="form-control" name="max_num" id="max" autocomplete="off" value="1" min="1"/>
 	        </div>
 
@@ -63,14 +44,14 @@ if(!$ongoingSession){ ?>
 		for($i = 0; $i < 5; $i++){
 			$p = $i + 1;
 			echo "<div class=\"form-group\">";
-			echo "<label>Kandidat $p:</label>";
+			echo "<label>".pickLanguage("Kandidat", "Candidate") ."$p:</label>";
 			echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\" autocomplete=\"off\">";
 	        	echo "</div>";
 		}
 ?> -->
                 <br>
-                <div><h4><b>Alternativ:</b></h4></div>
-                <div class="form-group">Öka/minska antalet fält:
+                <div><h4><b><?php echoLanguageChoice("Alternativ:", "Alternatives:")?></b></h4></div>
+                <div class="form-group"><?php echoLanguageChoice("Öka/minska antalet fält:", "Increase/decrease number of fields:")?>
                     <div class="btn-group">
                     <button type="button" class="btn btn-default" id="remove_button" onclick="removeField()">-</button>
                     <button type="button" class="btn btn-default" id="add_button" onclick="addField()">+</button>
@@ -86,7 +67,7 @@ if(!$ongoingSession){ ?>
         		var container = document.getElementById("input_wrapper");
                         var cdiv = document.createElement("div");
                         var input = document.createElement("input");
-                        var t = document.createTextNode("Alt " + (container.childElementCount+1));
+                        var t = document.createTextNode(<?php echoLanguageChoice("Alt ", "Opt ")?> + (container.childElementCount+1));
                         input.type = "text";
                         input.className = "form-control";
                         input.name = "candidates[]";
@@ -106,7 +87,7 @@ if(!$ongoingSession){ ?>
                         }
                     }
                 </script>
-	        <button type="submit" class="btn btn-primary" value="begin_round" name="button">Starta ny valomgång</button>
+	        <button type="submit" class="btn btn-primary" value="begin_round" name="button"><?php echoLanguageChoice("Starta ny valomgång", "Start new election round")?></button>
 	        </form>
 	        </div>
 		</div>
@@ -115,13 +96,13 @@ if(!$ongoingSession){ ?>
 		<?php
 
 		// Generera tabell med förra omgångens resultat.
-		echo "<h3>Föregående valomgång</h3>";
+		echo "<h3>".pickLanguage("Föregående valomgång", "Previous election round")."</h3>";
 		echo "<hr>";
 		$tg->generateResultTable("last");
 
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{
-		echo "<h3>Röstning pågår</h3>";
+		echo "<h3>".pickLanguage("Röstning pågår", "Voting in progress")."</h3>";
 		echo "<hr>";
 		echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
         echo "<div class=\"panel panel-default\">";
@@ -131,7 +112,7 @@ if(!$ongoingSession){ ?>
 		echo "</div>";
 		echo "<div class=\"span7 text-center\">";
 		echo "<form action=/actions/electionadminpagehandler.php method=\"POST\">";
-		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">Avsluta valomgång</button>";
+		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">".pickLanguage("Avsluta valomgång", "End election round")."</button>";
 		echo "</form>";
 		echo "</div>";
 		echo "</div>";
@@ -139,6 +120,6 @@ if(!$ongoingSession){ ?>
 
 }
 } else {
-	echo "Du har inte behörighet att visa denna sida.";
+    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page");
 }
 ?>

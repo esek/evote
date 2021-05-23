@@ -2,6 +2,8 @@
 #	I denna fil bestäms vad som händer när en knapp trycks på sidan
 session_start();
 require '../data/evote.php';
+include '../languagePicker.php';
+
 $evote = new Evote();
 
 if(isset($_POST["button"])){
@@ -12,12 +14,12 @@ if(isset($_POST["button"])){
 		$msgType = "";
 		if($_POST["usr"] == ""){
 			$input_ok = FALSE;
-			$msg .= "Du har inte skrivit in något användarnamn. ";
+			$msg .= pickLanguage("Du har inte skrivit in något användarnamn. ", "You have not entered an username. ");
 			$msgType = "error";
 		}
 		if($_POST["psw"] == ""){
 			$input_ok = FALSE;
-			$msg .= "Du har inte angett något lösenord ";
+			$msg .= pickLanguage("Du har inte angett något lösenord. ", "You have not entered a password. ");
 			$msgType = "error";
 		}
 
@@ -30,7 +32,7 @@ if(isset($_POST["button"])){
 				$_SESSION["user"] = $usr;
 
 			}else{
-				$msg .= "Användarnamet och/eller lösenordet är fel. ";
+				$msg .= pickLanguage("Användarnamet och/eller lösenordet är fel. ", "The username and/or password is wrong. ";
 				$msgType = "error";
 			}
 		}
@@ -62,33 +64,34 @@ if(isset($_POST["button"])){
 		$ongoingR = $evote->ongoingRound();
 		if(!isset($_POST["person"])){
 			$ok = FALSE;
-			$msg .= "Du har inte valt någon att rösta på. ";
+			$msg .= pickLanguage('Du har inte valt någon att rösta på. ', 'You have not selected anything to vote on. ');
 			$msgType = "error";
 		}else if(!$evote->checkRightElection($_POST["person"])){
 			// om någon har en gammal sida uppe och försöker rösta
 			$ok = FALSE;
-		    $msg .= "Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen. ";
+		    $msg .= pickLanguage('Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen. ', 
+            'The election round you are trying to vote on has already ended. The page has been refreshed so you can try again. ');
 		    $msgType = "error";
 		}else if($evote->getMaxAlternatives() < count($_POST["person"])){
 			// om någon stänger av javascriptet.
 			$ok = FALSE;
-		    $msg .= "Du får inte välja för många kandidater. ";
+		    $msg .= pickLanguage('Du får inte välja för många kandidater. ', 'You are not allowed to pick too many candidates. ');
 		    $msgType = "error";
 		}
 
 		if($_POST["code1"] == ""){
 			$ok = FALSE;
-			$msg .= "Du har inte angett någon personlig valkod. ";
+			$msg .= pickLanguage('Du har inte angett någon personlig valkod. ', 'You have not entered any personal code. ');
 			$msgType = "error";
 		}
 		if($_POST["code2"] == ""){
 			$ok = FALSE;
-			$msg .= "Du har inte angett någon tillfällig valkod. ";
+			$msg .= pickLanguage('Du har inte angett någon tillfällig valkod. ', 'You have not entered any temporary code. ');
 			$msgType = "error";
 		}
         if(!$ongoingR){
             $ok = FALSE;
-		    $msg .= "Valomgången har redan avslutats. ";
+		    $msg .= pickLanguage('Valomgången har redan avslutats. ', 'The election round has already been terminated. ');
 		    $msgType = "error";
         }
 

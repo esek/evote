@@ -18,9 +18,9 @@ if(in_array($priv, $access)){
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table\">";
                 echo "<tr class=\"rowheader\">
-                        <th class=\"col-xs-2 col-md-2\">Välj</th>
-                        <th class=\"col-xs-7 col-md-7\">Namn</th>
-                        <th class=\"col-xs-3 col-md-3\">Privilegier</th>
+                        <th class=\"col-xs-2 col-md-2\">".pickLanguage("Välj", "Choose")."</th>
+                        <th class=\"col-xs-7 col-md-7\">".pickLanguage("Namn", "Name")."</th>
+                        <th class=\"col-xs-3 col-md-3\">".pickLanguage("Privilegier", "Privileges")."</th>
                         </tr>";
                     while($row = $res->fetch_assoc()){
                         $priv = "";

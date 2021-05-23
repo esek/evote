@@ -1,7 +1,7 @@
 <?php
 require '../data/RandomInfo.php';
 require '../data/Dialogue.php';
-include 'languagePicker.php';
+include '../languagePicker.php';
 
 $dialogue = new dialogue();
 

@@ -48,9 +48,7 @@ $randomString = new RandomInfo();
                 <!-- Add language URL parameter -->
                 <script>
                 function addURLParameter(name, value) {
-                    var searchParams = new URLSearchParams(window.location.search)
-                    searchParams.set(name, value)
-                    window.location.search = searchParams.toString()
+                    window.location = window.location + `/?${name}=${value}`
                 }
                 </script>
             </div>

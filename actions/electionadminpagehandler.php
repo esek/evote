@@ -13,15 +13,15 @@ if (isset($_POST['button'])) {
         $msgType = '';
         if ($_POST['valnamn'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett något namn på valet', 'error');
+            $dialogue->appendMessage(pickLanguage('Du har inte angett något namn på valet', 'You have not entered a name for the election'), 'error');
         }
         if ($_POST['antal_personer'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett det maximala antalet personer', 'error');
+            $dialogue->appendMessage(pickLanguage('Du har inte angett det maximala antalet personer', 'You have not entered the max number of people'), 'error');
         }
         if ($evote->ongoingSession()) {
             $input_ok = false;
-            $dialogue->appendMessage('Det pågår redan ett val', 'error');
+            $dialogue->appendMessage(pickLanguage('Det pågår redan ett val', 'There is already an election in progress'), 'error');
         }
 
         if ($input_ok) {
@@ -49,19 +49,19 @@ if (isset($_POST['button'])) {
         $input_ok = true;
         if ($_POST['round_name'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett vad som ska väljas', 'error');
+            $dialogue->appendMessage(pickLanguage('Du har inte angett vad som ska väljas', 'You have not entered what to be elected'), 'error');
         }
         if ($_POST['code'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett någon tillfällig kod', 'error');
+            $dialogue->appendMessage(pickLanguage('Du har inte angett någon tillfällig kod', 'You have not entered any temporary code'), 'error');
         }
         if ($_POST['max_num'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett hur många man får rösta på', 'error');
+            $dialogue->appendMessage(pickLanguage('Du har inte angett hur många man får rösta på', 'You have not entered how many one can vote on'), 'error');
         }
         if ($evote->ongoingRound()) {
             $input_ok = false;
-            $dialogue->appendMessage('En valomgång är redan igång', 'error');
+            $dialogue->appendMessage(pickLanguage('En valomgång är redan igång', 'An election is already in progress'), 'error');
         }
 
         $cands[0] = '';
@@ -74,7 +74,7 @@ if (isset($_POST['button'])) {
         }
         if ($n < 2) {
             $input_ok = false;
-            $dialogue->appendMessage('Du måste ange minst två kandidater', 'error');
+            $dialogue->appendMessage(pickLanguage('Du måste ange minst två kandidater', 'You have alreadt entered two candidates'), 'error');
         }
 
         if ($input_ok) {
@@ -85,9 +85,9 @@ if (isset($_POST['button'])) {
             $insert_ok = $evote->newRound($round_name, $code, $max, $cands);
 
             if ($insert_ok) {
-                $dialogue->appendMessage('En ny valomgång har börjat', 'success');
+                $dialogue->appendMessage(pickLanguage('En ny valomgång har börjat', 'A new election round has begun'), 'success');
             } else {
-                $dialogue->appendMessage('Fel', 'error');
+                $dialogue->appendMessage(pickLanguage('Fel', 'Error'), 'error');
             }
         }
         $_SESSION['message'] = serialize($dialogue);
@@ -103,7 +103,7 @@ if (isset($_POST['button'])) {
         $input_ok = true;
         if ($_POST['pswuser'] == '') {
             $input_ok = false;
-            $dialogue->appendMessage('Alla fält är inte ifyllda', 'error');
+            $dialogue->appendMessage(pickLanguage('Alla fält är inte ifyllda', 'All fields are not filled'), 'error');
         }
 
         $redirect = '';
@@ -112,10 +112,10 @@ if (isset($_POST['button'])) {
             $current_usr = $_SESSION['user'];
             if ($evote->login($current_usr, $psw1)) {
                 $evote->endSession();
-                $dialogue->appendMessage('Valet är nu stängt', 'success');
+                $dialogue->appendMessage(pickLanguage('Valet är nu stängt', 'The election is now closed'), 'success');
                 $redirect = 'admin';
             } else {
-                $dialogue->appendMessage('Fel lösenord och/eller användarnamn någonstans', 'error');
+                $dialogue->appendMessage(pickLanguage('Fel lösenord och/eller användarnamn någonstans', 'Wrong username and/or password somewhere'), 'error');
             }
         }
         $_SESSION['message'] = serialize($dialogue);

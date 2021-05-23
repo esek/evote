@@ -120,6 +120,6 @@ if(!$ongoingSession){ ?>
 
 }
 } else {
-    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page");
+    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page.");
 }
 ?>

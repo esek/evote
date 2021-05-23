@@ -12,10 +12,10 @@ if(in_array($priv, $access)){
             break;
     }
 
-    echo "<h3>Tidigare valomgångar</h3>";
+    echo "<h3>".pickLanguage("Tidigare valomgångar", "Previous election rounds")."</h3>";
     echo "<hr>";
     $tg->generateResultTable("all");
 } else{
-    echo "Du har inte behörighet att visa denna sida.";
+    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page.");
 }
 ?>

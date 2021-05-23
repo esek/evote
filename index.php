@@ -62,8 +62,8 @@ $randomString = new RandomInfo();
                             🌐 Language
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="" onclick="addURLParameter('lang', 'sv')">Svenska</a>
-                            <a class="dropdown-item" href="" onclick="addURLParameter('lang', 'en')">English</a>
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'sv')">Svenska</a>
+                            <a class="dropdown-item" href="#" onclick="addURLParameter('lang', 'en')">English</a>
                         </div>
                         <!-- Add language URL parameter -->
                         <script>

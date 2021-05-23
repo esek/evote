@@ -5,7 +5,7 @@ if(in_array($priv, $access)){
 //$mg->printUserhandlerPanelMenu($page);
 ?>
 
-<h3>Skapa ny användare</h3>
+<h3><?php echoLanguageChoice("Skapa ny användare", "Create new user")?></h3>
 <hr>
 <div class="well" style="max-width: 400px">
     <form action="/actions/useradminpagehandler.php" method="POST">

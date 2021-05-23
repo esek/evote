@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<?php
+include 'languagePicker.php';
+?>
 
 <html>
 

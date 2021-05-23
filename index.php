@@ -1,7 +1,20 @@
-<!DOCTYPE HTML>
 <?php
+session_start();
+
+include 'data/evote.php';
+require 'index/classes/TableGenerator.php';
+require 'index/classes/MenuGenerator.php';
+require 'data/RandomInfo.php';
+require 'data/Dialogue.php';
 include 'languagePicker.php';
+
+
+$evote = new Evote();
+$tg = new TableGenerator();
+$mg = new MenuGenerator();
+$randomString = new RandomInfo();
 ?>
+<!DOCTYPE HTML>
 
 <html>
 
@@ -18,21 +31,6 @@ include 'languagePicker.php';
 </head>
 
 <body>
-<?php
-session_start();
-
-include 'data/evote.php';
-require 'index/classes/TableGenerator.php';
-require 'index/classes/MenuGenerator.php';
-require 'data/RandomInfo.php';
-require 'data/Dialogue.php';
-
-
-$evote = new Evote();
-$tg = new TableGenerator();
-$mg = new MenuGenerator();
-$randomString = new RandomInfo();
-?>
     <!-- Header -->
     <div class="fixed-header">
         <div class ="row">

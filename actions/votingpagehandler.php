@@ -3,6 +3,7 @@
 session_start();
 require '../data/evote.php';
 require '../data/Dialogue.php';
+include '../languagePicker.php';
 
 $evote = new Evote();
 

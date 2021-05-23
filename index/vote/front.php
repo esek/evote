@@ -8,11 +8,11 @@ tr.alternative:hover {
 <?php
 
 if(!$evote->ongoingSession()){
-	echo "<p><h3>Det finns inget pågående val för tillfället.</h3></p><br>";
+	echo "<p><h3>".pickLanguage("Det finns inget pågående val för tillfället.", "There is no election session currently")."</h3></p><br>";
 	?>
 	<!-- Countdown timer for rechecking round, works with sessions as well I guess -->
 		<div id="countdown-container">
-			<p><h5>Kollar efter ny omröstning om <span id="countdown-counter"></span>...</h5><p>
+			<p><h5><?php echoLanguageChoice("Kollar efter ny omröstning om", "Checking for new election round in")?> <span id="countdown-counter"></span>...</h5><p>
 		</div>
 		<!-- If the check fails -->
 		<div id="polling-failure" style="display: none;">

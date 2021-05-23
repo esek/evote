@@ -97,7 +97,7 @@ $randomString = new RandomInfo();
                         } elseif ($priv == 2) {
                             echo '<li><a href="/adjust">'.pickLanguage("Justerare", "Adjuster").'</a></li>';
                         } elseif ($priv == 0) {
-                            echo '<li><a href="/useradmin">'.pickLanguage("Hantera användare", "Handle users").'</a></li>';
+                            echo '<li><a href="/useradmin">'.pickLanguage("Hantera användare", "Manage users").'</a></li>';
                             echo '<li><a href="/adminmain">'.pickLanguage("Administratör", "Administrator").'</a></li>';
                         }
                         echo '<li><a href="/logout">'.pickLanguage("Logga ut", "Log out").'</a></li>';

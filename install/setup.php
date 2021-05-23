@@ -64,30 +64,29 @@ if (isset($_POST['db_host']) &&
             $file = fopen($filename, 'w') or die('Unable to open file!');
             fwrite($file, $content);
             fclose($file);
-            $dialogue->appendMessage('Konfigurationen lyckades!', 'success');
+            $dialogue->appendMessage(pickLanguage('Konfigurationen lyckades!', 'Configuration successfull!'), 'success');
 
             include '../data/evote.php';
             $evote = new Evote();
             if(!$evote->usernameExists($su_name)){
                 $evote->createNewUser($su_name, $su_pass1, 0);
             }else{
-                $dialogue->appendMessage('En avändare med det namnet fanns redan i databasen.', 'info');
+                $dialogue->appendMessage(pickLanguage('En avändare med det namnet fanns redan i databasen.', 'An user with that name already exists in the database.'), 'info');
             }
             $startup = false;
 
 
         }else{
-            $dialogue->appendMessage('Lösenorden för superuser stämmer inte överens. Försök igen.', 'error');
+            $dialogue->appendMessage(pickLanguage('Lösenorden för superuser stämmer inte överens. Försök igen.', 'The passwords for superuser does not match. Try again.'), 'error');
         }
     }else{
-        $dialogue->appendMessage('Alla fällt är inte ifyllda.', 'error');
+        $dialogue->appendMessage(pickLanguage('Alla fällt är inte ifyllda.', 'All fields not filled in'), 'error');
     }
 }
 
 $_SESSION['message'] = serialize($dialogue);
 
 ?>
-
 <html>
 <head>
     <title>E-vote Setup</title>
@@ -114,15 +113,21 @@ $_SESSION['message'] = serialize($dialogue);
         if ($startup) {
         ?>
         <div class="well">
-            Hej! Vad kul att just ni vill börja använda E-vote.
-            <br>
-            <br> Fyll i datan som gäller för ditt system nedan för att konfigurera.
-            <br> Se till att skriva in rätt värden för att inte behöva ändra dessa manuelt efteråt.
+            <?php
+            echoLanguageChoice("Hej! Vad kul att just ni vill börja använda E-vote.\n
+            <br>\n
+            <br> Fyll i datan som gäller för ditt system nedan för att konfigurera.\n
+            <br> Se till att skriva in rätt värden för att inte behöva ändra dessa manuelt efteråt.",
+            "Hi! How fun that you want to start using E-vote.\n
+            <br>\n
+            <br> Fill out the form according to your setup to configure.\n
+            <br> Make sure to put in the correct values so they don't have to be changed manually afterwards.")
+            ?>
         </div>
 
         <form action="" method="POST">
             <div class="well">
-                <h4><strong>Databaskonfiguration</strong></h4>
+                <h4><strong><?php echoLanguageChoice("Databaskonfiguration", "Database configuration")?></strong></h4>
                 <hr>
                 <div class="form-group">
                     <label for="usr">Host:</label>
@@ -130,41 +135,42 @@ $_SESSION['message'] = serialize($dialogue);
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Databasnamn:</label>
+                    <label for="pwd"><?php echoLanguageChoice("Databasnamn:", "Database name:")?></label>
                     <input type="text" class="form-control" name="db_name" <?php echo isset($db_host) ? 'value="'.$db_name.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Användare:</label>
+                    <label for="pwd"><?php echoLanguageChoice("Användare:", "User:")?></label>
                     <input type="text" class="form-control" name="db_user" <?php echo isset($db_host) ? 'value="'.$db_user.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Lösenord:</label>
+                    <label for="pwd"><?php echoLanguageChoice("Lösenord:", "Password:")?></label>
                     <input type="password" class="form-control" name="db_pass" <?php echo isset($db_host) ? 'value="'.$db_pass.'"' : '';
             ?>autocomplete="off">
                 </div>
             </div>
             <div class="well">
                 <h4><strong>Superuser</strong></h4>
-                Detta är användaren som har full kontrol på systemet. Denna användare kan inte raderas från databasen.
+                <?php echoLanguageChoice("Detta är användaren som har full kontrol på systemet. Denna användare kan inte raderas från databasen.", 
+                "This is the user that has full control of the system. This user can't be deleted from the database.")?>
                 <hr>
                 <div class="form-group">
-                    <label for="usr">Namn:</label>
+                    <label for="usr"><?php echoLanguageChoice("Namn:", "Name:")?></label>
                     <input type="text" class="form-control" name="su_name" <?php echo isset($db_host) ? 'value="'.$su_name.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Lösenord:</label>
+                    <label for="pwd"><?php echoLanguageChoice("Lösenord:", "Password:")?></label>
                     <input type="password" class="form-control" name="su_pass1">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Upprepa lösenord:</label>
+                    <label for="pwd"><?php echoLanguageChoice("Upprepa lösenord:", "Repeat password:")?></label>
                     <input type="password" class="form-control" name="su_pass2">
                 </div>
             </div>
             <div class="span7 text-center" style="margin-bottom:50px;">
-            <button type="submit" class="btn btn-primary" name="button" value="login" name="login">Spara</button>
+            <button type="submit" class="btn btn-primary" name="button" value="login" name="login"><?php echoLanguageChoice("Spara", "Save")?></button>
             </div>
 
         </form>
@@ -175,7 +181,7 @@ $_SESSION['message'] = serialize($dialogue);
             ?>
 
         <div class="well">
-            E-vote är konfigurerat!
+            <?php echoLanguageChoice("E-vote är konfigurerat!", "E-vote is configured!")?>
         </div>
 
         <?php

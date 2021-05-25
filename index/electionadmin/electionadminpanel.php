@@ -41,16 +41,6 @@ if(!$ongoingSession){ ?>
 	                <label>Antal valbara alternativ:</label>
 	                <input type="number" class="form-control" name="max_num" id="max" autocomplete="off" value="1" min="1"/>
 	        </div>
-
-<!-- 		<?php
-		for($i = 0; $i < 5; $i++){
-			$p = $i + 1;
-			echo "<div class=\"form-group\">";
-			echo "<label>Kandidat $p:</label>";
-			echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\" autocomplete=\"off\">";
-	        	echo "</div>";
-		}
-?> -->
                 <br>
                 <div><h4><b>Alternativ:</b></h4></div>
                 <div class="form-group">Öka/minska antalet fält:

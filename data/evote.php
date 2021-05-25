@@ -87,6 +87,7 @@ class Evote {
 
     public function getMaxAltByAltId($id){
         $conn = $this->connect();
+        $id = mysqli_real_escape_string($conn, $id);
         $sql =  "SELECT nbr_choices FROM elections
                 WHERE id=(SELECT election_id FROM elections_alternatives WHERE id=$id)";
         $r = $conn->query($sql);
@@ -103,6 +104,7 @@ class Evote {
         $conn = $this->connect();
 
         foreach ($alt_ids as $id) {
+            $id = mysqli_real_escape_string($conn, $id);
             $sql =  "SELECT active FROM elections
                     WHERE id=(SELECT election_id FROM elections_alternatives WHERE id=$id)";
             $r = $conn->query($sql);
@@ -132,6 +134,7 @@ class Evote {
 //--------------------------------------------------------------------------------------
     public function login($user, $password){
         $conn = $this->connect();
+        $user = mysqli_real_escape_string($conn, $user);
         $sql =  "SELECT password FROM user WHERE (username=\"$user\")";
         $r = $conn->query($sql);
         if($r->num_rows > 0){
@@ -160,6 +163,7 @@ class Evote {
 
     public function verifyUser($username, $privilege){
         $conn = $this->connect();
+        $username = mysqli_real_escape_string($conn, $username);
         $sql =  "SELECT privilege FROM user WHERE (username=\"$username\")";
         $r = $conn->query($sql);
         if($r != FALSE){
@@ -177,6 +181,7 @@ class Evote {
 
     public function getPrivilege($username){
         $conn = $this->connect();
+        $username = mysqli_real_escape_string($conn, $username);
         $sql =  "SELECT privilege FROM user WHERE (username=\"$username\")";
         $r = $conn->query($sql);
         if($r != FALSE){
@@ -190,6 +195,7 @@ class Evote {
     public function newPassword($username, $password){
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $conn = $this->connect();
+        $username = mysqli_real_escape_string($conn, $username);
         $sql =  "UPDATE user SET password=\"$hash\" WHERE username=\"$username\"";
         $r = $conn->query($sql);
 
@@ -206,6 +212,7 @@ class Evote {
         $sql = "DELETE FROM user WHERE id IN ";
         $started = FALSE;
         foreach($users_id as $id){
+            $id = mysqli_real_escape_string($conn, $id);
             if(!$started){
                 $sql .= "($id ";
                 $started = TRUE;
@@ -223,6 +230,7 @@ class Evote {
 
     public function usernameExists($username){
         $conn = $this->connect();
+        $username = mysqli_real_escape_string($conn, $username);
         $sql =  "SELECT * FROM user WHERE username=\"$username\"";
         $res = $conn->query($sql);
         return ($res->num_rows > 0);
@@ -282,6 +290,8 @@ class Evote {
     public function newRound($name, $code, $max, $options){
         $conn = $this->connect();
         $ok = TRUE;
+        $name = mysqli_real_escape_string($conn, $name);
+        $code = mysqli_real_escape_string($conn, $name);
         $hash = password_hash($code, PASSWORD_DEFAULT);
         $sql =  "INSERT INTO elections (name, pass, active, nbr_choices) VALUES (\"$name\", \"$hash\", TRUE, \"$max\")";
         $last_id = -1;
@@ -295,6 +305,7 @@ class Evote {
 
         $sql2 = "INSERT INTO elections_alternatives (election_id, name, nbr_votes) VALUES";
         foreach ($options as $opt){
+            $opt = mysqli_real_escape_string($conn, $opt);
             $sql2 .= "(\"$last_id\",\"$opt\", 0),";
         }
         $sql2 .= "(\"$last_id\",\"-Blank-\" , 0)";
@@ -422,7 +433,7 @@ class Evote {
 
     public function newSession($name){
         $conn = $this->connect();
-
+        $name = mysqli_real_escape_string($conn, $name);
         $sql = "INSERT INTO sessions (name, active) VALUES (\"$name\", TRUE)";
         $r = $conn->query($sql);
         $conn->close();

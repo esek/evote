@@ -55,22 +55,6 @@ $randomString = new RandomInfo();
                         <span>E-vote</span>
                     </a>
                 </div>
-
-               <div>
-
-<!--                      <ul class="nav navbar-nav navbar-right">
-
-                      <li class="dropdown user-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Dropdown<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>Insert link here</li>
-                                <li>Logga ut</li>
-                            </ul>
-                        </li>
-                    </ul>-->
-                </div>
             </div>
         </div>
     </div>

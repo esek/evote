@@ -76,7 +76,7 @@ if (isset($_POST['button'])) {
         }
         if ($n < 2) {
             $input_ok = false;
-            $dialogue->appendMessage(pickLanguage('Du måste ange minst två kandidater', 'You have alreadt entered two candidates'), 'error');
+            $dialogue->appendMessage(pickLanguage('Du måste ange minst två kandidater', 'You have already entered two candidates'), 'error');
         }
 
         if ($input_ok) {

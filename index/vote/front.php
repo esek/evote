@@ -106,11 +106,11 @@ if(!$evote->ongoingSession()){
 
 					</script>
 	    	        <div class="form-group">
-	    	            <label><?php echoLanguageChoice("Personlig valkod:", "Personal election code:")?></label>
+	    	            <label><?php echoLanguageChoice("Personlig valkod:", "Personal code:")?></label>
 	    	            <input type="password" class="form-control" name="code1">
 	    	        </div>
 	    	        <div class="form-group">
-	    	            <label><?php echoLanguageChoice("Tillfällig valkod:", "Temporary election code:")?></label>
+	    	            <label><?php echoLanguageChoice("Tillfällig valkod:", "Temporary code:")?></label>
 	    	            <input type="text" class="form-control" name="code2">
 	    	        </div>
                             <br>

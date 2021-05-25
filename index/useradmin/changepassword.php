@@ -1,9 +1,7 @@
 <?php
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
-if(in_array($priv, $access)){
-//$mg->printUserhandlerPanelMenu($page);
-?>
+if(in_array($priv, $access)){?>
 <h3>Ändra lösenord</h3>
 <hr>
 <div class="well" style="max-width: 400px">

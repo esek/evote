@@ -1,11 +1,7 @@
 <?php
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
-if(in_array($priv, $access)){
-    //require $_SERVER['DOCUMENT_ROOT'].'/data/config.php'
-
-?>
-
+if(in_array($priv, $access)){?>
 <h3>Hantera användare</h3>
 <hr>
 <div style="max-width: 400px">

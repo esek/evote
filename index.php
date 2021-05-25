@@ -65,7 +65,6 @@ $randomString = new RandomInfo();
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-
                 <?php
                 if (true) {
                     echo "<li><a href=\"/vote\">Röstningssida</a></li>";
@@ -86,11 +85,7 @@ $randomString = new RandomInfo();
                     }
                     #echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                 }
-
                 ?>
-
-
-
             </ul>
         </div>
     </div>

@@ -5,11 +5,6 @@ if(in_array($priv, $access)){
 
 $ongoingSession = $evote->ongoingSession();
 
-$buttonstate = "disabled";
-if($ongoingSession){
-	$buttonstate = "active";
-}
-
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){
     echo "Någon fuling har mixtrat i databasen.";

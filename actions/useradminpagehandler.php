@@ -5,9 +5,7 @@ require '../data/evote.php';
 require '../data/Dialogue.php';
 $evote = new Evote();
 
-$access = array(0);
-$priv = $evote->getPrivilege($_SESSION["user"]);
-if(in_array($priv, $access)){
+if($evote->verifyUser($_SESSION["user"], 0)){
     if (isset($_POST['button'])) {
         if ($_POST['button'] == 'change') {
             $dialogue = new dialogue();

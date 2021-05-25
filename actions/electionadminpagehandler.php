@@ -5,9 +5,7 @@ require '../data/evote.php';
 require '../data/Dialogue.php';
 $evote = new Evote();
 
-$access = array(1);
-$priv = $evote->getPrivilege($_SESSION["user"]);
-if(in_array($priv, $access)){
+if($evote->verifyUser($_SESSION["user"], 1)){
     if (isset($_POST['button'])) {
         if ($_POST['button'] == 'create') { # SKAPA NYTT VAL
             $dialogue = new Dialogue();

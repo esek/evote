@@ -5,7 +5,7 @@ require '../data/evote.php';
 require '../data/Dialogue.php';
 $evote = new Evote();
 
-$access = array(0);
+$access = array(1);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
     if (isset($_POST['button'])) {

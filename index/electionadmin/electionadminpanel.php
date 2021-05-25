@@ -9,8 +9,6 @@ $buttonstate = "disabled";
 if($ongoingSession){
 	$buttonstate = "active";
 }
- #------------KNAPPRAD-------------
- //$mg->printElectionadminPanelMenu(0);
 
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){

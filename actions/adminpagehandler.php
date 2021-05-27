@@ -2,6 +2,7 @@
 
 session_start();
 require '../data/evote.php';
+require '../data/Dialogue.php';
 $evote = new Evote();
 
 $access = array(0);

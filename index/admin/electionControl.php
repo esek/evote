@@ -12,7 +12,7 @@ if(in_array($priv, $access)){
     	<h3>Skapa nytt val</h3>
     	<hr>
     	<div class="well" style="max-width: 400px">
-    	<form action="/actions/electionadminpagehandler.php" method="POST">
+    	<form action="/actions/adminpagehandler.php" method="POST">
     	<div class="form-group">
     	        <label for="vn">Namn på val:</label>
     	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
@@ -32,7 +32,7 @@ if(in_array($priv, $access)){
         <h3>Stäng nuvarande val</h3>
     	<hr>
     	<div class="well" style="max-width: 400px">
-    		<form action="/actions/electionadminpagehandler.php" method="POST">
+    		<form action="/actions/adminpagehandler.php" method="POST">
     			<div class="form-group">
             <label for="psw1">Ditt lösenord:</label>
             <input type="password" name="pswuser" class="form-control" id="psw1">
@@ -46,5 +46,4 @@ if(in_array($priv, $access)){
 } else {
     echo "Du har inte behörighet att visa denna sida";
 }
-
 ?>

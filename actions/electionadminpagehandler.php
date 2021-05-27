@@ -19,7 +19,7 @@ if(in_array($priv, $access)){
 <<<<<<< HEAD
         } else {
             $_SESSION['message'] = serialize($dialogue);
-            header('Location: /adminmain/electioncontrol');
+            header('Location: /electionadmin');
         }
     } elseif ($_POST['button'] == 'begin_round') { # STARTA NYTT VAL
         $dialogue = new Dialogue();

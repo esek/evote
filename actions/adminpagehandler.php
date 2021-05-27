@@ -47,28 +47,28 @@ if(in_array($priv, $access)){
                 $_SESSION['message'] = serialize($dialogue);
                 header('Location: /electionadmin');
             }
-        }
-    } elseif ($_POST['button'] == 'delete_election') { # TA BORT VAL KNAPPEN
-        $dialogue = new Dialogue();
-        $input_ok = true;
-        if ($_POST['pswuser'] == '') {
-            $input_ok = false;
-            $dialogue->appendMessage('Alla fält är inte ifyllda', 'error');
-        }
-
-        $redirect = '';
-        if ($input_ok) {
-            $psw1 = $_POST['pswuser'];
-            $current_usr = $_SESSION['user'];
-            if ($evote->login($current_usr, $psw1)) {
-                $evote->endSession();
-                $dialogue->appendMessage('Valet är nu stängt', 'success');
-                $redirect = 'admin';
-            } else {
-                $dialogue->appendMessage('Fel lösenord och/eller användarnamn någonstans', 'error');
+        } elseif ($_POST['button'] == 'delete_election') { # TA BORT VAL KNAPPEN
+            $dialogue = new Dialogue();
+            $input_ok = true;
+            if ($_POST['pswuser'] == '') {
+                $input_ok = false;
+                $dialogue->appendMessage('Alla fält är inte ifyllda', 'error');
             }
+
+            $redirect = '';
+            if ($input_ok) {
+                $psw1 = $_POST['pswuser'];
+                $current_usr = $_SESSION['user'];
+                if ($evote->login($current_usr, $psw1)) {
+                    $evote->endSession();
+                    $dialogue->appendMessage('Valet är nu stängt', 'success');
+                    $redirect = 'admin';
+                } else {
+                    $dialogue->appendMessage('Fel lösenord och/eller användarnamn någonstans', 'error');
+                }
+            }
+            $_SESSION['message'] = serialize($dialogue);
+            header('Location: /adminmain');
         }
-        $_SESSION['message'] = serialize($dialogue);
-        header('Location: /adminmain');
     }
 }

@@ -16,38 +16,6 @@ if(in_array($priv, $access)){
                 $input_ok = false;
                 $dialogue->appendMessage('Du har inte angett vad som ska väljas', 'error');
             }
-<<<<<<< HEAD
-        } else {
-            $_SESSION['message'] = serialize($dialogue);
-            header('Location: /adminmain/electioncontrol');
-        }
-    } elseif ($_POST['button'] == 'begin_round') { # STARTA NYTT VAL
-        $dialogue = new Dialogue();
-        $input_ok = true;
-        if ($_POST['round_name'] == '') {
-            $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett vad som ska väljas', 'error');
-        }
-        if ($_POST['code'] == '') {
-            $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett någon tillfällig kod', 'error');
-        }
-        if ($_POST['max_num'] == '') {
-            $input_ok = false;
-            $dialogue->appendMessage('Du har inte angett hur många man får rösta på', 'error');
-        }
-        if ($evote->ongoingRound()) {
-            $input_ok = false;
-            $dialogue->appendMessage('En valomgång är redan igång', 'error');
-        }
-
-        $cands[0] = '';
-        $n = 0;
-        foreach ($_POST['candidates'] as $name) {
-            if ($name != '') {
-                $cands[$n] = $name;
-                ++$n;
-=======
             if ($_POST['code'] == '') {
                 $input_ok = false;
                 $dialogue->appendMessage('Du har inte angett någon tillfällig kod', 'error');
@@ -59,7 +27,6 @@ if(in_array($priv, $access)){
             if ($evote->ongoingRound()) {
                 $input_ok = false;
                 $dialogue->appendMessage('En valomgång är redan igång', 'error');
->>>>>>> ca29b64dffcbae01de74186023e9a3f2acfc9dcf
             }
 
             $cands[0] = '';

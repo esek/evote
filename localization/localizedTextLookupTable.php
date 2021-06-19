@@ -249,6 +249,25 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         <th>Öppnad</th>
         <th>Stängd</th>
         </tr>",
+    ),
+    // index/classes/MenuGenerator.php
+    "Administrate election"=>array(
+        "sv"=>"Administrera val",
+    ),
+    "See previous rounds"=>array(
+        "sv"=>"Se tidigare omgångar",
+    ),
+    "See previous round"=>array(
+        "sv"=>"Se föregående omgång",
+    ),
+    "See all rounds"=>array(
+        "sv"=>"Se alla omgångar",
+    ),
+    "New user"=>array(
+        "sv"=>"Ny användare",
+    ),
+    "Manage election session"=>array(
+        "sv"=>"Hantera valtillfälle",
     )
 )
 );

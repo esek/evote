@@ -2,7 +2,7 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){?>
-<h3><?php echoLanguageChoice("Hantera användare", "Manage users")?></h3>
+<h3><?php echo getLocalizedText("Manage users")?></h3>
 <hr>
 <div style="max-width: 400px">
     <form action="/actions/useradminpagehandler.php" method="POST">
@@ -14,18 +14,18 @@ if(in_array($priv, $access)){?>
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table\">";
                 echo "<tr class=\"rowheader\">
-                        <th class=\"col-xs-2 col-md-2\">".pickLanguage("Välj", "Choose")."</th>
-                        <th class=\"col-xs-7 col-md-7\">".pickLanguage("Namn", "Name")."</th>
-                        <th class=\"col-xs-3 col-md-3\">".pickLanguage("Privilegier", "Privileges")."</th>
+                        <th class=\"col-xs-2 col-md-2\">".getLocalizedText("Choose")."</th>
+                        <th class=\"col-xs-7 col-md-7\">".getLocalizedText("Name")."</th>
+                        <th class=\"col-xs-3 col-md-3\">".getLocalizedText("Privileges")."</th>
                         </tr>";
                     while($row = $res->fetch_assoc()){
                         $priv = "";
                         switch($row["privilege"]){
-                            case "0": $priv = pickLanguage("Administratör", "Administrator");
+                            case "0": $priv = getLocalizedText("Administrator");
                                 break;
-                            case "1": $priv = pickLanguage("Valansvarig", "Election admin");
+                            case "1": $priv = getLocalizedText("Election admin");
                                 break;
-                            case "2": $priv = pickLanguage("Justerare", "Adjuster");
+                            case "2": $priv = getLocalizedText("Adjuster");
                                 break;
                         }
 
@@ -43,7 +43,7 @@ if(in_array($priv, $access)){?>
             echo "</div>";
     		}
             ?>
-            <button type="submit" class="btn btn-primary" value="delete_users" name="button"><?php echoLanguageChoice("Ta bort markerade användare", "Remove selected users")?></button>
+            <button type="submit" class="btn btn-primary" value="delete_users" name="button"><?php echo getLocalizedText("Remove selected users")?></button>
             </div>
     </div>
     </form>
@@ -51,6 +51,6 @@ if(in_array($priv, $access)){?>
 
 <?php
 } else {
-    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page.");
+    echo getLocalizedText("You don't have permission to view this page.");
 }
 ?>

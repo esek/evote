@@ -20,6 +20,6 @@ if(in_array($evote->getPrivilege($_SESSION["user"]), $access)){
 
 <?php
 } else {
-    echo getLocalizedText("You don't have permission to view this page");
+    echo getLocalizedText("You don't have permission to view this page.");
 }
 ?>

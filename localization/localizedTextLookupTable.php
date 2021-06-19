@@ -122,7 +122,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"Radera val",
     ),
     // No permission
-    "You don't have permission to view this page"=>array(
+    "You don't have permission to view this page."=>array(
         "sv"=>"Du har inte behörighet att visa denna sida.",
     ),
     // install/vote/front.php
@@ -160,8 +160,21 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"Tillfällig valkod:",
     ),
     "Vote!"=>array(
-        "Rösta!",
+        "sv"=>"Rösta!",
     ),
+    // index/useradmin/useradminpanel.php
+    "Choose"=>array(
+        "sv"=>"Välj",
+    ),
+    "Name"=>array(
+        "sv"=>"Namn",
+    ),
+    "Privileges"=>array(
+        "sv"=>"Privilegier",
+    ),
+    "Remove selected users"=>array(
+        "sv"=>"Ta bort markerade användare",
+    )
 )
 );
 ?>

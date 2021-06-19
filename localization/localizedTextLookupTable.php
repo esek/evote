@@ -271,7 +271,33 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Usage history"=>array(
         "sv"=>"Användningshistorik",
+    ),
+    // index/admin/electionControl.php
+    "Create new election"=>array(
+        "sv"=>"Skapa nytt val",
+    ),
+    "Name of election:"=>array(
+        "sv"=>"Namn på val:",
+    ),
+    "Max number of people:"=>array(
+        "sv"=>"Max antal personer:",
+    ),
+    "Receive codes in CSV-format (for distance voting)"=>array(
+        "sv"=>"Få koder i CSV-format (för distanstörstning)",
+    ),
+    "Create"=>array(
+        "sv"=>"Skapa",
+    ),
+    "A new election has been created!"=>array(
+        "sv"=>"Ett nytt val har skapats!",
+    ),
+    "Close current election"=>array(
+        "sv"=>"Stäng nuvarande val",
+    ),
+    "Close election"=>array(
+        "sv"=>"Stäng val"
     )
+
 )
 );
 ?>

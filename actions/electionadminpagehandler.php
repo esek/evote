@@ -16,19 +16,19 @@ if(in_array($priv, $access)){
             $input_ok = true;
             if ($_POST['round_name'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Du har inte angett vad som ska väljas', 'You have not entered what to be elected'), 'error');
+                $dialogue->appendMessage(getLocalizedText('You have not entered what to be elected'), 'error');
             }
             if ($_POST['code'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Du har inte angett någon tillfällig kod', 'You have not entered any temporary code'), 'error');
+                $dialogue->appendMessage(getLocalizedText('You have not entered any temporary code'), 'error');
             }
             if ($_POST['max_num'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Du har inte angett hur många man får rösta på', 'You have not entered how many one can vote on'), 'error');
+                $dialogue->appendMessage(getLocalizedText('You have not entered how many one can vote on'), 'error');
             }
             if ($evote->ongoingRound()) {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('En valomgång är redan igång', 'An election is already in progress'), 'error');
+                $dialogue->appendMessage(getLocalizedText('An election is already in progress'), 'error');
             }
 
             $cands[0] = '';
@@ -41,7 +41,7 @@ if(in_array($priv, $access)){
             }
             if ($n < 2) {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Du måste ange minst två kandidater', 'You must enter at least two candidates'), 'error');
+                $dialogue->appendMessage(getLocalizedText('You must enter at least two candidates'), 'error');
             }
 
             if ($input_ok) {
@@ -52,9 +52,9 @@ if(in_array($priv, $access)){
                 $insert_ok = $evote->newRound($round_name, $code, $max, $cands);
 
                 if ($insert_ok) {
-                    $dialogue->appendMessage(pickLanguage('En ny valomgång har börjat', 'A new election round has begun'), 'success');
+                    $dialogue->appendMessage(getLocalizedText('A new election round has begun'), 'success');
                 } else {
-                    $dialogue->appendMessage(pickLanguage('Fel', 'Error'), 'error');
+                    $dialogue->appendMessage(getLocalizedText('Error'), 'error');
                 }
             }
             $_SESSION['message'] = serialize($dialogue);

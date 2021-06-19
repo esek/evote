@@ -357,7 +357,24 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "Please wait. Voting in progress."=>array(
         "sv"=>"Var vänlig vänta. Röstning pågår.",
     ),
+    // actions/electionadminpagehandler.php
+    "You have not entered what to be elected"=>array(
+        "sv"=>"Du har inte angett vad som ska väljas",
+    ),
+    "You have not entered how many one can vote on"=>array(
+        "sv"=>"Du har inte angett hur många man får rösta på",
+    ),
+    "An election is already in progress"=>array(
+        "sv"=>"En valomgång är redan igång",
+    ),
+    "You must enter at least two candidates"=>array(
+        "sv"=>"Du måste ange minst två kandidater",
+    ),
+    "A new election round has begun"=>array(
+        "sv"=>"En ny valomgång har börjat",
+    ),
     
+
 
 )
 );

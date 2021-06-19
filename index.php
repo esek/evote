@@ -6,7 +6,7 @@ require 'index/classes/TableGenerator.php';
 require 'index/classes/MenuGenerator.php';
 require 'data/RandomInfo.php';
 require 'data/Dialogue.php';
-include 'languagePicker.php';
+require 'localization/getLocalizedText.php';
 
 
 $evote = new Evote();
@@ -19,7 +19,7 @@ $randomString = new RandomInfo();
 <html>
 
 <head>
-    <title><?php echoLanguageChoice("E-vote - Ditt digitala röstsystem", "E-vote - Your digital voting system")?></title>
+    <title><?php echo getLocalizedText("E-vote - Your digital voting system")?></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,21 +92,21 @@ $randomString = new RandomInfo();
             <ul class="nav nav-sidebar">
                 <?php
                 if (true) {
-                    echo "<li><a href=\"/vote\">".pickLanguage("Röstningssida", "Voting page")."</a></li>";
+                    echo "<li><a href=\"/vote\">".getLocalizedText("Voting page")."</a></li>";
                     echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                     if (!isset($_SESSION['user'])) {
-                        echo '<li><a href="/login">'.pickLanguage("Logga in","Log in").'</a></li>';
+                        echo '<li><a href="/login">'.getLocalizedText("Log in").'</a></li>';
                     } else {
                         $priv = $evote->getPrivilege($_SESSION['user']);
                         if ($priv == 1) {
-                            echo '<li><a href="/electionadmin">'.pickLanguage("Valansvarig", "Election admin").'</a></li>';
+                            echo '<li><a href="/electionadmin">'.getLocalizedText("Election admin").'</a></li>';
                         } elseif ($priv == 2) {
-                            echo '<li><a href="/adjust">'.pickLanguage("Justerare", "Adjuster").'</a></li>';
+                            echo '<li><a href="/adjust">'.getLocalizedText("Adjuster").'</a></li>';
                         } elseif ($priv == 0) {
-                            echo '<li><a href="/useradmin">'.pickLanguage("Hantera användare", "Manage users").'</a></li>';
-                            echo '<li><a href="/adminmain">'.pickLanguage("Administratör", "Administrator").'</a></li>';
+                            echo '<li><a href="/useradmin">'.getLocalizedText("Manage users").'</a></li>';
+                            echo '<li><a href="/adminmain">'.getLocalizedText("Administrator").'</a></li>';
                         }
-                        echo '<li><a href="/logout">'.pickLanguage("Logga ut", "Log out").'</a></li>';
+                        echo '<li><a href="/logout">'.getLocalizedText("Log out").'</a></li>';
                     }
                 }
                 ?>
@@ -140,7 +140,7 @@ $randomString = new RandomInfo();
     }
     $configured = file_exists('data/config.php');
     if(!$configured){
-        echo '<h4>'.pickLanguage("E-vote måste konfigureras", "E-vote must be configured").'</h4>';
+        echo '<h4>'.getLocalizedText("E-vote must be configured").'</h4>';
     }elseif($module == 'vote'){
         include 'index/vote/front.php';
     }elseif($module == 'login'){
@@ -216,9 +216,8 @@ $randomString = new RandomInfo();
     <!-- Footer -->
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
-            <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
-            <p><?php echoLanguageChoice("E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på",
-            "E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
+            <p><?php echo getLocalizedText("Created by Informationsutskottet at E-sektionen at TLTH")?><p>
+            <p><?php echo getLocalizedText("E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>
 </body>

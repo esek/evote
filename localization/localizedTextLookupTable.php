@@ -191,6 +191,9 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "New password:"=>array(
         "sv"=>"Nytt lösenord:",
+    ),
+    "Are you sure you want to log out?"=>array(
+        "sv"=>"Är du säker på att du vill logga ut?",
     )
 )
 );

@@ -352,7 +352,13 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "You have not chosen any users to delete"=>array(
         "sv"=>"Du har inte valt några användare att radera",
-    )
+    ),
+    // actions/genlastresult.php
+    "Please wait. Voting in progress."=>array(
+        "sv"=>"Var vänlig vänta. Röstning pågår.",
+    ),
+    
+
 )
 );
 ?>

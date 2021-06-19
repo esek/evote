@@ -6,7 +6,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
     if ($res->num_rows > 0) {
 ?>
 
-    <h3><?php echoLanguageChoice("Föregående valomgång", "Previous election round")?></h3>
+    <h3><?php echo getLocalizedText("Previous election round")?></h3>
     <div style="max-width: 400px">
 		<?php
 		echo "<table class=\"table\">";
@@ -23,7 +23,7 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
             }
             if($e_id != $row["e_id"]){
                 echo "<tr class=\"rowheader\">
-                    <th colspan=\"2\">".$row["e_name"]." <wbr>($tot". pickLanguage("röster, $max alt.", "votes, $max opt.").".)</th>
+                    <th colspan=\"2\">".$row["e_name"]." <wbr>($tot". getLocalizedText("votes").", $max ".getLocalizedText("alt.").".)</th>
                     </tr>";
         		$e_id = $row["e_id"];
         		$p = 1;
@@ -50,9 +50,9 @@ if($evote->verifyUser($_SESSION["user"], 1) || $evote->verifyUser($_SESSION["use
 		</div>
 <?php
     }else if($evote->countRounds() == 0){
-        echoLanguageChoice("Ingenting har valts ännu.", "Nothing has been elected yet.");
+        echo getLocalizedText("Nothing has been elected yet");
     }else{
-        echoLanguageChoice("Var vänlig vänta. Röstning pågår.", "Please wait. Voting in progress.");
+        echo getLocalizedText("Please wait. Voting in progress.");
     }
 }
 ?>

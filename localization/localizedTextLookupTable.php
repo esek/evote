@@ -300,7 +300,34 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "Previous election rounds"=>array(
         "sv"=>"Tidigare valomgångar",
     ),
+    // actions/votingspagehandler.php
+    "You have not selected anything to vote on"=>array(
+        "sv"=>"Du har inte valt någon att rösta på",
+    ),
+    "The election round you are trying to vote on has already ended. The page has been refreshed so you can try again"=>array(
+        "sv"=>"Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen",
+    ),
+    "You are not allowed to pick too many candidates"=>array(
+        "sv"=>"Du får inte välja för många kandidater",
+    ),
+    "You have not entered any personal code"=>array(
+        "sv"=>"Du har inte angett någon personlig valkod",
+    ),
+    "You have not entered any temporary code"=>array(
+        "sv"=>"Du har inte angett någon tillfällig valkod",
+    ),
+    "The election round has already been terminated"=>array(
+        "sv"=>"Valomgången har redan avslutats",
+    ),
+    "Your vote has been registered"=>array(
+        "sv"=>"Din röst har blivit registrerad",
+    ),
+    "Your vote was not registered. This can depend on you entering one of the codes wrong, or because you already have voted"=>array(
+        "sv"=>"Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat",
+    ),
     
+
+
 
 )
 );

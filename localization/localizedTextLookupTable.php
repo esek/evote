@@ -111,6 +111,20 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "E-vote is configured!"=>array(
         "sv"=>"E-vote är konfigurerat!",
     ),
+    // index/clear.php
+    "Close current election"=>array(
+        "sv"=>"Stäng nuvarande val",
+    ),
+    "Your password:"=>array(
+        "sv"=>"Ditt lösenord:",
+    ),
+    "Delete election"=>array(
+        "sv"=>"Radera val",
+    ),
+    // No permission
+    "You don't have permission to view this page"=>array(
+        "sv"=>"Du har inte behörighet att visa denna sida.",
+    )
 )
 );
 ?>

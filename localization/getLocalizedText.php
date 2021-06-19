@@ -26,6 +26,11 @@
      * avoid hard-to-spot-errors and MUST be a key in localizedTextLookupTable
      */
     function getLocalizedText($en_str) {
+        // Check if this is a key at all; If not, return the string
+        if (!array_key_exists($en_str, LOCALIZED_TEXT_LOOKUP_TABLE)) {
+            error_log("WARNING: Key \"" + $en_str + "\" not in localization lookup table! Check if this key is an EXACT match!");
+            return $en_str;
+        }
         switch ($_SESSION["lang"]) {
             case "en":
                 return $en_str;

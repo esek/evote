@@ -1,7 +1,7 @@
 <?php
 require '../data/RandomInfo.php';
 require '../data/Dialogue.php';
-include '../languagePicker.php';
+require '../localization/getLocalizedText.php';
 
 $dialogue = new dialogue();
 
@@ -66,23 +66,23 @@ if (isset($_POST['db_host']) &&
             $file = fopen($filename, 'w') or die('Unable to open file!');
             fwrite($file, $content);
             fclose($file);
-            $dialogue->appendMessage(pickLanguage('Konfigurationen lyckades!', 'Configuration successfull!'), 'success');
+            $dialogue->appendMessage(getLocalizedText('Configuration successfull!'), 'success');
 
             include '../data/evote.php';
             $evote = new Evote();
             if(!$evote->usernameExists($su_name)){
                 $evote->createNewUser($su_name, $su_pass1, 0);
             }else{
-                $dialogue->appendMessage(pickLanguage('En avändare med det namnet fanns redan i databasen.', 'An user with that name already exists in the database.'), 'info');
+                $dialogue->appendMessage(getLocalizedText('An user with that name already exists in the database.'), 'info');
             }
             $startup = false;
 
 
         }else{
-            $dialogue->appendMessage(pickLanguage('Lösenorden för superuser stämmer inte överens. Försök igen.', 'The passwords for superuser does not match. Try again.'), 'error');
+            $dialogue->appendMessage(getLocalizedText('The passwords for superuser does not match. Try again.'), 'error');
         }
     }else{
-        $dialogue->appendMessage(pickLanguage('Alla fällt är inte ifyllda.', 'All fields not filled in'), 'error');
+        $dialogue->appendMessage(getLocalizedText('All fields not filled in'), 'error');
     }
 }
 
@@ -93,7 +93,7 @@ $_SESSION['message'] = serialize($dialogue);
 
 <html>
 <head>
-    <title>E-vote Setup</title>
+    <title><?php echo getLocalizedText("E-vote Setup")?></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -119,10 +119,7 @@ $_SESSION['message'] = serialize($dialogue);
         ?>
         <div class="well">
             <?php
-            echoLanguageChoice("Hej! Vad kul att just ni vill börja använda E-vote.\n
-            <br>\n
-            <br> Fyll i datan som gäller för ditt system nedan för att konfigurera.\n
-            <br> Se till att skriva in rätt värden för att inte behöva ändra dessa manuelt efteråt.",
+            echo getLocalizedText(
             "Hi! How fun that you want to start using E-vote.\n
             <br>\n
             <br> Fill out the form according to your setup to configure.\n
@@ -132,45 +129,44 @@ $_SESSION['message'] = serialize($dialogue);
 
         <form action="" method="POST">
             <div class="well">
-                <h4><strong><?php echoLanguageChoice("Databaskonfiguration", "Database configuration")?></strong></h4>
+                <h4><strong><?php echo getLocalizedText("Database configuration")?></strong></h4>
                 <hr>
                 <div class="form-group">
-                    <label for="usr">Host:</label>
+                    <label for="usr"><?php echo getLocalizedText("Host:")?></label>
                     <input type="text" class="form-control" name="db_host" <?php echo isset($db_host) ? 'value="'.$db_host.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd"><?php echoLanguageChoice("Databasnamn:", "Database name:")?></label>
+                    <label for="pwd"><?php echo getLocalizedText("Database name:")?></label>
                     <input type="text" class="form-control" name="db_name" <?php echo isset($db_host) ? 'value="'.$db_name.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd"><?php echoLanguageChoice("Användare:", "User:")?></label>
+                    <label for="pwd"><?php echo getLocalizedText("User:")?></label>
                     <input type="text" class="form-control" name="db_user" <?php echo isset($db_host) ? 'value="'.$db_user.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd"><?php echoLanguageChoice("Lösenord:", "Password:")?></label>
+                    <label for="pwd"><?php echo getLocalizedText("Password:")?></label>
                     <input type="password" class="form-control" name="db_pass" <?php echo isset($db_host) ? 'value="'.$db_pass.'"' : '';
             ?>autocomplete="off">
                 </div>
             </div>
             <div class="well">
                 <h4><strong>Superuser</strong></h4>
-                <?php echoLanguageChoice("Detta är användaren som har full kontrol på systemet. Denna användare kan inte raderas från databasen.", 
-                "This is the user that has full control of the system. This user can't be deleted from the database.")?>
+                <?php echo getLocalizedText("This is the user that has full control of the system. This user can't be deleted from the database.")?>
                 <hr>
                 <div class="form-group">
-                    <label for="usr"><?php echoLanguageChoice("Namn:", "Name:")?></label>
+                    <label for="usr"><?php echo getLocalizedText("Name:")?></label>
                     <input type="text" class="form-control" name="su_name" <?php echo isset($db_host) ? 'value="'.$su_name.'"' : '';
             ?>autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pwd"><?php echoLanguageChoice("Lösenord:", "Password:")?></label>
+                    <label for="pwd"><?php echo getLocalizedText("Password:")?></label>
                     <input type="password" class="form-control" name="su_pass1">
                 </div>
                 <div class="form-group">
-                    <label for="pwd"><?php echoLanguageChoice("Upprepa lösenord:", "Repeat password:")?></label>
+                    <label for="pwd"><?php echo getLocalizedText("Repeat password:")?></label>
                     <input type="password" class="form-control" name="su_pass2">
                 </div>
             </div>
@@ -186,7 +182,7 @@ $_SESSION['message'] = serialize($dialogue);
             ?>
 
         <div class="well">
-            <?php echoLanguageChoice("E-vote är konfigurerat!", "E-vote is configured!")?>
+            <?php echo getLocalizedText("E-vote is configured!")?>
         </div>
 
         <?php
@@ -202,9 +198,8 @@ $_SESSION['message'] = serialize($dialogue);
 
     <footer class="text-center">
         <div class="text-center">
-            <p><?php echoLanguageChoice("Skapad av Informationsutskottet inom E-sektionen inom TLTH", "Created by Informationsutskottet at E-sektionen at TLTH")?><p>
-            <p><?php echoLanguageChoice("E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på",
-            "E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
+            <p><?php echo getLocalizedText("Created by Informationsutskottet at E-sektionen at TLTH")?><p>
+            <p><?php echo getLocalizedText("E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>
     <!-- Add language URL parameter -->

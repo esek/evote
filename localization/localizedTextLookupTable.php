@@ -373,7 +373,13 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "A new election round has begun"=>array(
         "sv"=>"En ny valomgång har börjat",
     ),
-    
+    // actions/csvcodesend.php
+    "Personal code"=>array(
+        "sv"=>"Personlig valkod",
+    ),
+    "Boo! You are not allowed to do that."=>array(
+        "sv"=>"Fy! Så får du inte göra."
+    )
 
 
 )

@@ -10,12 +10,12 @@ if($evote->verifyUser($_SESSION["user"], 0)){
 
 	$csv_output_stream = fopen('php://output', 'w');
 
-	fputcsv($csv_output_stream, [pickLanguage('Personlig valkod', 'Personal code')]);
+	fputcsv($csv_output_stream, [getLocalizedText('Personal code')]);
 
 	foreach ($codes as $c) {
 		fputcsv($csv_output_stream, [$c]);	# Second parameter must be array
 	}
 }else{
-	echoLanguageChoice("Fy! Så får du inte göra.", "Boo! You are not allowed to do that.");
+	echo getLocalizedText("Boo! You are not allowed to do that.");
 }
 ?>

@@ -268,6 +268,9 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Manage election session"=>array(
         "sv"=>"Hantera valtillfälle",
+    ),
+    "Usage history"=>array(
+        "sv"=>"Användningshistorik",
     )
 )
 );

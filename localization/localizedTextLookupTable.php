@@ -379,8 +379,14 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Boo! You are not allowed to do that."=>array(
         "sv"=>"Fy! Så får du inte göra."
+    ),
+    // actions/codeprint.php
+    "E-vote, E-sektionen's voting system"=>array(
+        "sv"=>"E-vote, E-sektionens röstningssystem",
+    ),
+    "Your personal code is"=>array(
+        "sv"=>"Din personliga valkod är"
     )
-
 
 )
 );

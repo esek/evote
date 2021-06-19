@@ -10,11 +10,7 @@ echo "<hr>";
 if($ongoingSession){
 	$tg->generateResultTable("last");
 }else{
-<<<<<<< HEAD
 	echo "<h4>".getLocalizedText("There is no ongoing election session.")."</h4>";
-=======
-	echo "<h4>".getLocalizedText("There is no ongoing election.")."</h4>";
->>>>>>> 89bd7935d21132f01f898f3d772019a1639efab6
 }
 
 } else {

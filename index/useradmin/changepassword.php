@@ -2,7 +2,6 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
-//$mg->printUserhandlerPanelMenu($page);
 ?>
 <h3><?php echoLanguageChoice("Ändra lösenord", "Change password")?></h3>
 <hr>

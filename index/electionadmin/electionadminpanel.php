@@ -5,12 +5,7 @@ if(in_array($priv, $access)){
 
 $ongoingSession = $evote->ongoingSession();
 
-$buttonstate = "disabled";
-if($ongoingSession){
-	$buttonstate = "active";
-}
-
-#-------------NYTT VAL--------------
+#-------------NEW ELECTION--------------
 if($evote->checkCheating()){
     echoLanguageChoice("Någon fuling har mixtrat i databasen.", "Some shady character has done something with the database.");
 }
@@ -39,16 +34,6 @@ if(!$ongoingSession){ ?>
 	                <label><?php echoLanguageChoice("Antal valbara alternativ:", "Number of selectable options:")?></label>
 	                <input type="number" class="form-control" name="max_num" id="max" autocomplete="off" value="1" min="1"/>
 	        </div>
-
-<!-- 		<?php
-		for($i = 0; $i < 5; $i++){
-			$p = $i + 1;
-			echo "<div class=\"form-group\">";
-			echo "<label>".pickLanguage("Kandidat", "Candidate") ."$p:</label>";
-			echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\" autocomplete=\"off\">";
-	        	echo "</div>";
-		}
-?> -->
                 <br>
                 <div><h4><b><?php echoLanguageChoice("Alternativ:", "Alternatives:")?></b></h4></div>
                 <div class="form-group"><?php echoLanguageChoice("Öka/minska antalet fält:", "Increase/decrease number of fields:")?>

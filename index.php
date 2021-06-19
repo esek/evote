@@ -80,8 +80,6 @@ $randomString = new RandomInfo();
                     </a>
                     </div>
                 </div>
-               <div>
-                </div>
             </div>
         </div>
     </div>
@@ -92,7 +90,6 @@ $randomString = new RandomInfo();
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-
                 <?php
                 if (true) {
                     echo "<li><a href=\"/vote\">".pickLanguage("Röstningssida", "Voting page")."</a></li>";
@@ -112,11 +109,7 @@ $randomString = new RandomInfo();
                         echo '<li><a href="/logout">'.pickLanguage("Logga ut", "Log out").'</a></li>';
                     }
                 }
-
                 ?>
-
-
-
             </ul>
         </div>
     </div>
@@ -199,8 +192,6 @@ $randomString = new RandomInfo();
                 include 'index/admin/electionsinfo.php';
             elseif($page == 'electioncontrol')
                 include 'index/admin/electionControl.php';
-            elseif($page == 'settings')
-                include 'index/admin/settings.php';
             else
                 include 'index/admin/electionsinfo.php';
         }

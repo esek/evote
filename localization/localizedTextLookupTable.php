@@ -21,6 +21,8 @@
  * language option in index.php
  * 
  * Add text under the correct comment (first time it appears in a file)
+ * 
+ * CHANGING ENGLISH TEXT REQUIRES CHANGE IN SOURCE FILES AS WELL
  */
 define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     // index.php
@@ -225,6 +227,28 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "End election round"=>array(
         "sv"=>"Avsluta valomgång",
+    ),
+    // index/classes/TableGenerator.php
+    "votes"=>array(
+        "sv"=>"röster",
+    ),
+    "opt."=>array(
+        "sv"=>"alt."
+    ),
+    "Nothing has been elected yet"=>array(
+        "sv"=>"Ingenting har valts ännu",
+    ),
+    "No election opportunity in sight"=>array(
+        "sv"=>"Inget valtillfälle i sikte",
+    ),
+    "<th>Name</th>
+    <th>Opened</th>
+    <th>Closed</th>
+    </tr>"=>array(
+        "sv"=>"<th>Namn</th>
+        <th>Öppnad</th>
+        <th>Stängd</th>
+        </tr>",
     )
 )
 );

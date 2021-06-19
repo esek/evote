@@ -29,7 +29,7 @@ class TableGenerator {
                 }
                 if($e_id != $row["e_id"]){
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".pickLanguage("röster", "votes").", $max ".pickLanguage("alt.", "opt.").")</th>
+                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;
@@ -52,9 +52,9 @@ class TableGenerator {
              echo "</div>";
          }else{
              if($evote->ongoingSession()){
-                echo "<h4>".pickLanguage("Ingenting har valts ännu", "Nothing has been elected yet")."<h4>";
+                echo "<h4>".getLocalizedText("Nothing has been elected yet")."<h4>";
             }else{
-                echo "<h4>".pickLanguage("Inget valtillfälle i sikte", "No election opportunity in sight")."<h4>";
+                echo "<h4>".getLocalizedText("No election opportunity in sight")."<h4>";
             }
          }
     }
@@ -86,7 +86,7 @@ class TableGenerator {
                 }
                 if($e_id != $row["e_id"]){
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".pickLanguage("röster", "votes").", $max ".pickLanguage("alt.", "opt.").")</th>
+                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;
@@ -107,7 +107,7 @@ class TableGenerator {
              echo "</table>";
              echo "</div>";
          }else{
-             echo "<h4>".pickLanguage("Ingenting har valts ännu", "Nothing has been elected yet")."<h4>";
+             echo "<h4>".getLocalizedText("Nothing has been elected yet")."<h4>";
          }
     }
 
@@ -139,10 +139,7 @@ class TableGenerator {
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
             echo "<tr class=\"rowheader\">\n".
-                    pickLanguage("<th>Namn</th>
-                    <th>Öppnad</th>
-                    <th>Stängd</th>
-                    </tr>", 
+                    getLocalizedText(
                     "<th>Name</th>
                     <th>Opened</th>
                     <th>Closed</th>

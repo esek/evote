@@ -45,7 +45,7 @@ if(in_array($priv, $access)){
                 }
             } else {
                 $_SESSION['message'] = serialize($dialogue);
-                header('Location: /electionadmin');
+                header('Location: /adminmain/electioncontrol');
             }
         } elseif ($_POST['button'] == 'delete_election') { # TA BORT VAL KNAPPEN
             $dialogue = new Dialogue();

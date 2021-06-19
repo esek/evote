@@ -292,7 +292,10 @@ class Evote {
         $ok = TRUE;
         $name = mysqli_real_escape_string($conn, $name);
         $code = mysqli_real_escape_string($conn, $name);
+<<<<<<< HEAD
         $max = mysqli_real_escape_string($conn, $max);
+=======
+>>>>>>> 77575440158a364b32292c7270806cb8d93ceac6
         $hash = password_hash($code, PASSWORD_DEFAULT);
         $sql =  "INSERT INTO elections (name, pass, active, nbr_choices) VALUES (\"$name\", \"$hash\", TRUE, \"$max\")";
         $last_id = -1;

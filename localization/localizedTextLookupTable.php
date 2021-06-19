@@ -124,7 +124,44 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     // No permission
     "You don't have permission to view this page"=>array(
         "sv"=>"Du har inte behörighet att visa denna sida.",
-    )
+    ),
+    // install/vote/front.php
+    "There is currently no election session."=>array(
+        "sv"=>"Det finns inget pågående val för tillfället.",
+    ),
+    "Checking for new election round in"=>array(
+        "sv"=>"Kollar efter ny omröstning om",
+    ),
+    "Oops! Could not check for new election round. Try refreshing the page!"=>array(
+        "sv"=>"Hoppsan! Kunde inte kolla efter ny omröstning. Testa att ladda om sidan!",
+    ),
+    "Refresh Page"=>array(
+        "sv"=>"Ladda om sidan",
+    ),
+    "There is nothing to vote on currently. Take a cookie."=>array(
+        "sv"=>"Det finns inget att rösta på för tillfället. Ta en kaka.",
+    ),
+    "Voting in progress"=>array(
+        "sv"=>"Röstning pågår",
+    ),
+    // These two are a bit iffy, since we need to insert a number in the middle.
+    // Check the source file for help how to do this properly in your language
+    "You can vote on <b>"=>array(
+        "sv"=>"Du får rösta på <b>"
+    ),
+    "</b> of the alternatives"=>array(
+        "sv"=>"</b> av alternativen",
+    ),
+    // end of iffy things (for now)
+    "Personal code:"=>array(
+        "sv"=>"Personlig valkod:",
+    ),
+    "Temporary code:"=>array(
+        "sv"=>"Tillfällig valkod:",
+    ),
+    "Vote!"=>array(
+        "Rösta!",
+    ),
 )
 );
 ?>

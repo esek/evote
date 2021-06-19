@@ -385,9 +385,24 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"E-vote, E-sektionens röstningssystem",
     ),
     "Your personal code is"=>array(
-        "sv"=>"Din personliga valkod är"
-    )
-
+        "sv"=>"Din personliga valkod är",
+    ),
+    // actions/adminpagehandler.php
+    "You have not entered a name for the election"=>array(
+        "sv"=>"Du har inte angett något namn på valet",
+    ),
+    "You have not entered the max number of people"=>array(
+        "sv"=>"Du har inte angett det maximala antalet personer",
+    ),
+    "There is already an election in progress"=>array(
+        "sv"=>"Det pågår redan ett val",
+    ),
+    "The election is now closed"=>array(
+        "sv"=>"Valet är nu stängt",
+    ),
+    "Wrong username and/or password somewhere"=>array(
+        "sv"=>"Fel lösenord och/eller användarnamn någonstans",
+    ),
 )
 );
 ?>

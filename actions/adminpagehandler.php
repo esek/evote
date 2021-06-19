@@ -2,7 +2,7 @@
 
 session_start();
 require '../data/evote.php';
-include '../languagePicker.php';
+require '../localization/getLocalizedText.php';
 require '../data/Dialogue.php';
 $evote = new Evote();
 
@@ -17,15 +17,15 @@ if(in_array($priv, $access)){
             $msgType = '';
             if ($_POST['valnamn'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Du har inte angett något namn på valet', 'You have not entered a name for the election'), 'error');
+                $dialogue->appendMessage(getLocalizedText('You have not entered a name for the election'), 'error');
             }
             if ($_POST['antal_personer'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Du har inte angett det maximala antalet personer', 'You have not entered the max number of people'), 'error');
+                $dialogue->appendMessage(getLocalizedText('You have not entered the max number of people'), 'error');
             }
             if ($evote->ongoingSession()) {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Det pågår redan ett val', 'There is already an election in progress'), 'error');
+                $dialogue->appendMessage(getLocalizedText('There is already an election in progress'), 'error');
             }
             if ($input_ok) {
                 $dialogue->setMessageType('success');
@@ -52,7 +52,7 @@ if(in_array($priv, $access)){
             $input_ok = true;
             if ($_POST['pswuser'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage(pickLanguage('Alla fält är inte ifyllda', 'All fields are not filled'), 'error');
+                $dialogue->appendMessage(getLocalizedText('All fields are not filled in'), 'error');
             }
 
             $redirect = '';
@@ -61,10 +61,10 @@ if(in_array($priv, $access)){
                 $current_usr = $_SESSION['user'];
                 if ($evote->login($current_usr, $psw1)) {
                     $evote->endSession();
-                    $dialogue->appendMessage(pickLanguage('Valet är nu stängt', 'The election is now closed'), 'success');
+                    $dialogue->appendMessage(getLocalizedText('The election is now closed'), 'success');
                     $redirect = 'admin';
                 } else {
-                    $dialogue->appendMessage(pickLanguage('Fel lösenord och/eller användarnamn någonstans', 'Wrong username and/or password somewhere'), 'error');
+                    $dialogue->appendMessage(getLocalizedText('Wrong username and/or password somewhere'), 'error');
                 }
             }
             $_SESSION['message'] = serialize($dialogue);

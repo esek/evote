@@ -325,7 +325,19 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "Your vote was not registered. This can depend on you entering one of the codes wrong, or because you already have voted"=>array(
         "sv"=>"Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat",
     ),
+    // actions/usersessionhandler.php
+    "You have not entered any username"=>array(
+        "sv"=>"Du har inte skrivit in något användarnamn",
+    ),
+    "You have not entered any password"=>array(
+        "sv"=>"Du har inte angett något lösenord",
+    ),
+    "The username and/or the password is wrong"=>array(
+        "sv"=>"Användarnamet och/eller lösenordet är fel",
+    ),
     
+
+
 
 
 

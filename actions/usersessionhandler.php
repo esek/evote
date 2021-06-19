@@ -16,11 +16,11 @@ if(isset($_POST["button"])){
 		$msgType = "";
 		if($_POST["usr"] == ""){
 			$input_ok = FALSE;
-			$dialogue->appendMessage(pickLanguage('Du har inte skrivit in något användarnamn','You have not entered any username'), 'error');
+			$dialogue->appendMessage(getLocalizedText('You have not entered any username'), 'error');
 		}
 		if($_POST["psw"] == ""){
 			$input_ok = FALSE;
-			$dialogue->appendMessage(pickLanguage('Du har inte angett något lösenord' , 'You have not entered any password'), 'error');
+			$dialogue->appendMessage(getLocalizedText('You have not entered any password'), 'error');
 		}
 
 		if($input_ok){
@@ -32,7 +32,7 @@ if(isset($_POST["button"])){
 				$_SESSION["user"] = $usr;
 
 			}else{
-				$dialogue->appendMessage(pickLanguage('Användarnamet och/eller lösenordet är fel', 'The username and/or the password is wrong'), 'error');
+				$dialogue->appendMessage(getLocalizedText('The username and/or the password is wrong'), 'error');
 			}
 		}
 		$_SESSION['message'] = serialize($dialogue);

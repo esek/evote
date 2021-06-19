@@ -34,13 +34,16 @@
         switch ($_SESSION["lang"]) {
             case "en":
                 return $en_str;
-            case "sv":
-                return LOCALIZED_TEXT_LOOKUP_TABLE[$en_str]["sv"];
-            // To add a new language, simply add it to LOCALIZED_TEXT_LOOKUP_TABLE
-            // and add a case following the Swedish example above
             default:
-                // Defaults to Swedish; Change if not the case in your case.
-                return LOCALIZED_TEXT_LOOKUP_TABLE[$en_str]["sv"];
+                // Make sure there is a translation for this string
+                if (array_key_exists("sv", LOCALIZED_TEXT_LOOKUP_TABLE)) {
+                    return LOCALIZED_TEXT_LOOKUP_TABLE[$en_str][$_SESSION["lang"]];
+                } else {
+                    // If no translations exists, log warning for developer
+                    // and return English translation
+                    error_log("WARNING: Key \"" + $en_str + "\" has no translation in " + $_SESSION["lang"] + "! Consider adding it to localization lookup table!");
+                    return $en_str;
+                }
         }
     }
 ?>

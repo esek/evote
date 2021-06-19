@@ -22,14 +22,14 @@ class TableGenerator {
             $limit = "";
             while($row = $res->fetch_assoc()) {
                 $tot = $row["tot"];
-                $precent = "- ";
+                $percent = "- ";
                 $max = $evote->getMaxAltByAltId($row["id"]);
                 if($tot != 0){
-                    $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
+                    $percent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
                 }
                 if($e_id != $row["e_id"]){
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot röster, $max alt.)</th>
+                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;
@@ -42,7 +42,7 @@ class TableGenerator {
                     $style = "rowtie";
                     $limit++;
                 }
-                echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $precent) </td>
+                echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $percent) </td>
                     <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";
                 $p++;
                 $last_votes = $row["votes"];
@@ -52,9 +52,9 @@ class TableGenerator {
              echo "</div>";
          }else{
              if($evote->ongoingSession()){
-                echo "<h4>Ingenting har valts ännu<h4>";
+                echo "<h4>".getLocalizedText("Nothing has been elected yet")."<h4>";
             }else{
-                echo "<h4>Inget valtillfälle i sikte<h4>";
+                echo "<h4>".getLocalizedText("No election opportunity in sight")."<h4>";
             }
          }
     }
@@ -79,14 +79,14 @@ class TableGenerator {
             $limit = "";
             while($row = $res->fetch_assoc()) {
                 $tot = $row["tot"];
-                $precent = "- ";
+                $percent = "- ";
                 $max = $evote->getMaxAltByAltId($row["id"]);
                 if($tot != 0){
-                    $precent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
+                    $percent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
                 }
                 if($e_id != $row["e_id"]){
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot röster, $max alt.)</th>
+                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;
@@ -99,7 +99,7 @@ class TableGenerator {
                     $style = "rowtie";
                     $limit++;
                 }
-                echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $precent) </td>
+                echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $percent) </td>
                     <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";
                 $p++;
                 $last_votes = $row["votes"];
@@ -107,7 +107,7 @@ class TableGenerator {
              echo "</table>";
              echo "</div>";
          }else{
-             echo "Ingenting har valts ännu";
+             echo "<h4>".getLocalizedText("Nothing has been elected yet")."<h4>";
          }
     }
 
@@ -138,11 +138,12 @@ class TableGenerator {
             $head = "";
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
-            echo "<tr class=\"rowheader\">
-                    <th>Namn</th>
-                    <th>Öppnad</th>
-                    <th>Stängd</th>
-                    </tr>";
+            echo "<tr class=\"rowheader\">\n".
+                    getLocalizedText(
+                    "<th>Name</th>
+                    <th>Opened</th>
+                    <th>Closed</th>
+                    </tr>");
             while($row = $res->fetch_assoc()) {
                 $name = $row['name'];
                 $start = $row['start'];

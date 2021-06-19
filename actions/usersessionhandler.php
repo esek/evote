@@ -3,6 +3,8 @@
 session_start();
 require '../data/evote.php';
 require '../data/Dialogue.php';
+require '../localization/getLocalizedText.php';
+
 $evote = new Evote();
 
 if(isset($_POST["button"])){
@@ -14,11 +16,11 @@ if(isset($_POST["button"])){
 		$msgType = "";
 		if($_POST["usr"] == ""){
 			$input_ok = FALSE;
-			$dialogue->appendMessage('Du har inte skrivit in något användarnamn', 'error');
+			$dialogue->appendMessage(getLocalizedText('You have not entered any username'), 'error');
 		}
 		if($_POST["psw"] == ""){
 			$input_ok = FALSE;
-			$dialogue->appendMessage('Du har inte angett något lösenord', 'error');
+			$dialogue->appendMessage(getLocalizedText('You have not entered any password'), 'error');
 		}
 
 		if($input_ok){
@@ -30,7 +32,7 @@ if(isset($_POST["button"])){
 				$_SESSION["user"] = $usr;
 
 			}else{
-				$dialogue->appendMessage('Användarnamet och/eller lösenordet är fel', 'error');
+				$dialogue->appendMessage(getLocalizedText('The username and/or the password is wrong'), 'error');
 			}
 		}
 		$_SESSION['message'] = serialize($dialogue);

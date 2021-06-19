@@ -3,6 +3,8 @@
 session_start();
 require '../data/evote.php';
 require '../data/Dialogue.php';
+require '../localization/getLocalizedText.php';
+
 $evote = new Evote();
 
 $access = array(0);
@@ -16,14 +18,14 @@ if(in_array($priv, $access)){
             $msgType = '';
             if ($_POST['psw'] == '' || $_POST['username'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage('Något av fälten var tomma', 'error');
-                $msg .= 'Något av fälten är tomma.';
+                $dialogue->appendMessage(getLocalizedText('One or more of the fields were empty'), 'error');
+                $msg .= getLocalizedText('One or more of the fields were empty').'. ';
                 $msgType = 'error';
             }
             if (!$evote->usernameExists($_POST['username'])) {
                 $input_ok = false;
-                $dialogue->appendMessage('Användaren du angav finns inte', 'error');
-                $msg .= 'Användarnamnet du angav finns redan. ';
+                $dialogue->appendMessage(getLocalizedText('The username you entered already exists'), 'error');
+                $msg .= getLocalizedText('The username you entered already exists').'. ';
                 $msgType = 'error';
             }
 
@@ -32,8 +34,8 @@ if(in_array($priv, $access)){
                 $psw = $_POST['psw'];
                 $evote->newPassword($user, $psw);
 
-                $dialogue->appendMessage('Lösenordet är bytt', 'success');
-                $msg .= 'Lösenordet är bytt ';
+                $dialogue->appendMessage(getLocalizedText('The password has been changed'), 'success');
+                $msg .= getLocalizedText('The password has been changed').'. ';
                 $msgType = 'success';
             }
             $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
@@ -46,14 +48,14 @@ if(in_array($priv, $access)){
             $msgType = '';
             if ($_POST['psw'] == '' || $_POST['username'] == '' || $_POST['priv'] == '') {
                 $input_ok = false;
-                $dialogue->appendMessage('Något av fälten var tomma', 'error');
-                $msg .= 'Något av fälten är tomma.';
+                $dialogue->appendMessage(getLocalizedText('One or more of the fields were empty'), 'error');
+                $msg .= getLocalizedText('One or more of the fields were empty').'. ';
                 $msgType = 'error';
             }
             if ($evote->usernameExists($_POST['username'])) {
                 $input_ok = false;
-                $dialogue->appendMessage('Användarnamnet du angav finns redan', 'error');
-                $msg .= 'Användarnamnet du angav finns redan. ';
+                $dialogue->appendMessage(getLocalizedText('The username you entered already exists'), 'error');
+                $msg .= getLocalizedText('The username you entered already exists').'. ';
                 $msgType = 'error';
             }
 
@@ -62,8 +64,8 @@ if(in_array($priv, $access)){
                 $psw = $_POST['psw'];
                 $priv = $_POST['priv'];
                 $evote->createNewUser($user, $psw, $priv);
-                $dialogue->appendMessage('En ny användare har skapats', 'success');
-                $msg .= 'En ny användare har skapats ';
+                $dialogue->appendMessage(getLocalizedText('A new user has been created'), 'success');
+                $msg .= getLocalizedText('A new user has been created').'. ';
                 $msgType = 'success';
             }
             $_SESSION['message'] = array('type' => $msgType, 'message' => $msg);
@@ -76,12 +78,12 @@ if(in_array($priv, $access)){
             $selected_users = $_POST['marked_users'];
             if (count($selected_users) > 0) {
                 $evote->deleteUsers($selected_users);
-                $dialogue->appendMessage('Användare raderades', 'success');
-                $msg = 'Användare raderades. ';
+                $dialogue->appendMessage(getLocalizedText('User deleted'), 'success');
+                $msg = getLocalizedText('User deleted').'. ';
                 $msgType = 'success';
             } else {
-                $dialogue->appendMessage('Du har inte valt några användare att radera', 'error');
-                $msg = 'Du har inte valt några användare att radera. ';
+                $dialogue->appendMessage(getLocalizedText('You have not chosen any users to delete'), 'error');
+                $msg = getLocalizedText('You have not chosen any users to delete').'. ';
                 $msgType = 'error';
             }
 

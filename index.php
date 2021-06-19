@@ -1,9 +1,25 @@
+<?php
+session_start();
+
+include 'data/evote.php';
+require 'index/classes/TableGenerator.php';
+require 'index/classes/MenuGenerator.php';
+require 'data/RandomInfo.php';
+require 'data/Dialogue.php';
+require 'localization/getLocalizedText.php';
+
+
+$evote = new Evote();
+$tg = new TableGenerator();
+$mg = new MenuGenerator();
+$randomString = new RandomInfo();
+?>
 <!DOCTYPE HTML>
 
 <html>
 
 <head>
-    <title>E-vote - Ditt digitala röstsystem</title>
+    <title><?php echo getLocalizedText("E-vote - Your digital voting system")?></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,21 +31,6 @@
 </head>
 
 <body>
-<?php
-session_start();
-
-include 'data/evote.php';
-require 'index/classes/TableGenerator.php';
-require 'index/classes/MenuGenerator.php';
-require 'data/RandomInfo.php';
-require 'data/Dialogue.php';
-
-
-$evote = new Evote();
-$tg = new TableGenerator();
-$mg = new MenuGenerator();
-$randomString = new RandomInfo();
-?>
     <!-- Header -->
     <div class="fixed-header">
         <div class ="row">
@@ -38,6 +39,29 @@ $randomString = new RandomInfo();
                     <!--<div><h3><span class="label label-info">E-vote - Ditt digitala röstsystem</span></h3></div> -->
 					<img src="/logo.jpg" />
                 </div>
+            </div>
+            <!-- Language options -->
+            <div class="col-md-4 col-sm-8 navbar-text" style="float: right; text-align: right;">
+                <h4>
+                    <a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a>
+                </h4>
+                <!-- Add language URL parameter -->
+                <script>
+                function addURLParameter(name, value) {
+                    window.location.href = updateQueryStringParameter(window.location.href, name, value);
+                }
+                // Let's us update the language parameter when we click again using regex
+                function updateQueryStringParameter(uri, key, value) {
+                    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+                    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+                    if (uri.match(re)) {
+                        return uri.replace(re, '$1' + key + "=" + value + '$2');
+                    }
+                    else {
+                        return uri + "/" + separator + key + "=" + value;
+                    }
+                }
+                </script>
             </div>
         </div>
 
@@ -54,6 +78,7 @@ $randomString = new RandomInfo();
                     <a class="navbar-brand" href="/">
                         <span>E-vote</span>
                     </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,23 +92,22 @@ $randomString = new RandomInfo();
             <ul class="nav nav-sidebar">
                 <?php
                 if (true) {
-                    echo "<li><a href=\"/vote\">Röstningssida</a></li>";
+                    echo "<li><a href=\"/vote\">".getLocalizedText("Voting page")."</a></li>";
                     echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                     if (!isset($_SESSION['user'])) {
-                        echo '<li><a href="/login">Logga in</a></li>';
+                        echo '<li><a href="/login">'.getLocalizedText("Log in").'</a></li>';
                     } else {
                         $priv = $evote->getPrivilege($_SESSION['user']);
                         if ($priv == 1) {
-                            echo '<li><a href="/electionadmin">Valansvarig</a></li>';
+                            echo '<li><a href="/electionadmin">'.getLocalizedText("Election admin").'</a></li>';
                         } elseif ($priv == 2) {
-                            echo '<li><a href="/adjust">Justerare</a></li>';
+                            echo '<li><a href="/adjust">'.getLocalizedText("Adjuster").'</a></li>';
                         } elseif ($priv == 0) {
-                            echo '<li><a href="/useradmin">Hantera användare</a></li>';
-                            echo '<li><a href="/adminmain">Administratör</a></li>';
+                            echo '<li><a href="/useradmin">'.getLocalizedText("Manage users").'</a></li>';
+                            echo '<li><a href="/adminmain">'.getLocalizedText("Administrator").'</a></li>';
                         }
-                        echo '<li><a href="/logout">Logga ut</a></li>';
+                        echo '<li><a href="/logout">'.getLocalizedText("Log out").'</a></li>';
                     }
-                    #echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                 }
                 ?>
             </ul>
@@ -91,7 +115,7 @@ $randomString = new RandomInfo();
     </div>
 
     <!-- Main content -->
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="min-height: 92vh">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="min-height: 90vh">
 <?php
 
 
@@ -116,7 +140,7 @@ $randomString = new RandomInfo();
     }
     $configured = file_exists('data/config.php');
     if(!$configured){
-        echo '<h4>E-vote måste konfigureras</h4>';
+        echo '<h4>'.getLocalizedText("E-vote must be configured").'</h4>';
     }elseif($module == 'vote'){
         include 'index/vote/front.php';
     }elseif($module == 'login'){
@@ -188,11 +212,12 @@ $randomString = new RandomInfo();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
+
     <!-- Footer -->
     <footer class="text-center col-sm-offset-3">
         <div class="text-center p-3">
-            <p>Skapad av Informationsutskottet inom E-sektionen inom TLTH<p>
-            <p>E-vote är öppen och fri mjukvara licenserad under MPL-2.0. Källkod hittas på <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
+            <p><?php echo getLocalizedText("Created by Informationsutskottet at E-sektionen at TLTH")?><p>
+            <p><?php echo getLocalizedText("E-vote is open and free software licensed under MPL-2.0. Source code can be found at")?> <a href="https://github.com/esek/evote" target="_blank">github.com/esek/evote</a></p>
         </div>
     </footer>
 </body>

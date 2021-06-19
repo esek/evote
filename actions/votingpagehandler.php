@@ -1,11 +1,12 @@
 <?php
 
-
+session_start();
 require '../data/evote.php';
 require '../data/Dialogue.php';
+require '../localization/getLocalizedText.php';
+
 $evote = new Evote();
 
-session_start();
 if (isset($_POST['button'])) {
     if ($_POST['button'] == 'vote') {
         $dialogue = new dialogue();
@@ -13,28 +14,28 @@ if (isset($_POST['button'])) {
         $ongoingR = $evote->ongoingRound();
         if (!isset($_POST['person'])) {
             $ok = false;
-            $dialogue->appendMessage('Du har inte valt någon att rösta på', 'error');
+            $dialogue->appendMessage(getLocalizedText('You have not selected anything to vote on'), 'error');
         } elseif (!$evote->checkRightElection($_POST['person'])) {
-            // om någon har en gammal sida uppe och försöker rösta
+            // If someone has an old page up and tries to vote
             $ok = false;
-            $dialogue->appendMessage('Den valomgång du försöker rösta på har redan avslutats. Sidan har nu uppdaterats så du kan försöka igen', 'error');
+            $dialogue->appendMessage(getLocalizedText('The election round you are trying to vote on has already ended. The page has been refreshed so you can try again'), 'error');
         } elseif ($evote->getMaxAlternatives() < count($_POST['person'])) {
-            // om någon stänger av javascriptet.
+            // If someone disables the JS
             $ok = false;
-            $dialogue->appendMessage('Du får inte välja för många kandidater', 'error');
+            $dialogue->appendMessage(getLocalizedText('You are not allowed to pick too many candidates'), 'error');
         }
 
         if ($_POST['code1'] == '') {
             $ok = false;
-            $dialogue->appendMessage('Du har inte angett någon personlig valkod', 'error');
+            $dialogue->appendMessage(getLocalizedText('You have not entered any personal code'), 'error');
         }
         if ($_POST['code2'] == '') {
             $ok = false;
-            $dialogue->appendMessage('Du har inte angett någon tillfällig valkod', 'error');
+            $dialogue->appendMessage(getLocalizedText('You have not entered any temporary code'), 'error');
         }
         if (!$ongoingR) {
             $ok = false;
-            $dialogue->appendMessage('Valomgången har redan avslutats', 'error');
+            $dialogue->appendMessage(getLocalizedText('The election round has already been terminated'), 'error');
         }
 
         if ($ok) {
@@ -42,9 +43,9 @@ if (isset($_POST['button'])) {
             $personal_code = $_POST['code1'];
             $current_code = $_POST['code2'];
             if ($evote->vote($person_id, $personal_code, $current_code)) {
-                $dialogue->appendMessage('Din röst har blivit registrerad', 'success');
+                $dialogue->appendMessage(getLocalizedText('Your vote has been registered'), 'success');
             } else {
-                $dialogue->appendMessage('Din röst blev inte registrerad. Detta kan bero på att du skrev in någon av koderna fel eller att du redan röstat', 'error');
+                $dialogue->appendMessage(getLocalizedText("Your vote was not registered. This can depend on you entering one of the codes wrong, or because you already have voted"), 'error');
             }
         }
 

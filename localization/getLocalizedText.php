@@ -28,7 +28,7 @@
     function getLocalizedText($en_str) {
         // Check if this is a key at all; If not, return the string
         if (!array_key_exists($en_str, LOCALIZED_TEXT_LOOKUP_TABLE)) {
-            error_log("WARNING: Key \"" + $en_str + "\" not in localization lookup table! Check if this key is an EXACT match!");
+            error_log("WARNING: Key \"" . $en_str . "\" not in localization lookup table! Check if this key is an EXACT match!");
             return $en_str;
         }
         switch ($_SESSION["lang"]) {
@@ -36,12 +36,12 @@
                 return $en_str;
             default:
                 // Make sure there is a translation for this string
-                if (array_key_exists("sv", LOCALIZED_TEXT_LOOKUP_TABLE)) {
+                if (array_key_exists($_SESSION["lang"], LOCALIZED_TEXT_LOOKUP_TABLE[$en_str])) {
                     return LOCALIZED_TEXT_LOOKUP_TABLE[$en_str][$_SESSION["lang"]];
                 } else {
                     // If no translations exists, log warning for developer
                     // and return English translation
-                    error_log("WARNING: Key \"" + $en_str + "\" has no translation in " + $_SESSION["lang"] + "! Consider adding it to localization lookup table!");
+                    error_log("WARNING: Key \"" . $en_str . "\" has no translation in " . $_SESSION["lang"] . "! Consider adding it to localization lookup table!");
                     return $en_str;
                 }
         }

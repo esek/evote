@@ -55,7 +55,7 @@ if(!$evote->ongoingSession()){
 					echo "<h4>".getLocalizedText("You can vote on <b>").$max.getLocalizedText("</b> of the alternatives")."</h4>";
 				echo "</div>";
 				?>
-	    	    <form action="actions/votingpagehandler.php" method="POST" autocomplete="off">
+	    	    <form action="/actions/votingpagehandler.php" method="POST" autocomplete="off">
 	    	        <?php
                         $head = "";
 						$type = "checkbox";

@@ -295,8 +295,12 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"Stäng nuvarande val",
     ),
     "Close election"=>array(
-        "sv"=>"Stäng val"
-    )
+        "sv"=>"Stäng val",
+    ),
+    "Previous election rounds"=>array(
+        "sv"=>"Tidigare valomgångar",
+    ),
+    
 
 )
 );

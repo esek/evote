@@ -185,7 +185,13 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "Privileges:"=>array(
         "sv"=>"Privilegier:",
     ),
-    
+    // index/useradmin/changepassword.php
+    "Change password"=>array(
+        "sv"=>"Ändra lösenord",
+    ),
+    "New password:"=>array(
+        "sv"=>"Nytt lösenord:",
+    )
 )
 );
 ?>

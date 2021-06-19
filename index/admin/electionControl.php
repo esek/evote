@@ -3,17 +3,11 @@
 $access = array(0);
 $priv = $evote->getPrivilege($_SESSION["user"]);
 if(in_array($priv, $access)){
-    //$mg->printAdminMenu(2);
 
     $ongoingSession = $evote->ongoingSession();
 
-    $buttonstate = "disabled";
-    if($ongoingSession){
-	   $buttonstate = "active";
-    }
-
-    if(!$ongoingSession){ ?>
-
+    if(!$ongoingSession){ 
+?>
 
     	<h3>Skapa nytt val</h3>
     	<hr>

@@ -5,13 +5,6 @@ if(in_array($priv, $access)){
 
 $ongoingSession = $evote->ongoingSession();
 
-$buttonstate = "disabled";
-if($ongoingSession){
-	$buttonstate = "active";
-}
- #------------KNAPPRAD-------------
- //$mg->printElectionadminPanelMenu(0);
-
 #-------------NYTT VAL--------------
 if($evote->checkCheating()){
     echo "Någon fuling har mixtrat i databasen.";
@@ -19,23 +12,6 @@ if($evote->checkCheating()){
 
 if(!$ongoingSession){ ?>
 	<h4>Det pågår inget valtillfälle.</h4>
-<!--
-	<h3>Skapa nytt val</h3>
-	<hr>
-	<div style="max-width: 400px">
-	<form action="actions/electionadminpagehandler.php" method="POST">
-	<div class="form-group">
-	        <label for="vn">Namn på val:</label>
-	        <input type="text" name="valnamn" class="form-control" id="vn" autocomplete="off">
-	</div>
-	<div class="form-group" style="max-width: 150px">
-	        <label for="ap">Max antal personer:</label>
-	        <input type="number" name="antal_personer" class="form-control" id="ap" min="1" autocomplete="off">
-	</div>
-	<button type="submit" class="btn btn-primary" value="create" name="button">Skapa</button>
-	</form>
-	</div>
--->
 <?php }else{
 	$ongoing = $evote->ongoingRound();
 	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
@@ -58,16 +34,6 @@ if(!$ongoingSession){ ?>
 	                <label>Antal valbara alternativ:</label>
 	                <input type="number" class="form-control" name="max_num" id="max" autocomplete="off" value="1" min="1"/>
 	        </div>
-
-<!-- 		<?php
-		for($i = 0; $i < 5; $i++){
-			$p = $i + 1;
-			echo "<div class=\"form-group\">";
-			echo "<label>Kandidat $p:</label>";
-			echo "<input type=\"text\" class=\"form-control\" name=\"candidates[]\" autocomplete=\"off\">";
-	        	echo "</div>";
-		}
-?> -->
                 <br>
                 <div><h4><b>Alternativ:</b></h4></div>
                 <div class="form-group">Öka/minska antalet fält:

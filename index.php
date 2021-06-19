@@ -55,22 +55,6 @@ $randomString = new RandomInfo();
                         <span>E-vote</span>
                     </a>
                 </div>
-
-               <div>
-
-<!--                      <ul class="nav navbar-nav navbar-right">
-
-                      <li class="dropdown user-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Dropdown<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>Insert link here</li>
-                                <li>Logga ut</li>
-                            </ul>
-                        </li>
-                    </ul>-->
-                </div>
             </div>
         </div>
     </div>
@@ -81,7 +65,6 @@ $randomString = new RandomInfo();
 
         <div class="col-sm-3 sidebar navbar-collapse collapse col-md-2">
             <ul class="nav nav-sidebar">
-
                 <?php
                 if (true) {
                     echo "<li><a href=\"/vote\">Röstningssida</a></li>";
@@ -102,11 +85,7 @@ $randomString = new RandomInfo();
                     }
                     #echo "<li class=\"nav-header disabled\"><a><hr class=sidebarruler></a></li>";
                 }
-
                 ?>
-
-
-
             </ul>
         </div>
     </div>
@@ -189,8 +168,6 @@ $randomString = new RandomInfo();
                 include 'index/admin/electionsinfo.php';
             elseif($page == 'electioncontrol')
                 include 'index/admin/electionControl.php';
-            elseif($page == 'settings')
-                include 'index/admin/settings.php';
             else
                 include 'index/admin/electionsinfo.php';
         }

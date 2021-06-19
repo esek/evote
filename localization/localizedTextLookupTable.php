@@ -335,12 +335,24 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     "The username and/or the password is wrong"=>array(
         "sv"=>"Användarnamet och/eller lösenordet är fel",
     ),
-    
-
-
-
-
-
+    "One or more of the fields were empty"=>array(
+        "sv"=>"Något av fälten var tomma",
+    ),
+    "The username you entered already exists"=>array(
+        "sv"=>"Användarnamnet du angav finns redan",
+    ),
+    "The password has been changed"=>array(
+        "sv"=>"Lösenordet är bytt",
+    ),
+    "A new user has been created"=>array(
+        "sv"=>"En ny användare har skapats",
+    ),
+    "User deleted"=>array(
+        "sv"=>"Användaren raderades",
+    ),
+    "You have not chosen any users to delete"=>array(
+        "sv"=>"Du har inte valt några användare att radera",
+    )
 )
 );
 ?>

@@ -7,36 +7,36 @@ $ongoingSession = $evote->ongoingSession();
 
 #-------------NEW ELECTION--------------
 if($evote->checkCheating()){
-    echoLanguageChoice("Någon fuling har mixtrat i databasen.", "Some shady character has done something with the database.");
+    echo getLocalizedText("Some shady character has done something with the database.");
 }
 
 if(!$ongoingSession){ ?>
-	<h4><?php echoLanguageChoice("Det pågår inget valtillfälle.", "There is no ongoing election session.")?></h4>
+	<h4><?php echo getLocalizedText("There is no ongoing election session.")?></h4>
 <?php }else{
 	$ongoing = $evote->ongoingRound();
-	# ---------------NY VALOMGÅNG OCH VISA FÖRRA VALOMGÅNGEN --------------
+	# --------------- NEW ELECTION ROUND AND SHOW LAST ELECTION ROUND --------------
 	if(!$ongoing){?>
 
-	    <h3><?php echoLanguageChoice("Skapa ny valomgång", "Create new election round")?></h3>
+	    <h3><?php echo getLocalizedText("Create new election round")?></h3>
 		<hr>
 		<div class="well" style="max-width: 400px">
 		<div class=\"panel panel-default">
 	        <form action="/actions/electionadminpagehandler.php" method="POST">
 	        <div class="form-group">
-	                <label><?php echoLanguageChoice("Vad som ska väljas:", "What to be elected:")?></label>
+	                <label><?php echo getLocalizedText("What to be elected:")?></label>
 	                <input type="text" class="form-control" name="round_name" autocomplete="off" maxlength="240">
 			</div>
 	        <div class="form-group">
-	                <label><?php echoLanguageChoice("Tillfällig kod:", "Temporary code:")?></label>
+	                <label><?php echo getLocalizedText("Temporary code:")?></label>
 	                <input type="text" class="form-control" name="code" autocomplete="off" maxlength="240"/>
 	        </div>
 			<div class="form-group" style="max-width: 200px">
-	                <label><?php echoLanguageChoice("Antal valbara alternativ:", "Number of selectable options:")?></label>
+	                <label><?php echo getLocalizedText("Number of selectable options:")?></label>
 	                <input type="number" class="form-control" name="max_num" id="max" autocomplete="off" value="1" min="1"/>
 	        </div>
                 <br>
-                <div><h4><b><?php echoLanguageChoice("Alternativ:", "Alternatives:")?></b></h4></div>
-                <div class="form-group"><?php echoLanguageChoice("Öka/minska antalet fält:", "Increase/decrease number of fields:")?>
+                <div><h4><b><?php echo getLocalizedText("Alternatives:")?></b></h4></div>
+                <div class="form-group"><?php echo getLocalizedText("Increase/decrease number of fields:")?>
                     <div class="btn-group">
                     <button type="button" class="btn btn-default" id="remove_button" onclick="removeField()">-</button>
                     <button type="button" class="btn btn-default" id="add_button" onclick="addField()">+</button>
@@ -72,7 +72,7 @@ if(!$ongoingSession){ ?>
                         }
                     }
                 </script>
-	        <button type="submit" class="btn btn-primary" value="begin_round" name="button"><?php echoLanguageChoice("Starta ny valomgång", "Start new election round")?></button>
+	        <button type="submit" class="btn btn-primary" value="begin_round" name="button"><?php echo getLocalizedText("Start new election round")?></button>
 	        </form>
 	        </div>
 		</div>
@@ -81,13 +81,13 @@ if(!$ongoingSession){ ?>
 		<?php
 
 		// Generera tabell med förra omgångens resultat.
-		echo "<h3>".pickLanguage("Föregående valomgång", "Previous election round")."</h3>";
+		echo "<h3>".getLocalizedText("Previous election round")."</h3>";
 		echo "<hr>";
 		$tg->generateResultTable("last");
 
 	# ------------- VALOMGÅNG PÅGÅR ----------------
 	}else{
-		echo "<h3>".pickLanguage("Röstning pågår", "Voting in progress")."</h3>";
+		echo "<h3>".getLocalizedText("Voting in progress")."</h3>";
 		echo "<hr>";
 		echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
         echo "<div class=\"panel panel-default\">";
@@ -97,7 +97,7 @@ if(!$ongoingSession){ ?>
 		echo "</div>";
 		echo "<div class=\"span7 text-center\">";
 		echo "<form action=/actions/electionadminpagehandler.php method=\"POST\">";
-		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">".pickLanguage("Avsluta valomgång", "End election round")."</button>";
+		echo "<button type=\"submit\" class=\"btn btn-primary\" name=\"button\" value=\"end_round\">".getLocalizedText("End election round")."</button>";
 		echo "</form>";
 		echo "</div>";
 		echo "</div>";
@@ -105,6 +105,6 @@ if(!$ongoingSession){ ?>
 
 }
 } else {
-    echoLanguageChoice("Du har inte behörighet att visa denna sida.", "You don't have permission to view this page.");
+    echo getLocalizedText("You don't have permission to view this page.");
 }
 ?>

@@ -194,6 +194,37 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Are you sure you want to log out?"=>array(
         "sv"=>"Är du säker på att du vill logga ut?",
+    ),
+    // index/electionadmin/electionadminpanel.php
+    "Some shady character has done something with the database."=>array(
+        "sv"=>"Någon fuling har mixtrat i databasen.",
+    ),
+    "There is no ongoing election session."=>array(
+        "sv"=>"Det pågår inget valtillfälle.",
+    ),
+    "Create new election round"=>array(
+        "sv"=>"Skapa ny valomgång"
+    ),
+    "What to be elected:"=>array(
+        "sv"=>"Vad som ska väljas:",
+    ),
+    "Number of selectable options:"=>array(
+        "sv"=>"Antal valbara alternativ:",
+    ),
+    "Alternatives:"=>array(
+        "sv"=>"Alternativ:",
+    ),
+    "Increase/decrease number of fields:"=>array(
+        "sv"=>"Öka/minska antalet fält:",
+    ),
+    "Start new election round"=>array(
+        "sv"=>"Starta ny valomgång",
+    ),
+    "Previous election round"=>array(
+        "sv"=>"Föregående valomgång",
+    ),
+    "End election round"=>array(
+        "sv"=>"Avsluta valomgång",
     )
 )
 );

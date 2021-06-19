@@ -37,7 +37,7 @@ class ECrypt
         $charactersLength = strlen($availableLetters);
         $randomString = '';
         for ($i = 0; $i < $nbrOfLetters; $i++) {
-            $randomString .= $availableLetters[rand(0, $charactersLength - 1)];
+            $randomString .= $availableLetters[random_int(0, $charactersLength - 1)];
         }
         return $randomString;
     }

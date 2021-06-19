@@ -174,7 +174,18 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Remove selected users"=>array(
         "sv"=>"Ta bort markerade användare",
-    )
+    ),
+    // index/useradmin/newuser.php
+    "Create new user"=>array(
+        "sv"=>"Skapa ny användare",
+    ),
+    "Username:"=>array(
+        "sv"=>"Användarnamn:",        
+    ),
+    "Privileges:"=>array(
+        "sv"=>"Privilegier:",
+    ),
+    
 )
 );
 ?>

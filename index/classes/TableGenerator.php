@@ -139,11 +139,10 @@ class TableGenerator {
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
             echo "<tr class=\"rowheader\">\n".
-                    getLocalizedText(
-                    "<th>Name</th>
-                    <th>Opened</th>
-                    <th>Closed</th>
-                    </tr>");
+                    "<th>".getLocalizedText("Name")."</th>
+                    <th>".getLocalizedText("Opened")."</th>
+                    <th>".getLocalizedText("Closed")."</th>
+                    </tr>";
             while($row = $res->fetch_assoc()) {
                 $name = $row['name'];
                 $start = $row['start'];

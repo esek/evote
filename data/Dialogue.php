@@ -6,15 +6,6 @@ class Dialogue
     private $type = 'info';
     private $messages;
 
-    public function __construct()
-    {
-    }
-
-    public function appendMessage2($msg)
-    {
-        $this->message .= $msg.'. ';
-    }
-
     public function appendMessage($msg, $type)
     {
         if (!isset($this->messages)) {

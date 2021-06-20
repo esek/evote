@@ -1,13 +1,23 @@
 <?php
-// klass som används för att generera slumpmässig info till användaren
+require '../localization/getLocalizedText.php';
 class RandomInfo {
 
     private function randomIndex($arr){
-        return rand(0, count($arr) - 1);
+        return random_int(0, count($arr) - 1);
     }
 
-    //Generea text i popup-rutorna
+    /**
+     * Generate text for the popup-boxes.
+     * 
+     * @param str $type "success" or "error"
+     * @return str $randomTip Random tip in target language
+     */ 
     public function generateTip($type){
+        /**
+         * Running getLocalizedText for all items in array would call
+         * getLocalizedText() n times more than just running it with the selected
+         * randomized output
+         */
         $suc_info = array(
             "*Glad trumpetfanfar*",
             "Du är bäst!",
@@ -70,9 +80,9 @@ class RandomInfo {
 
         $msg = "";
         if($type == "success"){
-            $msg = $suc_info[$this->randomIndex($suc_info)];
+            $msg = getLocalizedText($suc_info[$this->randomIndex($suc_info)]);
         }else if($type == "error"){
-            $msg = $err_info[$this->randomIndex($err_info)];
+            $msg = getLocalizedText($err_info[$this->randomIndex($err_info)]);
         }
         return $msg;
     }

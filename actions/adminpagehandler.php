@@ -13,8 +13,6 @@ if(in_array($priv, $access)){
         if ($_POST['button'] == 'create') { # CREATE NEW ELECTION
             $dialogue = new Dialogue();
             $input_ok = true;
-            $msg = '';
-            $msgType = '';
             if ($_POST['valnamn'] == '') {
                 $input_ok = false;
                 $dialogue->appendMessage(getLocalizedText('You have not entered a name for the election'), 'error');

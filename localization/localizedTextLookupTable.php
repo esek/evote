@@ -523,6 +523,170 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"Fel lösenord och/eller användarnamn någonstans",
         "scanian"=>"Fejl löesenord og/ellor anvendarnamn nånstans",
     ),
+    // data/RandomInfo.php
+    // Success array
+    "*Happy trumpet fanfare*"=>array(
+        "sv"=>"*Glad trumpetfanfar*",
+        "scanian"=>"*Glaud trumpetfanfar*",
+    ),
+    "You're the best!"=>array(
+        "sv"=>"Du är bäst!",
+        "scanian"=>"Due é en päärla",
+    ),
+    "You know this!"=>array(
+        "sv"=>"Du kan det här!",
+        "scanan"=>"Du fattar det här!",
+    ),
+    "Splendid!"=>array(
+        "sv"=>"Kanon!",
+        "scanian"=>"Redigt bra!",
+    ),
+    "You are unreasonably good at this!"=>array(
+        "sv"=>"Du är orimligt duktig på det här!",
+        "scanian"=>"Due é sinnessjukt brau på detta!",
+    ),
+    "Cool!"=>array(
+        "sv"=>"Coolt!",
+        "scanian"=>"Ballt!",
+    ),
+    "Ja!"=>array( // this one is the other way around
+        "sv"=>"Yes!",
+        "scanian"=>"Oui!",
+    ),
+    "What a talent!"=>array(
+        "sv"=>"Vilken talang!",
+        "scanian"=>"Som en äkta MFF:are!", // #mestamästarna
+    ),
+    "You did it!"=>array(
+        "sv"=>"Du lyckades!",
+        "scanian"=>"Due gjoerde ente fejl!",
+    ),
+    "Very niice!"=>array(
+        "sv"=>"Kalasbra!",
+        "scanian"=>"Riiktigt brau!",
+    ),
+    "Immense happiness!"=>array(
+        "sv"=>"Ofantlig lycka!",
+        "scanian"=>"Jäevligt glatt!",
+    ),
+    "Really good!"=>array(
+        "sv"=>"Toppenbra!",
+        "scanian"=>"Dejlig!",
+    ),
+    "Yup!"=>array(
+        "sv"=>"Jajamensan!",
+        "scanian"=>"Jaddå!",
+    ),
+    "Look at them skillz!"=>array(
+        "sv"=>"Look at dem skillz!",
+        "scanian"=>"Kålla in skillzen!",
+    ),
+    "You got some MAD voting skills!"=>array(
+        "sv"=>"You got some MAD voting skills!",
+        "scanian"=>"You gått såm MAD voting skills!",
+    ),
+    "Your degree of being good is high!"=>array(
+        "sv"=>"Din duktighetsgrad är hög!",
+        "scanian"=>"Due é en Skåuning i själen!",
+    ),
+    "Fantastic!"=>array(
+        "sv"=>"Fantastiskt!",
+        "scanian"=>"Fantastiiskt!",
+    ),
+    "Truly great!"=>array(
+        "sv"=>"Storartat!",
+        "scanian"=>"Som en skåunsk såmmardaug!",
+    ),
+    "Phenomenal!"=>array(
+        "sv"=>"Fenomenalt!",
+        "scanian"=>"Fenåmenault!",
+    ),
+    "Outstanding!"=>array(
+        "sv"=>"Enastående!",
+        "scanian"=>"En po' miljonen!",
+    ),
+    "Formidable!"=>array(
+        "sv"=>"Formidabelt!",
+        "scanian"=>"Stabilare änn Hallandsåsen!",
+    ),
+    "Brilliant!"=>array(
+        "sv"=>"Strålande!",
+        "scanian"=>"Stråulande!",
+    ),
+    "Magnificent!"=>array(
+        "sv"=>"Magnifikt!",
+        "scanian"=>"Maxat!",
+    ),
+    "Excellent!"=>array(
+        "sv"=>"Förträffligt!",
+        "scanian"=>"Redit'!",
+    ),
+    "Noice!"=>array(
+        "sv"=>"Smäckert!",
+        "scanian"=>"Naaajs",
+    ),
+    "Real tough!"=>array(
+        "sv"=>"Tufft!",
+        "scanian"=>"Tuff!",
+    ),
+    // ...
+    "You get an A in Usage of E-vote!"=>array(
+        "sv"=>"Du får en 5:a i användning av E-vote",
+        "scanian"=>"Due fåur en fimma i att anvenda E-vote",
+    ),
+    "You are so good!"=>array(
+        "sv"=>"Du är underbart duktig!",
+        "scanian"=>"Due röestar som en riktig skåuning!",
+    ),
+    "YEAH!"=>array(
+        "sv"=>"GÖTTANS",
+        "scanian"=>"GÖTT",
+    ),
+    // Error array
+    "Something went wrong."=>array(
+        "sv"=>"Något gick fel.",
+        "scanian"=>"Nått funkade ente",
+    ),
+    "Ouch!"=>array(
+        "sv"=>"Ajdå!",
+        "scanian"=>"Ajdåeh!",
+    ),
+    "Oof!"=>array(
+        "sv"=>"Attans!",
+        "scanian"=>"Faen osså",
+    ),
+    "Whoops!"=>array(
+        "sv"=>"Whoops!",
+        "scanian"=>"Whoops!",
+    ),
+    "Nooo!"=>array(
+        "sv"=>"Naj!",
+        "scanian"=>"*stockholmska* Åh neeeej",
+    ),
+    "Oopsie!"=>array(
+        "sv"=>"Hoppsan!",
+        "scanian"=>"Ålarens!",
+    ),
+    "Gosh darn it"=>array(
+        "sv"=>"Rackarns!",
+        "scanian"=>"Föer i hilvede!",
+    ),
+    "Nails!"=>array(
+        "sv"=>"Järnspikar!",
+        "scanian"=>"De vau ju själva faen!",
+    ),
+    "Frick!"=>array(
+        "sv"=>"Sablarns!",
+        "scanian"=>"Fubbik!",
+    ),
+    "What the frick?!"=>array(
+        "sv"=>"Attans järnspikar!",
+        "scanian"=>"Stockholm osså!",
+    ),
+    "Whuuupps!"=>array(
+        "sv"=>"Whuuupps!",
+        "scanian"=>"Ente Guld o gröna skogar!",
+    ),
 )
 );
 ?>

@@ -10,7 +10,7 @@ class RandomInfo {
      * Generate text for the popup-boxes.
      * 
      * @param str $type "success" or "error"
-     * @return str $randomTip Random tip in target language
+     * @return str Random tip in target language
      */ 
     public function generateTip($type){
         /**
@@ -19,62 +19,62 @@ class RandomInfo {
          * randomized output
          */
         $suc_info = array(
-            "*Glad trumpetfanfar*",
-            "Du är bäst!",
-            "Du kan det här!",
-            "Kanon!!",
-            "Du är orimligt duktig på det här!",
-            "Coolt!",
-            "Yes!",
-            "Vilken talang!",
-            "Du lyckades!",
-            "Kalasbra!",
-            "Ofantlig lycka!",
-            "Toppenbra!",
-            "Jajamensan!",
-            "Look at dem skillz!",
+            "*Happy trumpet fanfare*",
+            "You're the best!",
+            "You know this!",
+            "Splendid!",
+            "You are unreasonably good at this!",
+            "Cool!",
+            "Ja!", // #revserseuno
+            "What a talent!",
+            "You did it!",
+            "Very niice!",
+            "Immense happiness!",
+            "Really good!",
+            "Yup!",
+            "Look at them skillz!",
             "You got some MAD voting skills!",
-            "Din duktighetsgrad är hög!",
-            "Fantastiskt!",
-            "Storartat!",
-            "Fenomenalt!",
-            "Enastående!",
-            "Formidabelt!",
-            "Strålande!",
-            "Magnifikt!",
-            "Förträffligt!",
-            "Smäckert!",
-            "Tufft!",
+            "Your degree of being good is high!",
+            "Fantastic!",
+            "Truly great!",
+            "Phenomenal!",
+            "Outstanding!",
+            "Formidable!",
+            "Brilliant!",
+            "Magnificent!",
+            "Excellent!",
+            "Noice!",
+            "Real tough!",
+            // Below this not translated
             "Nice!",
             "Niiiicee!!",
             "Najs!",
             "Naaajs!",
             "M-M-M-MONSTER VOTE!!!",
             "Soft!",
-            "Du får en 5:a i användning av E-vote!",
+            "You get an A in Usage of E-vote!",  // This one is
             "Wupp!",
             "WAPP!",
             "Wopp!",
             ":)",
-            "Du är underbart duktig!",
+            "You are so good!", // This as well
             "D-D-D-DROP THE BASE!!!",
             "WubWubWub",
             "Double rainbow!",
-            "GÖTTANS!!",
+            "YEAH!", // Final
             "Sweet!!"
         );
         $err_info = array(
-            "Något gick fel.",
-            "Ajdå!",
-            "Attans!",
+            "Something went wrong.",
+            "Ouch!",
+            "Oof!",
             "Whoops!",
-            "Naj!",
-            "Ojdå!",
-            "Hoppsan!",
-            "Rackarns!",
-            "Järnspikar!",
-            "Sablarns!",
-            "Attans järnspikar!",
+            "Nooo!",
+            "Oopsie!",
+            "Gosh darn it",
+            "Nails!",
+            "Frick!",
+            "What the frick?!",
             "Whuuupps!"
         );
 
@@ -86,8 +86,6 @@ class RandomInfo {
         }
         return $msg;
     }
-
-
 }
 
 

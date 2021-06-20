@@ -52,7 +52,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Manage users"=>array(
         "sv"=>"Hantera användare",
-        "scanian"=>"Handskas mi anvandarna",
+        "scanian"=>"Handskas mi anvendarna",
     ),
     "Administrator"=>array(
         "sv"=>"Administratör",

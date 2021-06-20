@@ -12,8 +12,6 @@ if(isset($_POST["button"])){
 	if($_POST["button"]=="login"){
 		$dialogue = new Dialogue();
 		$input_ok = TRUE;
-		$msg = "";
-		$msgType = "";
 		if($_POST["usr"] == ""){
 			$input_ok = FALSE;
 			$dialogue->appendMessage(getLocalizedText('You have not entered any username'), 'error');

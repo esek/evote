@@ -309,18 +309,13 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"Inget valtillfälle i sikte",
         "scanian"=>"Jaug ser inge vaultillfielle",
     ),
-    "<th>Name</th>
-    <th>Opened</th>
-    <th>Closed</th>
-    </tr>"=>array(
-        "sv"=>"<th>Namn</th>
-        <th>Öppnad</th>
-        <th>Stängd</th>
-        </tr>",
-        "scanian"=>"<th>Namn</th>
-        <th>Öeppnad</th>
-        <th>Stingd</th>
-        </tr>",
+    "Opened"=>array(
+        "sv"=>"Öppnad",
+        "scanian"=>"Öeppnad",
+    ),
+    "Closed"=>array(
+        "sv"=>"Stängd",
+        "scanian"=>"Stingd",
     ),
     // index/classes/MenuGenerator.php
     "Administrate election"=>array(

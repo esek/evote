@@ -120,11 +120,11 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "User:"=>array(
         "sv"=>"Användare:",
-        "scanian"=>"anvendare",
+        "scanian"=>"Anvendare:",
     ),
     "Password:"=>array(
         "sv"=>"Lösenord:",
-        "scanian"=>"Löesenord",
+        "scanian"=>"Löesenord:",
     ),
     "This is the user that has full control of the system. This user can't be deleted from the database."=>array(
         "sv"=>"Detta är användaren som har full kontrol på systemet. Denna användare kan inte raderas från databasen.",
@@ -136,7 +136,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Repeat password:"=>array(
         "sv"=>"Upprepa lösenord:",
-        "scanian"=>"Skriev det ijen så man veat att du kann",
+        "scanian"=>"Skriev det ijen så man veat att du kann:",
     ),
     "E-vote is configured!"=>array(
         "sv"=>"E-vote är konfigurerat!",
@@ -149,7 +149,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Your password:"=>array(
         "sv"=>"Ditt lösenord:",
-        "scanian"=>"Ditt löesenord",
+        "scanian"=>"Ditt löesenord:",
     ),
     "Delete election"=>array(
         "sv"=>"Radera val",
@@ -236,7 +236,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Privileges:"=>array(
         "sv"=>"Privilegier:",
-        "scanian"=>"Pri'velejor",
+        "scanian"=>"Pri'velejor:",
     ),
     // index/useradmin/changepassword.php
     "Change password"=>array(
@@ -245,7 +245,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "New password:"=>array(
         "sv"=>"Nytt lösenord:",
-        "scanian"=>"Nytt löesenord",
+        "scanian"=>"Nytt löesenord:",
     ),
     "Are you sure you want to log out?"=>array(
         "sv"=>"Är du säker på att du vill logga ut?",
@@ -266,11 +266,11 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "What to be elected:"=>array(
         "sv"=>"Vad som ska väljas:",
-        "scanian"=>"Vaud som ska' veljas",
+        "scanian"=>"Vaud som ska' veljas:",
     ),
     "Number of selectable options:"=>array(
         "sv"=>"Antal valbara alternativ:",
-        "scanian"=>"Antaul vaulbaura alternatejv",
+        "scanian"=>"Antaul vaulbaura alternatejv:",
     ),
     "Alternatives:"=>array(
         "sv"=>"Alternativ:",
@@ -278,7 +278,7 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
     ),
     "Increase/decrease number of fields:"=>array(
         "sv"=>"Öka/minska antalet fält:",
-        "scanian"=>"Öga/mijnska antaulet fielt",
+        "scanian"=>"Öga/mijnska antaulet fielt:",
     ),
     "Start new election round"=>array(
         "sv"=>"Starta ny valomgång",

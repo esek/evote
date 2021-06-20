@@ -1,5 +1,4 @@
 <?php
-require '../localization/getLocalizedText.php';
 class RandomInfo {
 
     private function randomIndex($arr){

@@ -1,7 +1,7 @@
 # E-vote
 E-vote - Your digital voting system
 
-E-vote is a voting system designed to be used for meetings with a limited number of people. For example with different kind of associations or communities. E-vote guarantees the anonymity of every voter and gives easy control of every voting session by using personal and temporary codes that every voter has to identify him- or herself with.
+E-vote is a voting system designed to be used for meetings with a limited number of people. For example with different kind of associations or communities. E-vote guarantees the anonymity of every voter and gives easy control of every voting session by using personal and temporary codes that every voter has to identify him- or herself with. Temporary codes makes sure nobody not at the meeting can vote.
 
 Down below follows a user and a installation guide.
 
@@ -23,30 +23,38 @@ The election admin is responsible for the voting (often the election leader). Th
 The adjuster is only an observer. This user can only see the result of the different voting sessions.
 
 ### How to create a new election meeting
-Log in as an admin user. Press the tab “Hantera valtillfälle”. If no election meeting is ongoing you  should be prompted with the name of the meeting and the maximum number of personal codes that will be generated. When you have filled the information in and press “Skapa” the codes will be prompted in a pdf-document. Print this document now, as the codes only will be generated once. Then the election meeting is open and the election admin can start voting sessions.
+Log in as an admin user. Press the tab “Manage election session”. If no election meeting is ongoing you  should be prompted with the name of the meeting and the maximum number of personal codes that will be generated. When you have filled the information in and press “Create” the codes will be prompted in a pdf-document, or a CSV-file if that option was checked. Print this document now, as the codes will only be generated once. Then the election meeting is open and the election admin can start voting sessions.
 
 ### How to close a election meeting
-Log in as an admin user. Press the tab “Hantera valtillfälle”. Enter your password and press “Stäng val”.
+Log in as an admin user. Press the tab “Manage election session”. Enter your password and press “Close election”.
 
 ### How the voting works
-The election admin creates voting sessions by logging in and enter the correct information. The “temporary code” is the code that is needed to vote in just this voting session. Press the button “Starta ny valomgång” to start the election session. Now can the persons present in the voting room vote at the different options given. They do this by marking the option/options they want and entering their personal code along with the temporary code and then pressing “Rösta”. When the voting is finished the election admin closes the voting session and the result is now shown for the election admin and the adjuster.
+The election admin creates voting sessions by logging in and enter the correct information. The “temporary code” is the code that is needed to vote in just this voting session. Press the button “Start new election round” to start the election session. Now the persons present in the voting room can vote at the different options given. They do this by marking the option/options they want and entering their personal code along with the temporary code and then pressing “Vote”. When the voting is finished the election admin closes the voting session and the result is now shown for the election admin and the adjuster.
 
 ### Code handling
 A good strategy of handling the personal codes of a meeting is to create the election meeting before the actual meeting starts and print out the codes. Then the personal codes have to be distributed to the voters and this is easiest handled by letting those who are responsible for the election meeting see the ID of every participant and then give the code. It is very important that every voter only has one personal code and sticks to it during the whole meeting.
 
 ## Installation guide
+
+### Running locally for development/testing
+
+If you are going to develop or test E-vote locally you can use PHP's built-in tools. Simply clone the repo, change directory to the one created by the clone and run
+
+```
+sudo php --server localhost:8080 --docroot .
+```
+
+You can now access E-vote in your browser by going to `http://localhost:8080` in your browser. You still need to configure E-vote and your database, see SQL setup [below](#database). You then need to configure E-vote, which can be done at `http://localhost:8080/install/setup.php`.
+
+### Running in production
+
 E-vote is written in PHP and works as an ordinary website. Therefore you just have to install and configure your server to host the site. Down below is a small guide on how you do this on a Linux (distributions based on Debian) server.
 
 1. Download the source code of this repository and put it on your server.
 
-2.  Install your web server program, DataBase Management System (preferably MySQL) and PHP.
+2.  Install your web server program, DataBase Management System (preferably MySQL/MariaDB) and PHP.
 
-    The following command should provide the required packages for MySQL and PHP:
-    ```
-    sudo apt-get install mysql-server php5-fpm php5-mysql php5-ldap
-    ```
-
-3. Configure your web server to host a PHP website.
+3. Configure your web server to host a PHP website. There are no special configurations needed, so a properly configured PHP web server should do the trick!
 
   (Guides can be found on the internet. For example: https://secure.php.net/manual/en/install.php)
 
@@ -118,7 +126,8 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
   fastcgi_param  REDIRECT_STATUS    200;
   ```
   (if your get a white page when trying to access your E-vote, try adding `fastcgi_param PATH_TRANSLATED $document_root$fastcgi_script_name;`)
-
+  
+<a name="database"></a>
 4. In the installation folder of the E-vote code there is a SQL dump that creates the needed tables for the database. Login as root to MySQL and create the database evote:
   ```
   CREATE DATABASE evote;

@@ -173,7 +173,7 @@ $_SESSION['message'] = serialize($dialogue);
                 </div>
             </div>
             <div class="span7 text-center" style="margin-bottom:50px;">
-            <button type="submit" class="btn btn-primary" name="button" value="login" name="login"><?php echoLanguageChoice("Spara", "Save")?></button>
+            <button type="submit" class="btn btn-primary" name="button" value="login" name="login"><?php echo getLocalizedText("Spara", "Save")?></button>
             </div>
 
         </form>

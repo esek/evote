@@ -113,7 +113,9 @@ $_SESSION['message'] = serialize($dialogue);
     ?>
     <div class="center">
         <h3>E-vote setup</h3>
-        <h5 style="text-align: right; float: right;"><a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a></h5>
+        <h5 style="text-align: right; float: right;">
+            <a href="#" onclick="addURLParameter('lang', 'sv')">🇸🇪 Svenska</a> | <a href="#" onclick="addURLParameter('lang', 'en')">🇬🇧 English</a> | <a href='#' onclick="addURLParameter('lang', 'scanian')">❤️💛 Skånska</a>
+        </h5>
         <?php
         if ($startup) {
         ?>

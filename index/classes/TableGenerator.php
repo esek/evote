@@ -28,20 +28,17 @@ class TableGenerator {
 
                 $tot = $row["tot"];
                 $percent = "- ";
+                $percent_failed = "- ";
                 $max = $evote->getMaxAltByAltId($row["id"]);
                 if($tot != 0){
                     $percent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
-                    $percent_failed = number_format(($failed_vote_attempts / $tot) * 100,1 ) . ' %';
+                    $percent_failed = number_format(($failed_vote_attempts / $tot) * 100, 1) . ' %';
                 }
 
                 if($e_id != $row["e_id"]){
-                    // Information about failed votes
-                    echo "<tr><td>".getLocalizedText("Number of failed voting attempts:")."</td><td>$failed_vote_attempts</td></tr>";
-                    echo "<tr><td>".getLocalizedText("Relationship between total votes accepted and failed voting attempts:")."</td><td>$failed_vote_attempts</td></tr>";
-
                     // Table header
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
+                        <th colspan=\"3\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;
@@ -57,10 +54,29 @@ class TableGenerator {
                 }
                 
                 echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $percent) </td>
-                    <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";
+                    <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td><td></td></tr>\n";
                 $p++;
                 $last_votes = $row["votes"];
              }
+
+            // Information about failed votes
+            echo "<tr class=\"rowinfo\">
+                <td colspan=\"2\">
+                <b>".getLocalizedText("Number of failed voting attempts:")."</b>
+                </td>
+                <td>
+                <b>$failed_vote_attempts</b></td>
+                </tr>";
+            echo "<tr class=\"rowinfo\">
+                <td width=\"150\" colspan=\"2\">
+                <b>".getLocalizedText("Relationship between total votes accepted and failed voting attempts (lower is better):")."</b>
+                </td>
+                <td>
+                <b>$percent_failed</b>
+                </td>
+                </tr>";
+
+
              echo "</table>";
              echo "</div>";
              echo "</div>";

@@ -301,6 +301,14 @@ define("LOCALIZED_TEXT_LOOKUP_TABLE", array(
         "sv"=>"alt.",
         "scanian"=>"alt.",
     ),
+    "Number of failed voting attempts:"=>array(
+        "sv"=>"Antal misslyckade röstningsförsök",
+        "scanian"=>"Nummer fejlade röestningsförsög",
+    ),
+    "Relationship between total votes accepted and failed voting attempts (lower is better):"=>array(
+        "sv"=>"Förhållande mellan totalt antal accepterade röster och misslyckade röstningsförsök (lägre är bättre):",
+        "scanian"=>"Föerhållaneh millan totault nummer okej röester o' fejlade röestningsförsög (mindre er biddre):",
+    ),
     "Nothing has been elected yet"=>array(
         "sv"=>"Ingenting har valts ännu",
         "scanian"=>"Engenting haur vaulds enn",

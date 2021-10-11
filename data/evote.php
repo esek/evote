@@ -502,6 +502,15 @@ class Evote {
 
     }
 
+    /**
+     * Does a basic integrity check of the database by
+     * checking if the hash of all election alternatives
+     * are the same when processed again, i.e. if alternative
+     * name and number of votes for that alternative
+     * creates the correct hash
+     * 
+     * @return bool True if the result is ok, false otherwise
+     */
     public function checkCheating(){
         $conn = $this->connect();
 

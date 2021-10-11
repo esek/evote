@@ -291,7 +291,7 @@ class Evote {
         $conn = $this->connect();
         $ok = TRUE;
         $name = mysqli_real_escape_string($conn, $name);
-        $code = mysqli_real_escape_string($conn, $name);
+        $code = mysqli_real_escape_string($conn, $code);
         $max = mysqli_real_escape_string($conn, $max);
         $hash = password_hash($code, PASSWORD_DEFAULT);
         $sql =  "INSERT INTO elections (name, pass, active, nbr_choices) VALUES (\"$name\", \"$hash\", TRUE, \"$max\")";

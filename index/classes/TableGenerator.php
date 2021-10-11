@@ -17,22 +17,19 @@ class TableGenerator {
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
 
-    		$e_id = -1;
-    		$p = 1;
+    		$e_id = -1; // election_id
+    		$p = 1; // Current row, 1 is header
             $last_votes = "";
             $limit = "";
-            while($row = $res->fetch_assoc()) {
-                // Information on number of failed vote attempts,
-                // and how this compares to total number of successfull votes
-                $failed_vote_attempts = $row["failed_vote_attempts"];
 
-                $tot = $row["tot"];
+            // Loop through results; Each row is an alternatives result
+            while($row = $res->fetch_assoc()) {
+                $tot = $row["tot"]; // Votes accepted
                 $percent = "- ";
-                $percent_failed = "- ";
                 $max = $evote->getMaxAltByAltId($row["id"]);
+                $nbr_alternatives = $evote->getTotAltByElectionId($row["e_id"]);
                 if($tot != 0){
-                    $percent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
-                    $percent_failed = number_format(($failed_vote_attempts / $tot) * 100, 1) . ' %';
+                    $percent = number_format(($row["votes"]/$tot)*100,1 ) . '%';
                 }
 
                 if($e_id != $row["e_id"]){
@@ -57,25 +54,35 @@ class TableGenerator {
                     <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td><td></td></tr>\n";
                 $p++;
                 $last_votes = $row["votes"];
-             }
 
-            // Information about failed votes
-            echo "<tr class=\"rowinfo\">
-                <td colspan=\"2\">
-                <b>".getLocalizedText("Number of failed voting attempts:")."</b>
-                </td>
-                <td>
-                <b>$failed_vote_attempts</b></td>
-                </tr>";
-            echo "<tr class=\"rowinfo\">
-                <td width=\"150\" colspan=\"2\">
-                <b>".getLocalizedText("Relationship between total votes accepted and failed voting attempts (lower is better):")."</b>
-                </td>
-                <td>
-                <b>$percent_failed</b>
-                </td>
-                </tr>";
+                // This was the last row, so add failed votes here
+                if ($p > $nbr_alternatives) {
+                    // Information on number of failed vote attempts,
+                    // and how this compares to total number of successfull votes
+                    $failed_vote_attempts = $row["failed_vote_attempts"];
 
+                    $percent_failed = "- ";
+                    if($tot != 0){
+                        $percent_failed = number_format(($failed_vote_attempts / $tot) * 100, 1) . '%';
+                    }
+
+                    echo "<tr class=\"rowinfo\">
+                        <td colspan=\"2\">
+                        <b>".getLocalizedText("Number of failed voting attempts:")."</b>
+                        </td>
+                        <td>
+                        <b>$failed_vote_attempts</b></td>
+                        </tr>";
+                    echo "<tr class=\"rowinfo\">
+                        <td width=\"150\" colspan=\"2\">
+                        <b>".getLocalizedText("Relationship between total votes accepted and failed voting attempts (lower is better):")."</b>
+                        </td>
+                        <td>
+                        <b>$percent_failed</b>
+                        </td>
+                        </tr>";
+                }
+            }
 
              echo "</table>";
              echo "</div>";

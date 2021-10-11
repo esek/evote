@@ -85,11 +85,39 @@ class Evote {
         return $count;
     }
 
+    /**
+     * Get the number of choices that can win
+     * in an election by alternative ID
+     * 
+     * @param string $id Election alternative ID
+     * @return int Number of choices that can win in the with this ID
+     */
     public function getMaxAltByAltId($id){
         $conn = $this->connect();
         $id = mysqli_real_escape_string($conn, $id);
         $sql =  "SELECT nbr_choices FROM elections
                 WHERE id=(SELECT election_id FROM elections_alternatives WHERE id=$id)";
+        $r = $conn->query($sql);
+        $count = 0;
+        while($row = $r->fetch_array()){
+            $count = $row[0];
+        }
+        $conn->close();
+        return $count;
+    }
+
+    /**
+     * Get the total number of choosable alternatives
+     * for the election with this ID
+     * 
+     * @param string $election_id Election ID
+     * @return int Number of alternatives for this round
+     */
+    public function getTotAltByElectionId($election_id) {
+        $conn = $this->connect();
+        $id = mysqli_real_escape_string($conn, $election_id);
+        $sql = "SELECT COUNT(id) FROM elections_alternatives
+                WHERE election_id=$election_id";
         $r = $conn->query($sql);
         $count = 0;
         while($row = $r->fetch_array()){
@@ -237,6 +265,22 @@ class Evote {
     }
 // DATA FUNCTIONS
 //-----------------------------------------------------------------------------
+
+    /**
+     * Attempts to cast vote(s) on the options provided using
+     * this personal code and current (temporary) code
+     * 
+     * If the personal code or current code is invalid, the
+     * attempt is logged as an failed attempt to prevent bruteforce
+     * attacks
+     * 
+     * If the voting fails, the user is not informed which code failed
+     * 
+     * @param array $options Array of `elections_alternatives` IDs
+     * @param string $personal_code Personal code verifying a voter
+     * @param string $current_code Temporary code to verify voter is in the meeting
+     * @return bool Returns true if successfull, false otherwise
+     */
     public function vote($options, $personal_code, $current_code){
         $conn = $this->connect();
         $sql1 = "SELECT pass FROM elections WHERE (active=1)";

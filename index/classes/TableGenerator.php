@@ -16,18 +16,30 @@ class TableGenerator {
         	echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
+
     		$e_id = -1;
     		$p = 1;
             $last_votes = "";
             $limit = "";
             while($row = $res->fetch_assoc()) {
+                // Information on number of failed vote attempts,
+                // and how this compares to total number of successfull votes
+                $failed_vote_attempts = $row["failed_vote_attempts"];
+
                 $tot = $row["tot"];
                 $percent = "- ";
                 $max = $evote->getMaxAltByAltId($row["id"]);
                 if($tot != 0){
                     $percent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
+                    $percent_failed = number_format(($failed_vote_attempts / $tot) * 100,1 ) . ' %';
                 }
+
                 if($e_id != $row["e_id"]){
+                    // Information about failed votes
+                    echo "<tr><td>".getLocalizedText("Number of failed voting attempts:")."</td><td>$failed_vote_attempts</td></tr>";
+                    echo "<tr><td>".getLocalizedText("Relationship between total votes accepted and failed voting attempts:")."</td><td>$failed_vote_attempts</td></tr>";
+
+                    // Table header
                     echo "<tr class=\"rowheader\">
                         <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
@@ -35,13 +47,15 @@ class TableGenerator {
             		$p = 1;
                     $limit = $max;
                 }
+
                 $style = "" ;
                 if($row["votes"] != 0 && $p<=$max){
                     $style = "rowwin";
-                }else if($row["votes"] != 0 && $row["votes"] == $last_votes && $p - 1 <= $limit){
+                } else if($row["votes"] != 0 && $row["votes"] == $last_votes && $p - 1 <= $limit){
                     $style = "rowtie";
                     $limit++;
                 }
+                
                 echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $percent) </td>
                     <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";
                 $p++;

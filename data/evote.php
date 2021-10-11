@@ -283,6 +283,8 @@ class Evote {
             echo $p;
             return TRUE;
         }else{
+            $failed_vote_query = "UPDATE elections SET failed_vote_attempts = failed_vote_attempts + 1 WHERE (active=1)";
+            $conn->query($failed_vote_query);
             return FALSE;
         }
     }
@@ -337,7 +339,8 @@ class Evote {
     public function getResult(){
         $conn = $this->connect();
 
-        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot, t1.id AS id
+        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot, t1.id AS id,
+            t2.failed_vote_attempts AS failed_vote_attempts
             FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.active = 0)
@@ -352,7 +355,8 @@ class Evote {
     public function getLastResult(){
         $conn = $this->connect();
 
-        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot, t1.id AS id
+        $sql = "SELECT t1.nbr_votes AS votes, t1.name AS name, t2.name AS e_name, t2.id AS e_id, t2.tot_votes AS tot, t1.id AS id,
+            t2.failed_vote_attempts AS failed_vote_attempts
             FROM elections_alternatives AS t1
             LEFT JOIN elections AS t2 ON (t1.election_id = t2.id)
             WHERE (t2.id = (SELECT MAX(elections.id) FROM elections) AND t2.active = 0)

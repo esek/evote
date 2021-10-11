@@ -6,6 +6,8 @@
 -- Skapad: 19 mars 2016 kl 11:54
 -- Serverversion: 5.5.47-0ubuntu0.14.04.1
 -- PHP-version: 5.5.9-1ubuntu4.14
+--
+-- Updated 11 oct 2021 kl. 16:38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `elections` (
   `active` tinyint(1) DEFAULT NULL,
   `tot_votes` int(11) DEFAULT NULL,
   `nbr_choices` int(11) NOT NULL,
+  `failed_vote_attempts` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=1 ;
 

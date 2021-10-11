@@ -26,6 +26,7 @@ if (isset($_POST['db_host']) &&
     $su_name = $_POST['su_name'];
     $su_pass1 = $_POST['su_pass1'];
     $su_pass2 = $_POST['su_pass2'];
+    $personal_code_length = $_POST['personal_code_length'];
 
     if ($db_host != '' && $db_name != '' && $db_user != '' && $db_pass != '' && $su_name != '' && $su_pass1 != '' && $su_pass2 != '') {
         if ($su_pass1 == $su_pass2) {
@@ -61,6 +62,7 @@ if (isset($_POST['db_host']) &&
             $content .= "define(\"MYSQL_HOST\", \"$db_host\");\n";
             $content .= "define(\"SUPERUSER\", \"$su_name\");\n";
             $content .= "define(\"LOCAL_CONST_HASH_PEPPER\", \"$6$\".\"$local_const_hash_pepper\".\"$\");\n"; // Used for personal codes, needs to be constant
+            $content .= "define(\"PERSONAL_CODE_LENGTH\", \"$personal_code_length\")";
             $content .= '?>';
 
             $file = fopen($filename, 'w') or die('Unable to open file!');

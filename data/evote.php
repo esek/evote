@@ -263,6 +263,11 @@ class Evote {
 
         // lägg in i databasen
         if($personal_code_ok && $current_code_ok && $this->checkRightElection($options)){
+            // First we invalidate the code
+            $sql4 = "UPDATE elections_codes SET active=(SELECT MAX(id) FROM elections) WHERE id=$id";
+            $conn->multi_query($sql4);
+            echo $conn->error;
+            
             $sql3 = "INSERT INTO elections_usage (alternative_id, code_id, election_id) VALUES ";
             $p = 0;
             foreach ($options as $option_id) {
@@ -277,9 +282,6 @@ class Evote {
                 echo $conn->error;
             }
 
-            $sql4 = "UPDATE elections_codes SET active=(SELECT MAX(id) FROM elections) WHERE id=$id";
-            $conn->multi_query($sql4);
-            echo $conn->error;
             echo $p;
             return TRUE;
         }else{

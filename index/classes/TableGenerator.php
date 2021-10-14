@@ -16,37 +16,74 @@ class TableGenerator {
         	echo "<div class=\"well well-sm\" style=\"max-width: 400px\">";
             echo "<div class=\"panel panel-default\">";
     		echo "<table class=\"table table\">";
-    		$e_id = -1;
-    		$p = 1;
+
+    		$e_id = -1; // election_id
+    		$p = 1; // Current row, 1 is header
             $last_votes = "";
             $limit = "";
+
+            // Loop through results; Each row is an alternatives result
             while($row = $res->fetch_assoc()) {
-                $tot = $row["tot"];
+                $tot = $row["tot"]; // Votes accepted
                 $percent = "- ";
                 $max = $evote->getMaxAltByAltId($row["id"]);
+                $nbr_alternatives = $evote->getTotAltByElectionId($row["e_id"]);
                 if($tot != 0){
-                    $percent = number_format(($row["votes"]/$tot)*100,1 ) . ' %';
+                    $percent = number_format(($row["votes"]/$tot)*100,1 ) . '%';
                 }
+
                 if($e_id != $row["e_id"]){
+                    // Table header
                     echo "<tr class=\"rowheader\">
-                        <th colspan=\"2\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
+                        <th colspan=\"3\">".$row["e_name"]." <wbr>($tot ".getLocalizedText("votes").", $max ".getLocalizedText("opt.").")</th>
                         </tr>";
             		$e_id = $row["e_id"];
             		$p = 1;
                     $limit = $max;
                 }
+
                 $style = "" ;
                 if($row["votes"] != 0 && $p<=$max){
                     $style = "rowwin";
-                }else if($row["votes"] != 0 && $row["votes"] == $last_votes && $p - 1 <= $limit){
+                } else if($row["votes"] != 0 && $row["votes"] == $last_votes && $p - 1 <= $limit){
                     $style = "rowtie";
                     $limit++;
                 }
+                
                 echo "<tr class=$style><td class=\"col-md-4 col-xs-4\" ><b>$p</b> (".$row["votes"].", $percent) </td>
-                    <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td></tr>\n";
+                    <td class=\"col-md-8 col-xs-8\">".$row["name"]."</td><td></td></tr>\n";
                 $p++;
                 $last_votes = $row["votes"];
-             }
+
+                // This was the last row, so add failed votes here
+                if ($p > $nbr_alternatives) {
+                    // Information on number of failed vote attempts,
+                    // and how this compares to total number of successfull votes
+                    $failed_vote_attempts = $row["failed_vote_attempts"];
+
+                    $percent_failed = "- ";
+                    if($tot != 0){
+                        $percent_failed = number_format(($failed_vote_attempts / $tot) * 100, 1) . '%';
+                    }
+
+                    echo "<tr class=\"rowinfo\">
+                        <td colspan=\"2\">
+                        <b>".getLocalizedText("Number of failed voting attempts:")."</b>
+                        </td>
+                        <td>
+                        <b>$failed_vote_attempts</b></td>
+                        </tr>";
+                    echo "<tr class=\"rowinfo\">
+                        <td width=\"150\" colspan=\"2\">
+                        <b>".getLocalizedText("Relationship between total votes accepted and failed voting attempts (lower is better):")."</b>
+                        </td>
+                        <td>
+                        <b>$percent_failed</b>
+                        </td>
+                        </tr>";
+                }
+            }
+
              echo "</table>";
              echo "</div>";
              echo "</div>";

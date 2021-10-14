@@ -72,8 +72,12 @@
     background-color: rgb(180, 180, 180);
 }
 
+.rowinfo {
+  background-color: rgb(212, 212, 212);
+}
+
 .sidebarruler {
-    border-color: rgb(100, 100, 100);
+    border-color: rgb(117, 117, 117);
 }
 
 

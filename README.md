@@ -160,4 +160,4 @@ E-vote is written in PHP and works as an ordinary website. Therefore you just ha
   ?>
   ```
 
-  When this is done you can go back to  http://evote.yourdomain.com and login as the user you just created in the setup scrpit and the system should be up and running.
+  When this is done you can go back to  http://evote.yourdomain.com and login as the user you just created in the setup script and the system should be up and running.

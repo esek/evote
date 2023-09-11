@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: dockerfiles/NGINX.dockerfile
     ports:
-      - "80:80"
+      - "${NGINX_PORT}:80"
     volumes:
       - webfiles:/app
     depends_on:
@@ -28,8 +28,6 @@ services:
       MYSQL_DATABASE: ${DB_NAME}
     volumes:
       - evote-mysqldata:/var/lib/mysql
-    ports:
-      - 3306
 
 volumes:
   webfiles:

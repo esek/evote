@@ -22,12 +22,15 @@ services:
       context: .
       dockerfile: dockerfiles/MYSQL.dockerfile
     environment:
-      MYSQL_ROOT_PASSWORD: 'noneofyourbuisness'
-      MYSQL_USER: 'evote'
-      MYSQL_PASSWORD: 'evote'
-      MYSQL_DATABASE: 'evote'
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_USER_PASSWD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - evote-mysqldata:/var/lib/mysql
     ports:
       - 3306
 
 volumes:
   webfiles:
+  evote-mysqldata:

@@ -36,6 +36,22 @@ A good strategy of handling the personal codes of a meeting is to create the ele
 
 ## Installation guide
 
+### Quickstart for docker
+This version of E-vote has been constructed to work with Docker in order for the setup to be quicker than before. Implementationdetails are outlined below.
+Rename .env-sample to .env and change the default values. These are used in the setup of the website. Note that `NGINX_PORT` should only be changed if used behind a reverse proxy as the final url must access port 80.
+
+After that run it with
+```
+docker-compose up
+```
+This will download the base images (webserver and database), add the files from this project, configure these and then run it. As a final step, open the webbrowser and open `{baseurl}/install/setup.php` and complete the setup there. If developing locally, use `127.0.0.1` since `localhost` does not work. Database `host` will be `mysql`.
+
+#### Docker implementation
+Docker-compose creates 3 containers, NGINX which is the webserver, PHP evaluates the PHP sites for NGINX, and mysql which is the database used.
+
+Each of these containers has their own dockerfile for configuring them. NGINX has to include multiple files for configuration, as well as the project files. PHP has to import functionallity to connect to the database, and the database needs a prefilled database.
+
+If the stack is stopped, the data is retained in volumes, and as such if started again will not need new setup.
 ### Running locally for development/testing
 
 If you are going to develop or test E-vote locally you can use PHP's built-in tools. Simply clone the repo, change directory to the one created by the clone and run

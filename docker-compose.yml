@@ -1,0 +1,33 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dockerfiles/NGINX.dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - webfiles:/app
+    depends_on:
+      - php
+      - mysql
+  php:
+    build:
+      context: .
+      dockerfile: dockerfiles/PHP.dockerfile
+    volumes:
+      - webfiles:/app
+  mysql:
+    build:
+      context: .
+      dockerfile: dockerfiles/MYSQL.dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: 'noneofyourbuisness'
+      MYSQL_USER: 'evote'
+      MYSQL_PASSWORD: 'evote'
+      MYSQL_DATABASE: 'evote'
+    ports:
+      - 3306
+
+volumes:
+  webfiles:
